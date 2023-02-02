@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+:root {
+  
+  --primary: #193498; /*rgb(25, 52, 152)*/
+  --secondary: #113CFC; /*rgb(17, 60, 252)*/
+  --terciary: #1597E5; /*rgb(21, 151, 229)*/
+  --details: #69DADB; /*rgb(105, 218, 219)*/
+  --paragraph: rgb(78, 78, 78);
+  
+}
+
+@font-face{
+	font-family:"CustomedFont";
+	src: url("./settings/Urbanist-Italic-VariableFont_wght.ttf");
+}

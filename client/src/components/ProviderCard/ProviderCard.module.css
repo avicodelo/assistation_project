@@ -1,0 +1,42 @@
+.cardBody{
+    width: 30%;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background-color: rgb(195, 222, 229);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardPhoto{
+    width: 90%;
+    height: 20%;
+}
+
+.cardPhoto>img{
+    border-radius: 10px;
+}
+
+
+.cardInfo{
+    width: 90%;
+    padding: 1rem 0;
+   
+}
+
+.cardInfo h3{
+    font-size: 1.8rem;
+}
+
+.serviceInfo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.providerData{
+    padding: 0.5rem 0;
+}
+

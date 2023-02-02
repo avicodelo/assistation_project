@@ -1,0 +1,28 @@
+.mainFooter{
+    margin-top: 2rem;
+    padding: 3rem 2rem;
+    background:rgba(122, 123, 123, 0.5);
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+
+}
+
+.footerLinks{
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+}
+
+.navRouterFooter{
+    margin-left: 3vw;
+    text-decoration: none;
+    color:black;
+}
+
+.footerCopyright{
+    grid-column: 2;
+    justify-self: center;
+    
+}

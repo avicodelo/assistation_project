@@ -1,0 +1,45 @@
+.bodyOfSignPage{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.mainSection {
+    width: 50%;
+    height: 15vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+
+.commonLink {
+    padding: 2rem;
+    text-decoration: none;
+    color: black;
+    width: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.linkIsActive {
+    padding: 2rem;
+    text-decoration: none;
+    color: black;
+    background-color: rgba(21, 151, 229, 0.2);
+    border-radius: 10px 10px 0 0;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.linkIsActive>h3 {
+    font-weight: bold;
+}

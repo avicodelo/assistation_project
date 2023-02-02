@@ -1,0 +1,1 @@
+/*Opciones de los filtros: ciudad, precio, rate, servicio, (posible edad) */

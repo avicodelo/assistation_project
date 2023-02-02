@@ -1,0 +1,125 @@
+.LoginPageBody{
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    background-image: url(../../images/vu-anh-TiVPTYCG_3E-unsplash.jpg);
+    
+}
+
+.generalDiv-blur{
+    height:100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;  
+    backdrop-filter: blur(6px);
+    background-color: rgba(250,250,250,0.5);
+}
+
+.loginMain{ 
+    width: 60vw;
+    height: 70vh;
+    display: flex;
+    background-color: rgba(250,250,250,0.6);
+    border-radius: 10px;
+    border:none;
+}
+
+.login-image{
+    width: 40%;
+    background-image: url(../../images/vu-anh-TiVPTYCG_3E-unsplash.jpg);
+    background-position: center center;
+    background-size: cover;
+    border-radius: 10px 0 0 10px;
+
+}
+
+.divLoginData{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.formLoginData{
+    padding: 5%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.inputGroup{
+    border:none;
+    width: 100%;
+}
+
+.inputGroup i{
+    font-size: 1.5rem;
+}
+
+.emailDiv, .passwordDiv{
+    border-radius: 5px;
+    padding: 1rem ;
+    margin: 1rem 0;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    overflow: hidden;
+}
+
+
+.controlInput{
+    border: none;
+    margin-left: 1rem;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.controlInput:focus{
+    outline: none;
+}
+
+.submitArea{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.passForgotten{
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: black;
+
+}
+
+.passForgotten:hover{
+    color: var(--primary);
+    text-decoration: underline;
+
+}
+
+.submitLogin{
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 1rem;
+    border-radius: 5px;
+    width: 50%;
+    border: none;
+    color:white;
+    background: linear-gradient(to right, var(--secondary), var(--primary));
+    cursor:pointer;
+    transition-duration: 200ms;
+}
+
+.submitLogin:hover{
+    font-size: 1.6;
+    transform: scale(1.05);
+    transition: all 200ms ease-out;
+}
