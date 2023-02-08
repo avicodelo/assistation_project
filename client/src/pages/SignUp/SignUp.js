@@ -16,20 +16,22 @@ export default function SignUp() {
     //Const declarations
     const { typeUser } = useParams();
 
-    //Function to choose type of sign up
+    //Function: chooses type of sign up
     const selectSignUp = (typeUser) => {
         if (typeUser === "signUpCustomer") {
            return <SignUpCustomer />
         } else if (typeUser === "signUpProvider") {
             return <SignUpProvider />
         }
-    }
+    };
 
     return (
         <div className={style.bodyOfSignPage}>
 
             <div>
+
                 <Navbar />
+
                 <section className={style.mainSection}>
                     <NavLink className={(link) => link.isActive ? style.linkIsActive : style.commonLink} to="/registro/signUpCustomer">
                         <h3>¿Quieres ser cliente?</h3>
@@ -38,7 +40,9 @@ export default function SignUp() {
                         <h3>¿Quieres prestar tus servicios?</h3>
                     </NavLink>
                 </section>
+
                 {selectSignUp(typeUser)}
+                
             </div>
 
             <Footer />

@@ -1,3 +1,5 @@
+//CREATES A SECTIONS SEPARATOR 
+
 //CSS imports
 import style from "./Separator.module.css";
 

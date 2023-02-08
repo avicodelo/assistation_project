@@ -1,12 +1,16 @@
-
+//MANAGES SIGN UP CUSTOMER DATA
 
 //React imports
 import { useState } from "react";
 import swal from "sweetalert";
+
+//Component imports
 import SignUpProviderStructure from "./SignUpProviderStructure";
+import { URL_PROVIDER } from "../../settings/Settings";
 
 export default function SignUpProvider() {
-  const URL_PROVIDER = "http://localhost:3002/providers";
+
+  //Const sets
   const initialStateSignUp = {
     name: "",
     surname: "",
@@ -21,9 +25,10 @@ export default function SignUpProvider() {
     typeOfService: "",
   }
 
-  const [signUpData, setSignUpData] = useState(initialStateSignUp)
-  const [validator, setValidator] = useState(true);
+  const [signUpData, setSignUpData] = useState(initialStateSignUp); //User data variable
+  const [validator, setValidator] = useState(true); //traffic light for passwords
 
+  //Function: updates customer data
   const handleImput = (e) => {
     setSignUpData({ ...signUpData, ...{ [e.target.name]: e.target.value } });
     if (RegExp(/password/).test(e.target.name)) {
@@ -31,10 +36,12 @@ export default function SignUpProvider() {
     }
   }
 
+  //Function: sends the info to server
   const saveProvider = () => {
     return (e) => {
       e.preventDefault()
-      if (signUpData.password === signUpData.passwordRepeated) {
+      if (signUpData.password === signUpData.passwordRepeated) { //checks if passwords are equal
+
         //POST data
         const addInfo = {
           method: "POST",
@@ -63,7 +70,7 @@ export default function SignUpProvider() {
 
           }) /* Gestionar todas las validaciones*/
 
-        /* redireccionar al dashboard después del registro */
+        /* redireccionar al login después del registro */
       } else {
         setValidator(false);
         window.scroll(0, 300);

@@ -1,4 +1,4 @@
-
+//MANAGES THE CONTACT INFO
 
 //React imports
 import { useState } from "react";
@@ -18,10 +18,12 @@ export default function ContactForm() {
 
     const [contactFormData, setContactFormData] = useState(initialStateContactForm);
 
-    const handleImput = (e) => {
+    //Function: Saves inputs in an object variable
+    const handleInput = (e) => {
         setContactFormData({ ...contactFormData, ...{ [e.target.name]: e.target.value } })
     }
 
+    //Function: Comunication with server when the info is sent
     const sendInfo = () => {
         return (e) => {
             e.preventDefault();
@@ -58,7 +60,7 @@ export default function ContactForm() {
 
     return (
         <div>
-            <ContactStructure contactFormData={contactFormData} handleImput={handleImput} sendInfo={sendInfo}/>
+            <ContactStructure contactFormData={contactFormData} handleInput={handleInput} sendInfo={sendInfo}/>
         </div>
     )
 }

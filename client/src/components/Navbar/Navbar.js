@@ -1,3 +1,5 @@
+//SETS THE NAVBAR FORMAT
+
 //CSS and images imports
 import style from "./Navbar.module.css";
 import image from "../../images/vu-anh-TiVPTYCG_3E-unsplash.jpg"
@@ -7,8 +9,8 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 export default function Navbar() {
-
-    const [loged, setLoged] = useState(false);
+    //Const sets
+    const [loged, setLoged] = useState(false); /*Crate function that detects if the user is loged or not */
 
     return (
         <nav className={style.navbarMain}>

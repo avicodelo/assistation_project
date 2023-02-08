@@ -29,5 +29,8 @@ app.use("/customers", customer);
 const provider = require("./routes/providerRoute");
 app.use("/providers", provider);
 
+const login = require("./routes/login");
+app.use("/login", login);
+
 //Activamos la escucha
 app.listen(process.env.PORT, () => console.log("Listening port " + process.env.PORT)); 

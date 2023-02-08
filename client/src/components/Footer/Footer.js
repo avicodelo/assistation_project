@@ -1,3 +1,5 @@
+//SETS THE FOOTER FORMAT
+
 //CSS imports
 import style from "./Footer.module.css";
 

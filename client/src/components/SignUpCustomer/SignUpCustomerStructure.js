@@ -1,7 +1,7 @@
+//SETS CUSTOMER FORM STRUCTURE
+
 //CSS imports
 import style from "./SignUpCustomer.module.css";
-
-import React from 'react'
 
 export default function SignUpCustomerStructure({ handleImput, signUpCustomer, signUpData, validator }) {
   return (
@@ -39,7 +39,6 @@ export default function SignUpCustomerStructure({ handleImput, signUpCustomer, s
         <p className={validator ? style.hideInfo : style.showInfo}>La contraseñas no coinciden</p>
 
         <div>
-
           <label htmlFor="password">Contraseña:</label>
           <input type="password" onChange={handleImput} value={signUpData.password} id="password" name="password" placeholder='Contraseña' required />
         </div>

@@ -1,3 +1,5 @@
+//SETS CUSTOMER FORM STRUCTURE
+
 //CSS imports
 import style from "./SignUpProvider.module.css";
 
@@ -67,7 +69,6 @@ export default function SignUpProviderStructure({handleImput, saveProvider, sign
             <option value="Limpieza">Limpieza</option>
             <option value="Cuidado de personas">Cuidado de personas</option>
             <option value="Arreglos en casa">Arreglos en casa</option>
-
           </select>
         </div>
 

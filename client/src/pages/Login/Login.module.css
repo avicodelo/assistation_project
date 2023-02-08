@@ -61,7 +61,7 @@
     font-size: 1.5rem;
 }
 
-.emailDiv, .passwordDiv{
+.userData{
     border-radius: 5px;
     padding: 1rem ;
     margin: 1rem 0;
@@ -82,6 +82,24 @@
 
 .controlInput:focus{
     outline: none;
+}
+
+.typeOfUser{
+    width: 100%;
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+}
+
+.typeOfUser>div{
+    margin-right: 2.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.typeOfUser>div>input{
+    margin:1.5rem 0.5rem;
 }
 
 .submitArea{
@@ -123,3 +141,4 @@
     transform: scale(1.05);
     transition: all 200ms ease-out;
 }
+

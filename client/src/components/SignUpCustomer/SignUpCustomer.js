@@ -1,14 +1,16 @@
-
+//MANAGES SIGN UP CUSTOMER DATA
 
 //React imports
 import { useState } from "react";
 import swal from "sweetalert";
+
+//Component imports
 import SignUpCustomerStructure from "./SignUpCustomerStructure";
+import { URL_CUSTOMER } from "../../settings/Settings";
 
-
-//function exported
 export default function SignUpCustomer() {
-  const URL_CUSTOMER = "http://localhost:3002/customers";
+
+  //Const sets
   const initialStateSignUp = {
     name: "",
     surname: "",
@@ -22,9 +24,10 @@ export default function SignUpCustomer() {
     postalCode: "",
   }
 
-  const [signUpData, setSignUpData] = useState(initialStateSignUp);
-  const [validator, setValidator] = useState(true);
+  const [signUpData, setSignUpData] = useState(initialStateSignUp); //User data variable
+  const [validator, setValidator] = useState(true); //traffic light for passwords
 
+  //Function: updates customer data
   const handleImput = (e) => {
     setSignUpData({ ...signUpData, ...{ [e.target.name]: e.target.value } });
     if (RegExp(/password/).test(e.target.name)) {
@@ -32,10 +35,11 @@ export default function SignUpCustomer() {
     }
   }
 
+  //Function: sends the info to server
   const signUpCustomer = () => {
     return (e) => {
       e.preventDefault()
-      if (signUpData.password === signUpData.passwordRepeated) {
+      if (signUpData.password === signUpData.passwordRepeated) { //checks if passwords are equal
 
         //POST data
         const addInfo = {
@@ -50,7 +54,6 @@ export default function SignUpCustomer() {
           .then(data => {
             
             if (data.cause === "user error") {
-              console.log(data.err);
               swal({
                 title: "No se ha podido crear el usuario", 
                 text: data.err,
@@ -68,7 +71,7 @@ export default function SignUpCustomer() {
 
           }); /* Gestionar todas las validaciones*/
 
-        /* redireccionar al dashboard después del registro */
+        /* redireccionar al login después del registro */
       } else {
         setValidator(false);
         window.scroll(0, 300);

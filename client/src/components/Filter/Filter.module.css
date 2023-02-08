@@ -1,0 +1,61 @@
+.mainDivFilter{
+    width: 20%;
+    margin: 1.5rem 1rem;
+    position: sticky;
+    top: 2rem;
+    float:left;
+}
+
+.filterOpener{
+    font-size: 1.5rem;
+    width: 90%;
+    border: 1px solid lightgray;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.filterOpener>.icon>i{
+    font-size: 1.5rem;
+    padding-right: 1rem;
+}
+
+.filterSelections{
+    width: 90%;
+    border: 1px solid lightgray;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.showFilter>label{
+    font-size: 1.5rem;
+    padding: 1rem 0;
+}
+.showFilter>input, .showFilter>select{
+    font-size: 1.3rem;
+    padding: 0.2rem 1rem;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.filterSelections>button{
+    font-size: 1.5rem;
+    color: white;
+    margin: 2rem 0;
+    padding: 0.5rem;
+    border-radius: 5px;
+    background: linear-gradient(to right, var(--secondary), var(--primary));
+    border: none;
+    cursor: pointer;
+}
+
+.hideFilter{
+    display:none;
+}
+
+.showFilter{
+    display: flex;
+}

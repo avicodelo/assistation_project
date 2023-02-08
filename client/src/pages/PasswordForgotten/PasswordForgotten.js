@@ -1,3 +1,5 @@
+//PAGE TO RECOVER THE PASSWORD
+
 //CSS imports
 import style from "./PasswordForgotten.module.css"
 
@@ -10,7 +12,7 @@ import React from 'react'
 
 export default function PasswordForgotten() {
 
-  //configurar el envío de correos con NODEMAILER 
+  /*configurar el envío de correos con NODEMAILER*/ 
 
   return (
 

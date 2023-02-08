@@ -1,3 +1,5 @@
+//CONTACT PAGE
+
 //CSS imports
 import style from "./Contact.module.css";
 

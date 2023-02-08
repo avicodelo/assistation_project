@@ -1,6 +1,8 @@
-
-import { BrowserRouter } from 'react-router-dom';
+//CSS imports
 import './App.module.css';
+
+//React imports
+import { BrowserRouter } from 'react-router-dom';
 import Router from './settings/Router';
 
 

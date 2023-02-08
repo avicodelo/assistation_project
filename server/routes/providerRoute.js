@@ -37,7 +37,14 @@ router.post("/", (req, res) => {
 //Search customer "GET"
 router.get("/", (req, res) => {
     const filters = req.query;
-    console.log(filters);
+    if (filters.price){
+        filters.price = {lte:filters.price};
+    }
+    if (filters.rates){
+        filters.rates = {gte:filters.rates};
+    }
+    
+    console.log(filters)
     providerSchema.find({active: true}).find(filters).exec((err, showProviders) => {
         if(err){
             res.status(400).json({ ok: false, err });

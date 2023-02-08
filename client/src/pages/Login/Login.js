@@ -1,8 +1,11 @@
+//LOGIN PAGE
+
 //CSS imports
 import style from "./Login.module.css"
 
 //Component imports
-import Navbar from "../../components/Navbar/Navbar"
+import Navbar from "../../components/Navbar/Navbar";
+import { URL_LOGIN } from "../../settings/Settings";
 
 //React imports
 import { useState } from "react";
@@ -10,37 +13,58 @@ import { useNavigate, NavLink } from "react-router-dom"
 
 export default function Login() {
 
-  const navigate = useNavigate();
+  //Const sets
+  /*set const navigate = useNavigate() depending on type of user*/
   const initialLogState = {
     email: "",
-    password: ""
+    password: "",
+    typeOfUser: ""
   }
 
-  const [loginData, setLoginData] = useState(initialLogState);
+  const [loginData, setLoginData] = useState(initialLogState); //login data variable
 
-
+  //Function: updates customer data
   const handleImput = (e) => {
     setLoginData({ ...loginData, ...{ [e.target.name]: e.target.value } });
   }
 
+  //Function: sends the info to server to do login
   const doLogin = () => {
     return (e) => {
       e.preventDefault()
-      console.log(loginData); /* Introducir comparación con el backend: buscar match con correo y match con password */
-      setLoginData(initialLogState);
-      navigate("/")/* Establecer validación si hace match y redirigir */
-    }
-  }
+
+      //POST DATA
+      const checkLoginInfo = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginData)
+      };
+
+      //Does login
+      fetch(URL_LOGIN, checkLoginInfo)
+        .then(response => response.json())
+        .then(access => {
+          console.log(access)
+          e.target.typeOfUser.forEach(element => {
+            element.checked = false;
+          });
+          setLoginData(initialLogState);
+        })
+
+      /* Establecer validación si hace match, encriptar passwords, crear token y redirigir */
+    };
+  };
+
   return (
 
     <div className={style.LoginPageBody}>
       <Navbar />
+      
       <div className={style["generalDiv-blur"]}>
 
         <div className={style.loginMain}>
 
-          <div className={style["login-image"]}> {/* Div with image left */}
-          </div>
+          <div className={style["login-image"]}> {/* Div with image left */}</div>
 
           <div className={style.divLoginData}> {/* Div with form to login */}
 
@@ -50,27 +74,50 @@ export default function Login() {
 
               <fieldset className={style.inputGroup}>
 
-                <div className={style.emailDiv}>
+                <div className={style.userData}>
+
                   <i className="fa-regular fa-user"></i>
                   <input className={style.controlInput} onChange={handleImput} value={loginData.email} type="email" name="email" placeholder='Email' required />
+
                 </div>
 
-                <div className={style.passwordDiv}>
+                <div className={style.userData}>
+
                   <i className="fa-solid fa-lock"></i>
-                  <input className={style.controlInput} onChange={handleImput} value={loginData.password} type="password" name="password" placeholder='Password' required />                </div>
+                  <input className={style.controlInput} onChange={handleImput} value={loginData.password} type="password" name="password" placeholder='Password' required />
+
+                </div>
+
+                <div className={style.typeOfUser}>
+
+                  <div>
+                    <input type="radio" id="customer" name="typeOfUser" onChange={handleImput} value="customer" required />
+                    <label htmlFor="customer"><p>Entrar como Cliente</p></label>
+                  </div>
+                  <div>
+                    <input type="radio" id="provider" name="typeOfUser" onChange={handleImput} value="provider" />
+                    <label htmlFor="provider"><p>Entrar como Proveedor</p></label>
+                  </div>
+
+                </div>
 
               </fieldset>
 
               <div className={style.submitArea}>
+
                 <NavLink className={style.passForgotten} to="passwordForgotten">¿Contraseña olvidada?</NavLink>
                 <input className={style.submitLogin} type="submit" value="ENTRAR" />
+
               </div>
 
             </form>
-          </div>
-        </div>
-      </div>
-    </div>
 
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
   )
 }
