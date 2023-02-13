@@ -24,7 +24,7 @@ export default function Login() {
   const [loginData, setLoginData] = useState(initialLogState); //login data variable
 
   //Function: updates customer data
-  const handleImput = (e) => {
+  const handleInput = (e) => {
     setLoginData({ ...loginData, ...{ [e.target.name]: e.target.value } });
   }
 
@@ -77,25 +77,25 @@ export default function Login() {
                 <div className={style.userData}>
 
                   <i className="fa-regular fa-user"></i>
-                  <input className={style.controlInput} onChange={handleImput} value={loginData.email} type="email" name="email" placeholder='Email' required />
+                  <input className={style.controlInput} onChange={handleInput} value={loginData.email} type="email" name="email" placeholder='Email' required />
 
                 </div>
 
                 <div className={style.userData}>
 
                   <i className="fa-solid fa-lock"></i>
-                  <input className={style.controlInput} onChange={handleImput} value={loginData.password} type="password" name="password" placeholder='Password' required />
+                  <input className={style.controlInput} onChange={handleInput} value={loginData.password} type="password" name="password" pattern=".{6,16}" placeholder='Contraseña' required />
 
                 </div>
 
                 <div className={style.typeOfUser}>
 
                   <div>
-                    <input type="radio" id="customer" name="typeOfUser" onChange={handleImput} value="customer" required />
+                    <input type="radio" id="customer" name="typeOfUser" onChange={handleInput} value="customer" required />
                     <label htmlFor="customer"><p>Entrar como Cliente</p></label>
                   </div>
                   <div>
-                    <input type="radio" id="provider" name="typeOfUser" onChange={handleImput} value="provider" />
+                    <input type="radio" id="provider" name="typeOfUser" onChange={handleInput} value="provider" />
                     <label htmlFor="provider"><p>Entrar como Proveedor</p></label>
                   </div>
 

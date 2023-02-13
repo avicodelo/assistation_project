@@ -5,48 +5,24 @@ import style from "./Filter.module.css";
 
 //React imports
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-export default function Filter({ importFromFilter }) {
+
+export default function Filter({ modifyFilter, filterData, setFilterData }) {
 
     //Const sets
-    const navigate = useNavigate();
-    const initialFilterState = {
-        "address.city": "",
-        price: "",
-        typeOfService: "",
-        rates: "",
-        minRate: ""
-    };
-
     const [filterActive, setFilterActive] = useState(false) //Detects if the fields in form are active
-    const [filterData, setFilterData] = useState(initialFilterState); //Update the data that has been introduced
 
     //Function: activates/deactivates filter div
     const changeFilter = () => {
-        return (e) => {
-                setFilterActive(!filterActive)
+        return () => {
+            setFilterActive(!filterActive)
         }
     }
 
     //Function: Saves inputs in an object variable
     const handleInput = (e) => {
-        setFilterData({ ...filterData, ...{ [e.target.name]: e.target.value } })
-
-    }
-
-    //Function: Prepares the info to query format and sends it to URL
-    const activateSearch = () => {
-        return (e) => {
-            e.preventDefault();
-            const filterDataArray = Object.entries(filterData);
-            const dataArrayJoined = filterDataArray
-                .filter(values => values[1] !== "")
-                .map(doubleData => doubleData.join("="))
-                .join("&");
-            navigate(`?${dataArrayJoined}`)
-            importFromFilter(dataArrayJoined);
-        }
+        if(e.target.name==="address.city")
+        setFilterData({ ...filterData, ...{ [e.target.name]: e.target.value.charAt(0).toUpperCase() +  e.target.value.slice(1).toLowerCase()} })
     }
 
     return (
@@ -58,12 +34,22 @@ export default function Filter({ importFromFilter }) {
                 </div>
                 <p className={style.openerTitle}>Añadir filtros</p>
             </section>
-            <form className={`${style.filterSelections} ${filterActive ? style.showFilter : style.hideFilter}`}>
+            <div className={`${style.orderSelector} ${filterActive ? style.showFilter : style.hideFilter}`}>
+                <label htmlFor="orderResults">Ordenar por : </label>
+                <select name="orderResults" id="orderResults" onChange={modifyFilter()}>
+                    <option value="standard">Más relevantes</option>
+                    <option value="highPrice">Más caros</option>
+                    <option value="lowPrice">Más económicos</option>
+                    <option value="highRate">Nota más alta</option>
+                    <option value="lowRate">Nota más baja</option>
+                </select>
+            </div>
+            <form name="filterForm" className={`${style.filterSelections} ${filterActive ? style.showFilter : style.hideFilter}`} onSubmit={modifyFilter()}>
                 <label htmlFor="filtCity">Ciudad</label>
-                <input type="text" id="filtCity" name="address.city" onChange={handleInput} value={filterData.city} placeholder="Ciudad" />
+                <input type="text" id="filtCity" name="address.city" onChange={handleInput} value={filterData["address.city"]} pattern="([a-zA-Z]*\s?){1,}" maxLength="50" placeholder="Ciudad" />
 
                 <label htmlFor="filtPrice">Precio</label>
-                <input type="number" id="filtPrice" name="price" onChange={handleInput} value={filterData.maxPrice} placeholder="Precio máximo" />
+                <input type="number" id="filtPrice" name="price" onChange={handleInput} value={filterData.price} min="0" max="500" placeholder="Precio máximo" />
 
                 <label htmlFor="filtService">Servicio</label>
                 <select id="filtService" name="typeOfService" onChange={handleInput} value={filterData.typeOfService}>
@@ -74,11 +60,14 @@ export default function Filter({ importFromFilter }) {
                 </select>
 
                 <label htmlFor="filtRate">Puntuación</label>
-                <input type="number" id="filtRate" name="rates" onChange={handleInput} value={filterData.maxRate} placeholder="Puntuación mínima" />
+                <input type="number" id="filtRate" name="rates" min="0" max="10" onChange={handleInput} value={filterData.rates} placeholder="Puntuación mínima" />
 
-                <button type="submit" onClick={activateSearch()}>Filtrar</button>
+                <button type="submit">Filtrar</button>
+                <button type="reset" onClick={modifyFilter()}>Limpiar filtros</button>
+
             </form>
 
         </div>
     )
+
 }

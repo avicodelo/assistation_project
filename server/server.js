@@ -32,5 +32,8 @@ app.use("/providers", provider);
 const login = require("./routes/login");
 app.use("/login", login);
 
+const passForgotten = require("./routes/passForgotten");
+app.use("/passForgotten", passForgotten);
+
 //Activamos la escucha
 app.listen(process.env.PORT, () => console.log("Listening port " + process.env.PORT)); 

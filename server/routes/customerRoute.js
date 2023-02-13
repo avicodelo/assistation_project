@@ -8,20 +8,26 @@ const handleDate = require("../middlewares/handleDate");
 router.post("/", (req, res) => {
     //body received
     const body = req.body;
-    ({ name, surname, dateOfBirth, phone, email, password, city, locality, postalCode } = body)
+    ({ name, surname, phone, dateOfBirth, nationality, email, password, 
+        street, number, flat, city, locality, postalCode, country } = body)
 
     //create new customer and save
     const customer = new customerSquema({
         name,
         surname,
-        dateOfBirth: handleDate(dateOfBirth),
         phone,
+        dateOfBirth: handleDate(dateOfBirth),
+        nationality,
         email,
         password,
         address: {
+            street,
+            number,
+            flat,
             city,
             locality,
-            postalCode
+            postalCode,
+            country
         }
     })
 

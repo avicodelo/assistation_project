@@ -15,18 +15,32 @@ export default function SignUpProvider() {
     name: "",
     surname: "",
     dateOfBirth: "",
+    nationality: "",
     phone: "",
     email: "",
     password: "",
     passwordRepeated: "",
+    street:"",
+    number:"",
+    flat:"",
     city: "",
     locality: "",
+    country:"",
     postalCode: "",
     typeOfService: "",
   }
 
   const [signUpData, setSignUpData] = useState(initialStateSignUp); //User data variable
   const [validator, setValidator] = useState(true); //traffic light for passwords
+
+  //Function: set min age as 16
+  const minAge = () => {
+    const today = new Date();
+    const ageMil = 1000*3600*24*365*16;
+    const ageAllowed = new Date (today.getTime() - ageMil);
+    const dateFormated = [ageAllowed.getFullYear(), (ageAllowed.getMonth() + 1).toString().padStart(2, "0"),ageAllowed.getDate()].join("-");
+    return dateFormated;
+  }
 
   //Function: updates customer data
   const handleImput = (e) => {
@@ -80,6 +94,6 @@ export default function SignUpProvider() {
 
   return (
     <SignUpProviderStructure handleImput={handleImput} saveProvider={saveProvider}
-      signUpData={signUpData} validator={validator} />
+      signUpData={signUpData} validator={validator} minAge={minAge}/>
   )
 }

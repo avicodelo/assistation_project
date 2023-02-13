@@ -6,7 +6,7 @@ import style from "./ContactForm.module.css";
 export default function ContactStructure({ handleInput, sendInfo, contactFormData }) {
     return (
         <section>
-            
+
             <form className={style.contactForm} onSubmit={sendInfo()}>
 
                 <h3 >Formulario de contacto</h3>
@@ -14,20 +14,34 @@ export default function ContactStructure({ handleInput, sendInfo, contactFormDat
                 <table className={style.contactFormTable}>
                     <tbody>
                         <tr>
-                            <td colSpan="2" className={style.tituloCelda}><label htmlFor="name">Nombre<span className={style.required}>*</span></label></td>
+                            <td colSpan="2" className={style.tituloCelda}>
+                                <label htmlFor="name">
+                                    Nombre<span className={style.required}>*</span>
+                                </label>
+                            </td>
                         </tr>
 
                         <tr>
-                            <td><input type="text" id="name" name="name" value={contactFormData.name} onChange={handleInput} className={style.datosCelda} placeholder="Nombre" required /> </td>
-                            <td><input type="text" id="surname" name="surname" value={contactFormData.surname} onChange={handleInput} className={style.datosCelda} placeholder="Apellidos" /> </td>
+                            <td>
+                                <input type="text" id="name" name="name" className={style.datosCelda} onChange={handleInput} value={contactFormData.name} pattern="([a-zA-Z]*\s?){1,3}" maxLength="30" placeholder="Nombre" required />
+                            </td>
+                            <td>
+                                <input type="text" id="surname" name="surname" className={style.datosCelda} onChange={handleInput} value={contactFormData.surname} pattern="([a-zA-Z]*\s?){1,4}" maxLength="30" placeholder="Apellidos" />
+                            </td>
                         </tr>
 
                         <tr>
-                            <td colSpan="2" className={style.tituloCelda}><label htmlFor="email">Correo electrónico<span className={style.required}>*</span></label></td>
+                            <td colSpan="2" className={style.tituloCelda}>
+                                <label htmlFor="email">
+                                    Correo electrónico<span className={style.required}>*</span>
+                                </label>
+                            </td>
                         </tr>
 
                         <tr>
-                            <td colSpan="2" ><input type="email" id="email" value={contactFormData.email} onChange={handleInput} name="email" className={`${style.datosCelda} ${style.contactEmail}`} placeholder="Introduce tu mejor email" required /> </td>
+                            <td colSpan="2" >
+                                <input type="email" id="email" name="email" className={`${style.datosCelda} ${style.contactEmail}`} onChange={handleInput} value={contactFormData.email} placeholder="Introduce tu mejor email" required />
+                            </td>
                         </tr>
 
                         <tr>
@@ -35,12 +49,16 @@ export default function ContactStructure({ handleInput, sendInfo, contactFormDat
                         </tr>
 
                         <tr>
-                            <td colSpan="2"><textarea id="help" value={contactFormData.helpText} onChange={handleInput} name="helpText" className={`${style.datosCelda} ${style.helpText}`}
-                                placeholder="Déjanos tus comentarios, preguntas o sugerencias" rows="5" maxLength="2000" required></textarea></td>
+                            <td colSpan="2">
+                                <textarea id="help" value={contactFormData.helpText} onChange={handleInput} name="helpText" className={`${style.datosCelda} ${style.helpText}`}
+                                    placeholder="Déjanos tus comentarios, preguntas o sugerencias" rows="5" maxLength="2000" required></textarea>
+                            </td>
                         </tr>
 
                         <tr>
-                            <td colSpan="2"><input type="submit" id="enviarFormContacto" className={style.btnSendMsg} value="Enviar" /> </td>
+                            <td colSpan="2">
+                                <input type="submit" id="enviarFormContacto" className={style.btnSendMsg} value="Enviar" />
+                            </td>
                         </tr>
 
                     </tbody>

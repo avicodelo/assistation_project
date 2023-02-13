@@ -36,7 +36,24 @@ const customerSchema = new Schema({
         required: [true, "¿Cuándo naciste?"]
     },
 
+    nationality:{
+        type: String,
+        required: [true, "¿Dónde naciste?"]
+    },
+
     address: {
+        street: {
+            type: String
+        },
+
+        number: {
+            type: String
+        },
+
+        flat:{
+            type: String
+        },
+
         city: {
             type: String
         },
@@ -44,10 +61,14 @@ const customerSchema = new Schema({
         locality: {
             type: String
         },
+
+        country: {
+            type: String
+        },
+
         postalCode: {
             type: String,
             required: [true, "Indicanos tu Código Postal"]
-
         }
 
     },
@@ -103,6 +124,15 @@ const customerSchema = new Schema({
 
 })
 
-customerSchema.plugin(uniqueValidator, {message: "El {PATH} ya existe" });
+customerSchema.methods.toJSON = function () {
+    const customer = this.toObject();
+    delete customer.password;
+    delete customer.role;
+    delete customer.active;
+    delete customer.__v;
+    return customer;
+}
+
+customerSchema.plugin(uniqueValidator, { message: "El {PATH} ya existe" });
 
 module.exports = mongoose.model("Customer", customerSchema, "Customers");

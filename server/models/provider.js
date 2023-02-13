@@ -32,10 +32,27 @@ const providerSchema = new Schema({
 
     dateOfBirth: {
         type: Date,
-        required: [true, "¿Cuándo naciste"]
+        required: [true, "¿Cuándo naciste?"]
+    },
+
+    nationality:{
+        type: String,
+        required: [true, "¿Dónde naciste?"]
     },
 
     address: {
+        street: {
+            type: String
+        },
+
+        number: {
+            type: String
+        },
+
+        flat:{
+            type: String
+        },
+
         city: {
             type: String
         },
@@ -43,6 +60,11 @@ const providerSchema = new Schema({
         locality: {
             type: String
         },
+
+        country: {
+            type: String
+        },
+
         postalCode: {
             type: String,
             required: [true, "Indicanos tu Código Postal"]
@@ -108,10 +130,16 @@ const providerSchema = new Schema({
             type: Date
         }
     }
-
-
 })
 
+providerSchema.methods.toJSON = function () {
+    const provider = this.toObject();
+    delete provider.password;
+    delete provider.role;
+    delete provider.active;
+    delete provider.__v;
+    return provider;
+}
 providerSchema.plugin(uniqueValidator, { message:  "El {PATH} ya existe" });
 
 module.exports = mongoose.model("Provider", providerSchema, "Providers");

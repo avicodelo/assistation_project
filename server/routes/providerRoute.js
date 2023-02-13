@@ -7,19 +7,25 @@ const handleDate = require("../middlewares/handleDate");
 //provider creation "POST"
 router.post("/", (req, res) => {
     const body = req.body;
-    ({ name, surname, phone, dateOfBirth, email, password, city, locality, postalCode, typeOfService } = body);
+    ({ name, surname, phone, dateOfBirth, nationality, email, password, 
+        street, number, flat, city, locality, postalCode, country, typeOfService } = body);
 
     const provider = new providerSchema({
         name,
         surname,
         phone,
         dateOfBirth: handleDate(dateOfBirth),
+        nationality,
         email,
         password,
         address: {
+            street,
+            number,
+            flat,
             city,
             locality,
-            postalCode
+            postalCode,
+            country
         },
         typeOfService
     });
@@ -36,16 +42,20 @@ router.post("/", (req, res) => {
 
 //Search customer "GET"
 router.get("/", (req, res) => {
-    const filters = req.query;
-    if (filters.price){
-        filters.price = {lte:filters.price};
-    }
-    if (filters.rates){
-        filters.rates = {gte:filters.rates};
-    }
-    
-    console.log(filters)
-    providerSchema.find({active: true}).find(filters).exec((err, showProviders) => {
+    const {order, ...filters} = req.query;
+    console.log(order, filters, req.query);
+
+    //Conditions to find
+    let sortBy; 
+    order === "highPrice" && (sortBy = {price: 1})
+    order === "lowPrice" && (sortBy = {price: -1})
+    order === "highRate" && (sortBy = {rates: 1})
+    order === "lowRate" && (sortBy = {rates: -1})
+
+    filters.price && (filters.price = {$lte:parseInt(filters.price)});
+    filters.rates && (filters.rates = {$gte:parseInt(filters.rates)});
+
+    providerSchema.find({active: true}).find(filters).sort(order !== "standard" && sortBy).exec((err, showProviders) => {
         if(err){
             res.status(400).json({ ok: false, err });
         } else {

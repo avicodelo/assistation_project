@@ -10,7 +10,9 @@
     font-size: 1.5rem;
     width: 90%;
     border: 1px solid lightgray;
-    padding: 1rem 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    padding: 0.5rem 2rem;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -21,6 +23,39 @@
     padding-right: 1rem;
 }
 
+.orderSelector{
+    width: 90%;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    padding: 0.5rem 2rem;
+    display: flex;
+    justify-content:flex-start ;
+    align-items: center;
+    cursor: pointer;
+} 
+
+.orderSelector>label{
+    width: 40%;
+    font-size: 1.3rem;
+}
+
+.orderSelector>select{
+    font-size: 1.3rem;
+    border: none;
+    background-color: transparent;
+    padding-right: 0.5rem;
+    
+}
+
+.mainDivFilter option {
+    font-size: 1.3rem;
+}
+
+.mainDivFilter select:focus{
+    outline: 1px solid black;
+    border-radius: 5px;
+}
 .filterSelections{
     width: 90%;
     border: 1px solid lightgray;
@@ -28,34 +63,43 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-radius: 10px;
 }
 
-.showFilter>label{
+.filterSelections>label{
     font-size: 1.5rem;
     padding: 1rem 0;
 }
-.showFilter>input, .showFilter>select{
+.filterSelections>input, .filterSelections>select{
     font-size: 1.3rem;
     padding: 0.2rem 1rem;
     border-radius: 5px;
     border: 1px solid gray;
 }
 
+
+
 .filterSelections>button{
     font-size: 1.5rem;
+    font-weight: bold;
     color: white;
-    margin: 2rem 0;
+    margin-bottom: 1rem;
     padding: 0.5rem;
     border-radius: 5px;
     background: linear-gradient(to right, var(--secondary), var(--primary));
     border: none;
     cursor: pointer;
 }
+.filterSelections>button:first-of-type{
+    margin-top: 2rem;
+}
 
 .hideFilter{
-    display:none;
+    display: none;
 }
 
 .showFilter{
     display: flex;
 }
+
+

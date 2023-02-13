@@ -20,8 +20,8 @@ export default function ProviderCard({ providerData }) {
         <p className={style.providerData}>{providerData.description}</p>
 
         <div className={style.serviceInfo}>
-          <p className={style.providerData}>{providerData.rates}</p>
-          <h4 className={style.providerData}>{providerData.price}</h4>
+          <p className={style.providerData}>Nota: {providerData.rates}</p>
+          <h4 className={style.providerData}>{providerData.price} €/h</h4>
         </div>
       </section>
     </div>
