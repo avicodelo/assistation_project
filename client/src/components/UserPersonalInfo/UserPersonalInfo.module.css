@@ -1,0 +1,35 @@
+.wrapper{
+    width: 70%;
+    margin: 0 auto;
+}
+
+.mainContainer{
+    width: 100%;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.infoContainer{
+    padding: 1.5rem 0;
+    display: flex;
+}
+
+.infoContainer>h3:first-child{
+    padding: 0 1.5rem;
+    font-weight: bold;
+}
+
+.descriptionContainer{
+    padding: 1.5rem 0;
+}
+
+.descriptionContainer>h3:first-child{
+    padding: 0 1.5rem;
+    font-weight: bold;
+}
+
+.descriptionInfo{
+    padding: 0 1.5rem;
+}

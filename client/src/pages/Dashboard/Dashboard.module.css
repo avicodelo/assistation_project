@@ -1,0 +1,32 @@
+.mainContainer {
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.asideMenu {
+    width: 20%;
+    height: fit-content;
+    padding: 2rem;
+    margin-left: 2rem;
+    border: 1px solid gray;
+    border-radius: 5%;
+    box-shadow: 5px 5px 20px rgb(156, 155, 155);
+    position: sticky;
+    top: 2.5rem;
+}
+
+.asideMenu * {
+    margin: 2rem 0;
+    text-decoration: none;
+    color: black;
+}
+
+.hide {
+    display: none;
+}
+
+.showService {
+    display: block;
+}

@@ -135,7 +135,6 @@ const providerSchema = new Schema({
 providerSchema.methods.toJSON = function () {
     const provider = this.toObject();
     delete provider.password;
-    delete provider.role;
     delete provider.active;
     delete provider.__v;
     return provider;

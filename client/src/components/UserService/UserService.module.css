@@ -1,0 +1,40 @@
+.wrapper{
+    width: 70%;
+    margin: 0 auto;
+}
+
+.mainContainer{
+    width: 100%;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.infoContainer{
+    padding: 2rem 0;
+    display: flex;
+}
+
+.infoContainer>h3:first-child{
+    padding: 0 1.5rem;
+    font-weight: bold;
+}
+
+.textPrice{
+    padding: 1rem 1.5rem;
+    font-weight: bolder;
+    color: rgb(224, 34, 34);
+}
+
+.setPriceInput{
+    font-size: 1.5rem;
+    width: fit-content;
+    padding: 0.5rem 1.5rem;
+    margin:0 1.5rem;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+
+.savePrice{
+    padding: 0.5rem 1.5rem;
+}
