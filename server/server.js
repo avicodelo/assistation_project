@@ -4,6 +4,7 @@ require("./config/config");
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const cookieParser = require("cookie-parser")
 const mongoose = require("mongoose");
 
 //mongoose config
@@ -17,9 +18,11 @@ db.once("open", () => console.log("Successful DB connection"));
 
 //Middlewares
 app.use(express.json());
-app.use(cors({origin: "http://localhost:3000"}))
+app.use(cors({origin: "http://localhost:3000", credentials:true}))
+app.use(cookieParser());
 
 //Endpoints config
+
 const contactAlone = require("./routes/contactsAloneRoute");
 app.use("/contactAlone", contactAlone);
 

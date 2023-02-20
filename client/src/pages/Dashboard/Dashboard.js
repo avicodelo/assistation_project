@@ -22,56 +22,72 @@ export const dashboardContext = createContext({})
 
 export default function Dashboard() {
   //Const declarations
-  const { userID, infoRequired } = useParams();
-  const [userData, setUserData] = useState([])
+  const { userID, pageRequired } = useParams();
+  const [userData, setUserData] = useState({})
+  const accessToken = localStorage.getItem("accesstoken")
+
+
+  const setGetHeader = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + accessToken
+    },
+  }
 
   //Fetch info
   useEffect(() => {
-    fetch(URL_DASHBOARD + userID)
+    fetch(URL_DASHBOARD + userID, setGetHeader)
       .then(response => response.json())
       .then(({ result }) => {
-        setUserData(result[0]);
+        setUserData(result);
       })
   }, [userID])
 
-  //Function: manages data showed
-  const showComponent = (infoRequired) => {
-    if (infoRequired === "address") {
-      return <UserAddress />
+  if (accessToken) {
+    //Function: manages data showed
+    const showComponent = (pageRequired) => {
+      if (pageRequired === "address") {
+        return <UserAddress />
 
-    } else if (infoRequired === "security") {
-      return <UserSecurity />
+      } else if (pageRequired === "security") {
+        return <UserSecurity />
 
-    } else if (infoRequired === "service") {
-      return <UserService />
+      } else if (pageRequired === "service") {
+        return <UserService />
 
-    } else if (infoRequired === "remarks") {
-      return <UserRemarks />
+      } else if (pageRequired === "remarks") {
+        return <UserRemarks />
 
-    } else {
-      return <UserPersonalInfo />
+      } else {
+        return <UserPersonalInfo />
+      }
     }
-  }
-  
-  return (
-    <div>
-      <Navbar />
-      <div className={style.mainContainer}>
-        <aside className={style.asideMenu}>
-          <NavLink to={`${userID}/personalInfo`} ><h3>Información personal</h3></NavLink>
-          <NavLink to={`${userID}/address`}><h3>Dirección</h3></NavLink>
-          <NavLink to={`${userID}/security`}><h3>Seguridad</h3></NavLink>
-          <NavLink to={`${userID}/service`} className={userData.role ? style.showService : style.hide}><h3>Servicio</h3></NavLink>
-          <NavLink to={`${userID}/remarks`}><h3>Comentarios</h3></NavLink>
 
-        </aside>
+    return (
+      <div>
+        <Navbar />
+        <div className={style.mainContainer}>
+          <aside className={style.asideMenu}>
+            <NavLink to={`${userID}/personalInfo`} ><h3>Información personal</h3></NavLink>
+            <NavLink to={`${userID}/address`}><h3>Dirección</h3></NavLink>
+            <NavLink to={`${userID}/security`}><h3>Seguridad</h3></NavLink>
+            <NavLink to={`${userID}/service`} className={userData.role === "PROVIDER" ? style.showService : style.hide}><h3>Servicio</h3></NavLink>
+            <NavLink to={`${userID}/remarks`}><h3>Reseñas</h3></NavLink>
 
-        <dashboardContext.Provider value={userData} >
-          {showComponent(infoRequired)}
-        </dashboardContext.Provider>
+          </aside>
+
+          <dashboardContext.Provider value={userData} >
+            {showComponent(pageRequired)}
+          </dashboardContext.Provider>
+        </div>
+        <Footer />
+
       </div>
-      <Footer />
-
-    </div>
-  )
+    )
+  } else {
+    return (
+      <h1>Es necesario Iniciar Sesión</h1>
+    )
+  }
 }

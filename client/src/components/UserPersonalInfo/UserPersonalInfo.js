@@ -11,7 +11,7 @@ export default function UserPersonalInfo() {
   return (
     <div className={style.wrapper}>
       <div className={style.mainContainer}>
-        <img src={userData.photo} alt="user" />
+        <img src={userData.photo} alt="user" className={style.userDataPhoto}/>
         <div className={style.infoContainer}>
           <h3>Nombre: </h3>
           <h3>{userData.name + " " + userData.surname}</h3>

@@ -14,7 +14,7 @@ import { useNavigate, NavLink } from "react-router-dom"
 export default function Login() {
 
   //Const sets
-  /*set const navigate = useNavigate() depending on type of user*/
+  const navigate = useNavigate()
   const initialLogState = {
     email: "",
     password: "",
@@ -36,7 +36,12 @@ export default function Login() {
       //POST DATA
       const checkLoginInfo = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        mode: "cors",
+        credentials: "include",
         body: JSON.stringify(loginData)
       };
 
@@ -44,12 +49,24 @@ export default function Login() {
       fetch(URL_LOGIN, checkLoginInfo)
         .then(response => response.json())
         .then(access => {
-          console.log(access)
-          e.target.typeOfUser.forEach(element => {
-            element.checked = false;
-          });
-          setLoginData(initialLogState);
-        })
+          const { token } = access
+          const { _id, role } = access.userDB;
+          if (access.ok) {
+            localStorage.setItem("accesstoken", token);
+            localStorage.setItem("userID", _id);
+            if (role === "PROVIDER") {
+              navigate(`/dashboard/${_id}`)
+            } else {
+              navigate(`/servicesSearcher`)
+            }
+          }
+        });
+
+      e.target.typeOfUser.forEach(element => {
+        element.checked = false;
+        setLoginData(initialLogState);
+
+      })
 
       /* Establecer validación si hace match, encriptar passwords, crear token y redirigir */
     };
@@ -59,7 +76,7 @@ export default function Login() {
 
     <div className={style.LoginPageBody}>
       <Navbar />
-      
+
       <div className={style["generalDiv-blur"]}>
 
         <div className={style.loginMain}>

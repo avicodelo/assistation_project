@@ -3,6 +3,7 @@ const express = require("express");
 const providerSchema = require("../models/provider");
 const router = express.Router();
 const handleDate = require("../middlewares/handleDate");
+const verifyToken = require("../middlewares/auth");
 
 //provider creation "POST"
 router.post("/", (req, res) => {
@@ -41,10 +42,9 @@ router.post("/", (req, res) => {
 });
 
 //Search customer "GET"
-router.get("/", (req, res) => {
+router.get("/", verifyToken, (req, res) => {
     const {order, ...filters} = req.query;
-    console.log(order, filters, req.query);
-
+    const payload = req.payload;
     //Conditions to find
     let sortBy; 
     order === "highPrice" && (sortBy = {price: 1})
@@ -59,7 +59,7 @@ router.get("/", (req, res) => {
         if(err){
             res.status(400).json({ ok: false, err });
         } else {
-            res.status(200).json({ ok: true, results: showProviders });
+            res.status(200).json({ ok: true, results: showProviders, payload });
         }
     });
 })

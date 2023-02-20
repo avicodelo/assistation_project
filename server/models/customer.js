@@ -127,7 +127,6 @@ const customerSchema = new Schema({
 customerSchema.methods.toJSON = function () {
     const customer = this.toObject();
     delete customer.password;
-    delete customer.role;
     delete customer.active;
     delete customer.__v;
     return customer;

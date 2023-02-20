@@ -21,6 +21,12 @@
     font-weight: bold;
 }
 
+.userDataPhoto{
+    width: 150px;
+    height: 150px;
+    border-radius: 500px;
+}
+
 .descriptionContainer{
     padding: 1.5rem 0;
 }

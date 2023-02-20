@@ -2,8 +2,8 @@
 import style from "./UserService.module.css";
 
 //React imports
-import { useContext } from "react"
-import { dashboardContext } from "../../pages/Dashboard/Dashboard"
+import { useContext } from "react";
+import { dashboardContext } from "../../pages/Dashboard/Dashboard";
 
 
 export default function UserService() {
