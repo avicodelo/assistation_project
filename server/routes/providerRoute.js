@@ -45,6 +45,7 @@ router.post("/", (req, res) => {
 router.get("/", verifyToken, (req, res) => {
     const {order, ...filters} = req.query;
     const payload = req.payload;
+    
     //Conditions to find
     let sortBy; 
     order === "highPrice" && (sortBy = {price: 1})

@@ -32,15 +32,6 @@ export default function SignUpCustomer() {
   const [signUpData, setSignUpData] = useState(initialStateSignUp); //User data variable
   const [validator, setValidator] = useState(true); //traffic light for passwords
 
-//Function: set min age as 16
-const minAge = () => {
-  const today = new Date();
-  const ageMil = 1000*3600*24*365*16;
-  const ageAllowed = new Date (today.getTime() - ageMil);
-  const dateFormated = [ageAllowed.getFullYear(), (ageAllowed.getMonth() + 1).toString().padStart(2, "0"),ageAllowed.getDate()].join("-");
-  return dateFormated;
-}
-
   //Function: updates customer data
   const handleImput = (e) => {
     setSignUpData({ ...signUpData, ...{ [e.target.name]: e.target.value } });
@@ -96,6 +87,6 @@ const minAge = () => {
 
   return (
     <SignUpCustomerStructure handleImput={handleImput} signUpCustomer={signUpCustomer}
-      signUpData={signUpData} validator={validator} minAge={minAge}/>
+      signUpData={signUpData} validator={validator}/>
   )
 }
