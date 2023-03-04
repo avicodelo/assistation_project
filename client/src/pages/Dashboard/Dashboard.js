@@ -16,6 +16,7 @@ import UserRemarks from "../../components/UserRemarks/UserRemarks";
 import { useState, useEffect, createContext } from "react";
 import { NavLink, useParams } from "react-router-dom";
 
+
 //Context export
 export const dashboardContext = createContext({})
 
@@ -25,7 +26,6 @@ export default function Dashboard() {
   const { userID, pageRequired } = useParams();
   const [userData, setUserData] = useState({})
   const accessToken = localStorage.getItem("accesstoken")
-
 
   const setGetHeader = {
     method: "GET",
@@ -54,6 +54,7 @@ export default function Dashboard() {
         return <UserSecurity />
 
       } else if (pageRequired === "service") {
+        console.log("service");
         return <UserService />
 
       } else if (pageRequired === "remarks") {

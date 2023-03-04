@@ -3,7 +3,18 @@
 //CSS imports
 import style from "./SignUpCustomer.module.css";
 
-export default function SignUpCustomerStructure({ handleImput, signUpCustomer, signUpData, validator, minAge }) {
+//Component imports
+import Cities from "../FetchAddressData/Cities";
+import Municipalities from "../FetchAddressData/Municipalities";
+
+//Hook imports
+import { useMinAge } from "../../Hooks/useMinAge";
+
+export default function SignUpCustomerStructure({ handleImput, signUpCustomer, signUpData, validator }) {
+  
+  const minAge = useMinAge()
+  
+
   return (
     <div className={`${style.generalDiv}`}>
 
@@ -13,22 +24,22 @@ export default function SignUpCustomerStructure({ handleImput, signUpCustomer, s
 
         <div className={style.aloneInfo}>
           <label htmlFor="name">Nombre:</label>
-          <input type="text" onChange={handleImput} value={signUpData.name} id="name" name="name" pattern="([a-zA-Z]*\s?){1,3}" maxLength="100" placeholder='Nombre' required />
+          <input type="text" onChange={handleImput} value={signUpData.name} id="name" name="name" pattern="([a-zA-Z]*\s?){1,3}" maxLength="50" placeholder='Nombre' required />
         </div>
 
         <div className={style.aloneInfo}>
           <label htmlFor="surname">Apellidos:</label>
-          <input type="text" onChange={handleImput} value={signUpData.surname} id="surname" name="surname" pattern="([a-zA-Z]*\s?){1,3}" maxLength="100" placeholder='Apellidos' />
+          <input type="text" onChange={handleImput} value={signUpData.surname} id="surname" name="surname" pattern="([a-zA-Z]*\s?){1,3}" maxLength="50" placeholder='Apellidos' />
         </div>
 
         <div className={style.aloneInfo}>
           <label htmlFor="dateOfBirth">Fecha de nacimiento:</label>
-          <input type="date" onChange={handleImput} value={signUpData.dateOfBirth} id="dateOfBirth" name="dateOfBirth" max={minAge()} required />
+          <input type="date" onChange={handleImput} value={signUpData.dateOfBirth} id="dateOfBirth" name="dateOfBirth" max={minAge} required />
         </div>
 
         <div className={style.aloneInfo}>
           <label htmlFor="nationality">Nacionalidad:</label>
-          <input type="text" onChange={handleImput} value={signUpData.dateOfBirth} id="nationality" name="nationality" placeholder="¿En qué país naciste?" required />
+          <input type="text" onChange={handleImput} value={signUpData.nationality} id="nationality" name="nationality" maxLength="50" placeholder="¿En qué país naciste?" required />
         </div>
 
         <div className={style.aloneInfo}>
@@ -78,12 +89,13 @@ export default function SignUpCustomerStructure({ handleImput, signUpCustomer, s
 
           <div className={style.locality}>
             <label htmlFor="locality">Localidad:</label>
-            <input type="text" onChange={handleImput} value={signUpData.locality} id="locality" name="locality" pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='Localidad' />
+            <input type="text" onChange={handleImput} value={signUpData.postalCode ? signUpData.locality : ""} id="locality" name="locality" pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='Localidad' />
+            <Municipalities cp = {signUpData.postalCode.substring(0,2)} />
           </div>
 
           <div className={style.city}>
             <label htmlFor="city">Ciudad:</label>
-            <input type="text" onChange={handleImput} value={signUpData.city} id="city" name='city' pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='Ciudad' />
+            <input type="text" onChange={handleImput} value={signUpData.postalCode ? Cities(signUpData.postalCode.substring(0,2)) : ""} id="city" name='city' pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='Ciudad' />
           </div>
 
           <div className={style.country}>

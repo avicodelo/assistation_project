@@ -66,7 +66,7 @@ const providerSchema = new Schema({
         },
 
         postalCode: {
-            type: String,
+            type: Number,
             required: [true, "Indicanos tu Código Postal"]
         }
 

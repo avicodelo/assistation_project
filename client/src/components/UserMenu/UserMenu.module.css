@@ -1,0 +1,36 @@
+.userMenuMain {
+    font-size: 1.5rem;
+    padding: 2rem 1.5rem;
+    margin:0 2rem;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    background-color: white;
+    position: absolute;
+    top: 8rem;
+    right: 5vw;
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.menuItem {
+    font-size: 1.5rem;
+    text-decoration: none;
+    padding: 0.5rem;
+    color: black; 
+    
+}
+
+.menuItem:hover {
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+.menuItem:visited {
+    text-decoration: none;
+}
+
+.hideItem {
+    display: none;
+}

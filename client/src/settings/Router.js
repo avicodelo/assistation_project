@@ -28,7 +28,7 @@ export default function Router() {
         </Route>
         <Route path="/dashboard" element={<Dashboard />} >
           <Route path=":userID" element={<Dashboard />} >
-            <Route path=":infoRequired" element={<Dashboard />} />
+            <Route path=":pageRequired" element={<Dashboard />} />
           </Route>
         </Route>
         <Route path="*" element={<h1>Error 404: La página no existe</h1>} />

@@ -12,7 +12,8 @@ import Navbar from '../../components/Navbar/Navbar'
 import React from 'react'
 
 export default function Contacto() {
-    window.scroll(0,0);
+    window.scroll(0, 0);
+
     return (
         <div>
             <Navbar />
@@ -22,7 +23,8 @@ export default function Contacto() {
 
             </section>
 
-            <ContactForm/>
+            <ContactForm />
+            
             <Footer />
         </div>
     )

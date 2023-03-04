@@ -3,6 +3,11 @@
 //CSS imports
 import style from "./SignUpProvider.module.css";
 
+//Component imports
+import Cities from "../FetchAddressData/Cities";
+import Municipalities from "../FetchAddressData/Municipalities";
+
+
 export default function SignUpProviderStructure({ handleImput, saveProvider, signUpData, validator, minAge }) {
   return (
     <div className={`${style.generalDiv}`}>
@@ -82,22 +87,23 @@ export default function SignUpProviderStructure({ handleImput, saveProvider, sig
 
           <div className={style.postalCode}>
             <label htmlFor="postalCode">Código Postal:</label>
-            <input type="text" onChange={handleImput} value={signUpData.postalCode} id="postalCode" name="postalCode" pattern="[0-9]{5}" placeholder='C.P.' required />
+            <input type="number" onChange={handleImput} value={signUpData.postalCode} id="postalCode" name="postalCode" min="01000" max="52999" placeholder='C.P.' required />
           </div>
 
           <div className={style.locality}>
             <label htmlFor="locality">Localidad:</label>
-            <input type="text" onChange={handleImput} value={signUpData.locality} id="locality" name="locality" pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='Localidad' />
+            <input type="text" onChange={handleImput} value={signUpData.postalCode ? signUpData.locality : ""} id="locality" name="locality" pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='Localidad' list="municipalities" required />
+            <Municipalities cp = {signUpData.postalCode.substring(0,2)} />
           </div>
 
           <div className={style.city}>
             <label htmlFor="city">Ciudad:</label>
-            <input type="text" onChange={handleImput} value={signUpData.city} id="city" name='city' pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='Ciudad' />
+            <input type="text" onChange={handleImput} value={signUpData.postalCode ? Cities(signUpData.postalCode.substring(0,2)) : ""} id="city" name='city' pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='Ciudad' list="cities" required />
           </div>
 
           <div className={style.country}>
             <label htmlFor="country">País:</label>
-            <input type="text" onChange={handleImput} value={signUpData.country} id="country" name='country' pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='País' />
+            <input type="text" onChange={handleImput} value={signUpData.country} id="country" name='country' pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='País' required />
           </div>
         </fieldset>
 

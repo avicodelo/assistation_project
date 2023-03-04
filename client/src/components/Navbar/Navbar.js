@@ -5,15 +5,18 @@ import style from "./Navbar.module.css";
 import image from "../../images/vu-anh-TiVPTYCG_3E-unsplash.jpg"
 
 //React imports
-import { useState} from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import UserMenu from "../UserMenu/UserMenu";
 
 export default function Navbar() {
+
     //Const sets
     const userID = localStorage.getItem("userID");
     const [loged, setLoged] = useState(false)
+    const [menuActive, setMenuActive] = useState(false)
 
-    const checkLoged=() => {
+    const checkLoged = () => {
         if (localStorage.getItem("accesstoken")) {
             setLoged(true)
         } else {
@@ -21,8 +24,24 @@ export default function Navbar() {
         }
     }
 
+    useEffect(() => {
+        document.addEventListener("click", manageMenu())
+    }, [])
+
+    const manageMenu = () => {
+        return (e) => {
+            e.stopPropagation()
+            if (e.target.className !== "fa-solid fa-user check") {
+                setMenuActive(false)
+
+            } else {
+                setMenuActive(!menuActive)
+            }
+        }
+    }
+
     return (
-        <nav className={style.navbarMain} onLoad={checkLoged}>
+        <nav className={style.navbarMain} onLoad={checkLoged} >
 
             <div className={style.logoDiv}>
                 <NavLink className={`${style.navRouterLeft} ${style.quitDecoration}`} to="/">
@@ -43,10 +62,12 @@ export default function Navbar() {
                 <NavLink className={loged ? style.hideItem : style.navRouter} to="/login/">
                     <button className={style.navButton}><h4>Iniciar Sesión</h4></button>
                 </NavLink>
-                <NavLink className={loged ? (navData) => navData.isActive ? style.isActive : style.navRouter : style.hideItem} to={`/dashboard/${userID}`}><i className="fa-solid fa-user"></i></NavLink>
 
+                <div className={loged ? style.navRouter : style.hideItem} id="userMenu" >
+                    <i className="fa-solid fa-user check" onClick={manageMenu()}></i>
+                    <UserMenu userID={userID} menuActive={menuActive} />
+                </div>
             </div>
-
 
         </nav>
     )
