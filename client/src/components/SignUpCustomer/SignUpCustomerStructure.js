@@ -4,16 +4,14 @@
 import style from "./SignUpCustomer.module.css";
 
 //Component imports
-import Cities from "../FetchAddressData/Cities";
 import Municipalities from "../FetchAddressData/Municipalities";
 
 //Hook imports
 import { useMinAge } from "../../Hooks/useMinAge";
 
 export default function SignUpCustomerStructure({ handleImput, signUpCustomer, signUpData, validator }) {
-  
+
   const minAge = useMinAge()
-  
 
   return (
     <div className={`${style.generalDiv}`}>
@@ -24,12 +22,12 @@ export default function SignUpCustomerStructure({ handleImput, signUpCustomer, s
 
         <div className={style.aloneInfo}>
           <label htmlFor="name">Nombre:</label>
-          <input type="text" onChange={handleImput} value={signUpData.name} id="name" name="name" pattern="([a-zA-Z]*\s?){1,3}" maxLength="50" placeholder='Nombre' required />
+          <input type="text" onChange={handleImput} value={signUpData.name} id="name" name="name" pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" placeholder='Nombre' required />
         </div>
 
         <div className={style.aloneInfo}>
           <label htmlFor="surname">Apellidos:</label>
-          <input type="text" onChange={handleImput} value={signUpData.surname} id="surname" name="surname" pattern="([a-zA-Z]*\s?){1,3}" maxLength="50" placeholder='Apellidos' />
+          <input type="text" onChange={handleImput} value={signUpData.surname} id="surname" name="surname" pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" placeholder='Apellidos' />
         </div>
 
         <div className={style.aloneInfo}>
@@ -52,7 +50,7 @@ export default function SignUpCustomerStructure({ handleImput, signUpCustomer, s
           <input type="email" onChange={handleImput} value={signUpData.email} id="email" name="email" maxLength="100" placeholder="Indica tu mejor email" required />
         </div>
 
-        <p className={validator ? style.hideInfo : style.showInfo}>La contraseñas no coinciden</p>
+        <p className={validator ? style.hideInfo : style.showInfo}>Las contraseñas no coinciden</p>
 
         <div className={style.aloneInfo}>
           <label htmlFor="password">Contraseña:</label>
@@ -69,7 +67,7 @@ export default function SignUpCustomerStructure({ handleImput, signUpCustomer, s
 
           <div className={style.street}>
             <label htmlFor="street">Calle:</label>
-            <input type="text" onChange={handleImput} value={signUpData.street} id="street" name='street' pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='Calle' />
+            <input type="text" onChange={handleImput} value={signUpData.street} id="street" name='street' pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,}" maxLength="60" placeholder='Calle' />
           </div>
 
           <div className={style.number}>
@@ -89,18 +87,20 @@ export default function SignUpCustomerStructure({ handleImput, signUpCustomer, s
 
           <div className={style.locality}>
             <label htmlFor="locality">Localidad:</label>
-            <input type="text" onChange={handleImput} value={signUpData.postalCode ? signUpData.locality : ""} id="locality" name="locality" pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='Localidad' />
-            <Municipalities cp = {signUpData.postalCode.substring(0,2)} />
+            <input type="text" onChange={handleImput} value={signUpData.postalCode ? signUpData.locality : ""} id="locality" name="locality"
+              pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,}" maxLength="60" placeholder='Localidad' list="municipalities" required />
+            <Municipalities cp={signUpData.postalCode.substring(0, 2)} />
           </div>
 
           <div className={style.city}>
             <label htmlFor="city">Ciudad:</label>
-            <input type="text" onChange={handleImput} value={signUpData.postalCode ? Cities(signUpData.postalCode.substring(0,2)) : ""} id="city" name='city' pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='Ciudad' />
+            <input type="text" onChange={handleImput} value={signUpData.city} id="city" name='city'
+              pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,}" maxLength="60" placeholder='Ciudad' disabled={signUpData.postalCode} />
           </div>
 
           <div className={style.country}>
             <label htmlFor="country">País:</label>
-            <input type="text" onChange={handleImput} value={signUpData.country} id="country" name='country' pattern="([a-zA-Z]*\s?){1,}" maxLength="60" placeholder='País' />
+            <input type="text" onChange={handleImput} value={signUpData.country} id="country" name='country' pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,}" maxLength="60" placeholder='País' />
           </div>
         </fieldset>
 

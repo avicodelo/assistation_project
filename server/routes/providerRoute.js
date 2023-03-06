@@ -1,5 +1,6 @@
 //Const declarations, collection "providers"
 const express = require("express");
+const bcrypt = require("bcrypt");
 const providerSchema = require("../models/provider");
 const router = express.Router();
 const handleDate = require("../middlewares/handleDate");
@@ -7,9 +8,9 @@ const verifyToken = require("../middlewares/auth");
 
 //provider creation "POST"
 router.post("/", (req, res) => {
-    const body = req.body;
-    ({ name, surname, phone, dateOfBirth, nationality, email, password, 
-        street, number, flat, city, locality, postalCode, country, typeOfService } = body);
+
+    const { name, surname, phone, dateOfBirth, nationality, email, password, 
+        street, number, flat, city, locality, postalCode, country, typeOfService } = req.body;
 
     const provider = new providerSchema({
         name,
@@ -18,7 +19,7 @@ router.post("/", (req, res) => {
         dateOfBirth: handleDate(dateOfBirth),
         nationality,
         email,
-        password,
+        password : bcrypt.hashSync(password, 10),
         address: {
             street,
             number,

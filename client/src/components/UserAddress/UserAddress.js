@@ -12,11 +12,11 @@ export default function UserAddress() {
 
     const initialUserData = {
         "address.street": "",
-        number: "",
-        flat: "",
-        postalCode: "",
-        locality: "",
-        city: ""
+        "address.number": "",
+        "address.flat": "",
+        "address.postalCode": "",
+        "address.locality": "",
+        "address.city": ""
     }
     const userData = useContext(dashboardContext);
     const [denyUpdate, setDenyUpdate] = useState(true)

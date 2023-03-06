@@ -1,0 +1,25 @@
+Prioridad 1:
+  
+    Crear Eliminación de usuario con introducción de contraseña
+    Autoeliminar token y ID cuando caduque
+
+
+Prioridad 2: 
+    Introducir edición de foto de usuario (UserPersonalInfo)
+    Validar campos en informacion de usuario (UserPersonalInfo, UserAddress)    
+    Crear Lógica de puntuación y comentarios de otros usuarios
+    Gestionar filtros: filtrar por ciudad y luego por Localidad
+    En PROVIDER: establecer área de trabajo
+    Establecer flujo de correos en "contraseña olvidada"
+
+Prioridad 3:
+    Check ChatApi y usarla en la web
+    Retocar CSS en general
+    Gestión de errores
+    Comprobar Api de calendario
+    Introducir mapa (leaflet)
+
+Cumplido:
+    Encriptar contraseñas
+    Crear check de contraseñas en login
+    Crear cambio de contraseña en UserSecurity

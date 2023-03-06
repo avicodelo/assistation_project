@@ -1,5 +1,6 @@
 //Const declarations, collection "customer"
 const express = require("express");
+const bcrypt = require("bcrypt");
 const customerSquema = require("../models/customer");
 const router = express.Router();
 const handleDate = require("../middlewares/handleDate");
@@ -7,9 +8,9 @@ const handleDate = require("../middlewares/handleDate");
 //customer creation "POST"
 router.post("/", (req, res) => {
     //body received
-    const body = req.body;
-    ({ name, surname, phone, dateOfBirth, nationality, email, password, 
-        street, number, flat, city, locality, postalCode, country } = body)
+
+    const { name, surname, phone, dateOfBirth, nationality, email, password, 
+        street, number, flat, city, locality, postalCode, country } = req.body
 
     //create new customer and save
     const customer = new customerSquema({
@@ -19,7 +20,7 @@ router.post("/", (req, res) => {
         dateOfBirth: handleDate(dateOfBirth),
         nationality,
         email,
-        password,
+        password : bcrypt.hashSync(password, 10),
         address: {
             street,
             number,

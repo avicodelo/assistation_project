@@ -1,6 +1,7 @@
 //Const declarations
 const express = require("express");
 const verifyToken = require("../middlewares/auth");
+const bcrypt = require("bcrypt")
 const router = express.Router()
 
 const providerSchema = require("../models/provider");
@@ -39,7 +40,7 @@ router.put("/:userID", verifyToken, (req, res) => {
     if (payload.userDB.role === "PROVIDER") {
         providerSchema.findByIdAndUpdate(
             id,
-            body,
+            body.password ? {body, password: bcrypt.hashSync(body.password, 10)} : {body},
    
             {
                 new: true,

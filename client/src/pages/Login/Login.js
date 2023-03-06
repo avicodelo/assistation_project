@@ -108,11 +108,11 @@ export default function Login() {
                 <div className={style.typeOfUser}>
 
                   <div>
-                    <input type="radio" id="customer" name="typeOfUser" onChange={handleInput} value="customer" required />
+                    <input type="radio" id="customer" name="typeOfUser" onChange={handleInput} value="CUSTOMER" required />
                     <label htmlFor="customer"><p>Entrar como Cliente</p></label>
                   </div>
                   <div>
-                    <input type="radio" id="provider" name="typeOfUser" onChange={handleInput} value="provider" />
+                    <input type="radio" id="provider" name="typeOfUser" onChange={handleInput} value="PROVIDER" />
                     <label htmlFor="provider"><p>Entrar como Proveedor</p></label>
                   </div>
 

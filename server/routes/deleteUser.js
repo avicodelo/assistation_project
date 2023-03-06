@@ -1,18 +1,15 @@
-require("../config/config")
-
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 
 const Customer = require("../models/customer");
 const Provider = require("../models/provider");
 
-
-
-router.post("/", (req, res) => {
+router.delete("/", (req, res) => {
+    const id = req.params.userID;
     const body = req.body;
-    if (body.typeOfUser === "PROVIDER") {
+
+    if (body.role === "PROVIDER") {
         Provider.findOne({ email: body.email }, (err, userDB) => {
             if (err) {
                 res.status(500).json({ ok: false, err });
@@ -25,7 +22,7 @@ router.post("/", (req, res) => {
                 res.status(200).json({ ok: true, token, userDB:{_id: userDB._id, role: userDB.role } });
             }
         })
-    } else if (body.typeOfUser === "CUSTOMER") {
+    } else if (body.role === "CUSTOMER") {
         Customer.findOne({ email: body.email }, (err, userDB) => {
             if (err) {
                 res.status(500).json({ ok: false, err });
