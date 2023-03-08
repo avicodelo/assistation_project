@@ -21,8 +21,7 @@ export default function Filter({ modifyFilter, filterData, setFilterData }) {
 
     //Function: Saves inputs in an object variable
     const handleInput = (e) => {
-        if(e.target.name==="address.city")
-        setFilterData({ ...filterData, ...{ [e.target.name]: e.target.value.charAt(0).toUpperCase() +  e.target.value.slice(1).toLowerCase()} })
+        setFilterData({ ...filterData, ...{ [e.target.name]: e.target.value } })
     }
 
     return (
@@ -47,6 +46,13 @@ export default function Filter({ modifyFilter, filterData, setFilterData }) {
             <form name="filterForm" className={`${style.filterSelections} ${filterActive ? style.showFilter : style.hideFilter}`} onSubmit={modifyFilter()}>
                 <label htmlFor="filtCity">Ciudad</label>
                 <input type="text" id="filtCity" name="address.city" onChange={handleInput} value={filterData["address.city"]} pattern="([a-zA-Z]*\s?){1,}" maxLength="50" placeholder="Ciudad" />
+
+                {filterData["address.city"] ?
+                    <div>
+                        <label htmlFor="filtLocality">Localidad</label>
+                        <input type="text" id="filtLocality" name="address.locality" onChange={handleInput} value={filterData["address.locality"]} pattern="([a-zA-Z]*\s?){1,}" maxLength="50" placeholder="Localidad" />
+                    </div> :
+                    <div></div>}
 
                 <label htmlFor="filtPrice">Precio</label>
                 <input type="number" id="filtPrice" name="price" onChange={handleInput} value={filterData.price} min="0" max="500" placeholder="Precio máximo" />

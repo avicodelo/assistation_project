@@ -20,6 +20,7 @@ export default function ServicesSearcher() {
     const navigate = useNavigate();
     const initialFilterState = {
         "address.city": "",
+        "address.locality" : "",
         price: "",
         typeOfService: "",
         rates: ""

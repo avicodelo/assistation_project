@@ -1,10 +1,10 @@
 Prioridad 1:
-   Gestionar filtros: filtrar por ciudad y luego por Localidad
+    Edición de precio de servicio (si no tiene precio que no salga en búsqueda)
+    En PROVIDER: establecer área de trabajo
+    Crear Lógica de puntuación y comentarios de otros usuarios
 
 Prioridad 2: 
     Introducir edición de foto de usuario (UserPersonalInfo)  
-    Crear Lógica de puntuación y comentarios de otros usuarios
-    En PROVIDER: establecer área de trabajo
     Establecer flujo de correos en "contraseña olvidada"
     
 
@@ -23,3 +23,4 @@ Cumplido:
     Crear Eliminación de usuario con introducción de contraseña
     Autoeliminar token y ID cuando caduque => manejar página para que indique que la sesión ha caducado
     Validar campos en informacion de usuario (UserPersonalInfo, UserAddress) 
+    Gestionar filtros: filtrar por ciudad y luego por Localidad

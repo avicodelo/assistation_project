@@ -56,6 +56,8 @@ router.get("/", verifyToken, (req, res) => {
 
     filters.price && (filters.price = {$lte:parseInt(filters.price)});
     filters.rates && (filters.rates = {$gte:parseInt(filters.rates)});
+    filters["address.city"] && (filters["address.city"]= {$regex: filters["address.city"], $options:'i'})
+    filters["address.locality"] && (filters["address.locality"]= {$regex: filters["address.locality"], $options:'i'})
 
     providerSchema.find({active: true}).find(filters).sort(order !== "standard" && sortBy).exec((err, showProviders) => {
         if(err){

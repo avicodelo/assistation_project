@@ -34,7 +34,7 @@ router.post("/", (req, res) => {
             } else if (!bcrypt.compareSync(body.password, userDB.password)) {
                 res.status(400).json({ ok: false, error: "Wrong password" });
             } else {
-                const token = jwt.sign({ userDB: userDB }, process.env.SEED, { expiresIn: 60 /*  * 60 * 24 */ });
+                const token = jwt.sign({ userDB: userDB }, process.env.SEED, { expiresIn: 60 * 60 * 24 });
                 res.status(200).json({ ok: true, token, userDB:{_id: userDB._id, role: userDB.role } });
             }
         })

@@ -25,7 +25,6 @@ export default function UserAddress() {
     const { address } = userData;
     const [denyUpdate, setDenyUpdate] = useState(true)
     const [dataUpdated, handleInput, updateInfo] = useUpdateInfo(initialUserData)
-    console.log(userData, dataUpdated);
 
     return (
         <div className={style.wrapper}>
@@ -58,7 +57,7 @@ export default function UserAddress() {
                     <h3>Código Postal: </h3>
                     {!denyUpdate ?
                         <input type="text" name="address.postalCode" onChange={handleInput} value={dataUpdated["address.postalCode"]}
-                            placeholder={address?.postalCode} pattern="[0-5][1-9][0-9]{3}" maxLength="5" /> :
+                            placeholder={address?.postalCode} pattern="[0-5][0-9]{4}" maxLength="5" /> :
                         <h3>{address?.postalCode}</h3>
                     }
                 </div>
