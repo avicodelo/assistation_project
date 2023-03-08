@@ -20,6 +20,7 @@ export default function UserSecurity() {
   }
 
   const userData = useContext(dashboardContext);
+  const accessToken = localStorage.getItem("accesstoken")
   const [denyUpdate, setDenyUpdate] = useState(true)
   const [validator, setValidator] = useState(true);
   const [dataUpdated, handleInput, updateInfo] = useUpdateInfo(initialPassState)
@@ -35,14 +36,12 @@ export default function UserSecurity() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            "Authorization": "Bearer " + accessToken
           },
-          mode: "cors",
-          credentials: "include",
           body: JSON.stringify({
             email: userData.email,
             password: dataUpdated.oldPass,
-            typeOfUser: userData.role
+            role: userData.role
           })
         };
 

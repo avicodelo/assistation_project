@@ -13,7 +13,7 @@ const verifyToken = (req, res, next) => {
 
     jwt.verify(token, process.env.SEED, (error, payload) => {
         if (error) {
-            res.status(401).json({ ok: false, message: error })
+            res.status(401).json({ ok: false, message: "Token inválido" })
         } else {
             req.payload = payload;
             next()

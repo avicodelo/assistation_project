@@ -21,12 +21,12 @@ export default function SignUpProviderStructure({ handleInput, saveProvider, sig
       <form className={style.signUpForm} onSubmit={saveProvider()}>
         <div className={style.aloneInfo}>
           <label htmlFor="name">Nombre:</label>
-          <input type="text" onChange={handleInput} value={signUpData.name} id="name" name="name" pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="100" placeholder='Nombre' required />
+          <input type="text" onChange={handleInput} value={signUpData.name} id="name" name="name" pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" placeholder='Nombre' required />
         </div>
 
         <div className={style.aloneInfo}>
           <label htmlFor="surname">Apellidos:</label>
-          <input type="text" onChange={handleInput} value={signUpData.surname} id="surname" name="surname" pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="100" placeholder='Apellidos' />
+          <input type="text" onChange={handleInput} value={signUpData.surname} id="surname" name="surname" pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" placeholder='Apellidos' />
         </div>
 
         <div className={style.aloneInfo}>

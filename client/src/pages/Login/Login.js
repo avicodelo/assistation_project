@@ -18,7 +18,7 @@ export default function Login() {
   const initialLogState = {
     email: "",
     password: "",
-    typeOfUser: ""
+    role: ""
   }
 
   const [loginData, setLoginData] = useState(initialLogState); //login data variable
@@ -62,7 +62,7 @@ export default function Login() {
           }
         });
 
-      e.target.typeOfUser.forEach(element => {
+      e.target.role.forEach(element => {
         element.checked = false;
         setLoginData(initialLogState);
 
@@ -108,11 +108,11 @@ export default function Login() {
                 <div className={style.typeOfUser}>
 
                   <div>
-                    <input type="radio" id="customer" name="typeOfUser" onChange={handleInput} value="CUSTOMER" required />
+                    <input type="radio" id="customer" name="role" onChange={handleInput} value="CUSTOMER" required />
                     <label htmlFor="customer"><p>Entrar como Cliente</p></label>
                   </div>
                   <div>
-                    <input type="radio" id="provider" name="typeOfUser" onChange={handleInput} value="PROVIDER" />
+                    <input type="radio" id="provider" name="role" onChange={handleInput} value="PROVIDER" />
                     <label htmlFor="provider"><p>Entrar como Proveedor</p></label>
                   </div>
 

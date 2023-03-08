@@ -10,6 +10,8 @@ import { useUpdateInfo } from "../../Hooks/useUpdateInfo";
 import { useMinAge } from "../../Hooks/useMinAge";
 
 export default function UserPersonalInfo() {
+  
+  const userData = useContext(dashboardContext)
 
   const initialUserData = {
     name: "",
@@ -19,20 +21,24 @@ export default function UserPersonalInfo() {
     nationality: "",
     description: ""
   }
-  const userData = useContext(dashboardContext)
+
   const [denyUpdate, setDenyUpdate] = useState(true)
-  const [dataUpdated, handleInput, updateInfo] = useUpdateInfo(initialUserData)
+  const [dataUpdated, handleInput, updateInfo] = useUpdateInfo(userData)
   const minAge = useMinAge()
 
   return (
     <div className={style.wrapper}>
-      <div className={style.mainContainer}>
+      <form className={style.mainContainer} onSubmit={updateInfo}>
         <img src={userData.photo} alt="user" className={style.userDataPhoto} />
         <div className={style.infoContainer}>
           <h3>Nombre: </h3>
           {!denyUpdate ?
-            <input type="text" name="name" onChange={handleInput} value={dataUpdated.name}
-              placeholder={userData.name} pattern="([a-zA-Z]*\s?){1,3}" maxLength="50" /> :
+            <div>
+              <input type="text" name="name" onChange={handleInput} value={dataUpdated.name}
+                placeholder={userData.name} pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" />
+              <input type="text" name="surname" onChange={handleInput} value={dataUpdated.surname}
+                placeholder={userData.surname} pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" />
+            </div> :
             <h3>{userData.name + " " + userData.surname}</h3>
           }
         </div>
@@ -50,7 +56,7 @@ export default function UserPersonalInfo() {
           <h3>Teléfono: </h3>
           {!denyUpdate ?
             <input type="text" name="phone" onChange={handleInput} value={dataUpdated.phone}
-              placeholder={userData.phone} pattern="^\+34[0-9]{9}" /> :
+              placeholder={userData.phone} pattern="^\+34[0-9]{9}" title="Es necesario añadir +34"/> :
             <h3>{userData.phone}</h3>
           }
         </div>
@@ -75,13 +81,21 @@ export default function UserPersonalInfo() {
         </div>
 
         {denyUpdate ?
-          <div><button onClick={() => setDenyUpdate(false)}>Actualizar</button></div> :
           <div>
-            <button onClick={() => setDenyUpdate(true)}>Cancelar</button>
-            <button onClick={updateInfo}>Aplicar cambios</button>
+            <button onClick={(e) => {
+              e.preventDefault()
+              setDenyUpdate(false)
+            }}>Actualizar</button>
+          </div> :
+          <div>
+            <button onClick={(e) => {
+              e.preventDefault()
+              setDenyUpdate(true)
+            }}>Cancelar</button>
+            <button type="submit">Aplicar cambios</button>
           </div>}
 
-      </div>
+      </form>
     </div>
   )
 }

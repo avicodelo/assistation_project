@@ -8,7 +8,7 @@ const Provider = require("../models/provider");
 router.post("/", (req, res) => {
     const body = req.body;
 
-    if (body.typeOfUser === "provider") {
+    if (body.role === "PROVIDER") {
         Provider.findOne({ email: body.email }, (err, userDB) => {
             if (err) {
                 res.status(500).json({ ok: false, err });

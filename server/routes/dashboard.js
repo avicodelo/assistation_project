@@ -11,74 +11,71 @@ const customerSchema = require("../models/customer");
 router.get("/:userID", verifyToken, (req, res) => {
 
     const id = req.params.userID;
-    const payload = req.payload
-    if (payload.userDB.role === "PROVIDER") {
-        providerSchema.findOne({ active: true, _id: id }).exec((err, data) => {
-            if (err) {
-                res.status(401).json({ ok: false, err })
-            } else {
-                res.status(200).json({ ok: true, result: data, payload })
-            }
-        })
-
-    } else if (payload.userDB.role === "CUSTOMER") {
-        customerSchema.findOne({ active: true, _id: id }).exec((err, data) => {
-            if (err) {
-                res.status(401).json({ ok: false, err })
-            } else {
-                res.status(200).json({ ok: true, result: data, payload })
-            }
-        })
-    }
+    const payload = req.payload["userDB"]
+    const schema = payload.role === "PROVIDER" ? providerSchema : customerSchema
+    
+    schema.findOne({ active: true, _id: id }).exec((err, data) => {
+        if (err) {
+            res.status(401).json({ ok: false, err })
+        } else {
+            res.status(200).json({ ok: true, result: data, payload })
+        }
+    })
 })
 
 router.put("/:userID", verifyToken, (req, res) => {
     const id = req.params.userID;
-    const payload = req.payload;
+    const payload = req.payload["userDB"];
     const body = req.body;
+    const schema = payload.role === "PROVIDER" ? providerSchema : customerSchema
 
-    if (payload.userDB.role === "PROVIDER") {
-        providerSchema.findByIdAndUpdate(
-            id,
-            body.password ? {body, password: bcrypt.hashSync(body.password, 10)} : {body},
-   
-            {
-                new: true,
-                runValidators: true,
-            },
+    schema.findByIdAndUpdate(
+        id,
+        body.password ? { password: bcrypt.hashSync(body.password, 10) } :  body ,
 
-            (err, updatedProvider) => {
-                if (err) {
-                    res.status(400).json({ ok: false, err })
-                } else {
-                    res.status(200).json({ ok: true, updatedProvider })
-                }
-            });
+        {
+            new: true,
+            runValidators: true,
+        },
 
-    } else if (payload.userDB.role === "CUSTOMER") {
-        customerSchema.findByIdAndUpdate(
-            id, 
-            body, 
-
-                {
-                    new: true,
-                    runValidators: true,
-                },
-
-            (err, updatedCustomer) => {
-                if (err){
-                    res.status(400).json({ok:false, err})
-                }else {
-                    res.status(200).json({ok:true, updatedCustomer})
-                }
-            }); 
-    }
+        (err, updatedProvider) => {
+            if (err) {
+                res.status(400).json({ ok: false, err })
+            } else {
+                res.status(200).json({ ok: true, updatedProvider })
+            }
+        });
 })
 
+router.delete("/:userID", verifyToken, (req, res) => {
+    const id = req.params.userID;
+    const payload = req.payload["userDB"];
+    const body = req.body;
+    const schema = payload.role === "PROVIDER" ? providerSchema : customerSchema
 
+    schema.findByIdAndUpdate(
+        id,
+        { active: false },
 
+        {
+            new: true,
+            runValidators: true,
+        },
 
+        (err, userDB) => {
+            if (err) {
+                res.status(500).json({ ok: false, err });
 
+            } else if (!bcrypt.compareSync(body.password, userDB.password)) {
+                res.status(400).json({ ok: false, error: "Wrong password" });
+
+            } else {
+
+                res.status(200).json({ ok: true, message: "User deleted" });
+            }
+        }
+    )
+})
 
 
 module.exports = router;

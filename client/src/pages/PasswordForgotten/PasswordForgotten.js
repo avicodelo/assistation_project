@@ -16,7 +16,7 @@ export default function PasswordForgotten() {
   //Const declarations
   const initialState = {
     email: "",
-    typeOfUser: ""
+    role: ""
   }
 
   const [recoverPassData, setRecoverPassData] = useState(initialState);
@@ -43,7 +43,7 @@ export default function PasswordForgotten() {
         .then(response => response.json())
         .then(access => {
           console.log(access)
-          e.target.typeOfUser.forEach(element => {
+          e.target.role.forEach(element => {
             element.checked = false;
           });
           setRecoverPassData(initialState);
@@ -76,11 +76,11 @@ export default function PasswordForgotten() {
               <div className={style.typeOfUser}>
 
                 <div>
-                  <input type="radio" id="customer" name="typeOfUser" onChange={handleInput} value="customer" required />
+                  <input type="radio" id="customer" name="role" onChange={handleInput} value="CUSTOMER" required />
                   <label htmlFor="customer"><p>Entrar como Cliente</p></label>
                 </div>
                 <div>
-                  <input type="radio" id="provider" name="typeOfUser" onChange={handleInput} value="provider" />
+                  <input type="radio" id="provider" name="role" onChange={handleInput} value="PROVIDER" />
                   <label htmlFor="provider"><p>Entrar como Proveedor</p></label>
                 </div>
 

@@ -10,11 +10,12 @@ import UserAddress from "../../components/UserAddress/UserAddress";
 import UserSecurity from "../../components/UserSecurity/UserSecurity";
 import UserService from "../../components/UserService/UserService";
 import UserRemarks from "../../components/UserRemarks/UserRemarks";
+import UserDeletion from "../../components/UserDeletion/UserDeletion";
 
 
 //React imports
 import { useState, useEffect, createContext } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
 
 
 //Context export
@@ -25,7 +26,9 @@ export default function Dashboard() {
   //Const declarations
   const { userID, pageRequired } = useParams();
   const [userData, setUserData] = useState({})
+  const [tokenValid, setTokenValid] = useState(true)
   const accessToken = localStorage.getItem("accesstoken")
+  const navigate = useNavigate()
 
   const setGetHeader = {
     method: "GET",
@@ -39,12 +42,19 @@ export default function Dashboard() {
   useEffect(() => {
     fetch(URL_DASHBOARD + userID, setGetHeader)
       .then(response => response.json())
-      .then(({ result }) => {
-        setUserData(result);
+      .then(({ ok, result, message }) => {
+        if (!ok && message === "Token inválido") {
+          setTokenValid(false)
+          localStorage.removeItem("accesstoken")
+          localStorage.removeItem("userID")
+
+        } else {
+          setUserData(result);
+        }
       })
   }, [userID])
 
-  if (accessToken) {
+  if (tokenValid) {
     //Function: manages data showed
     const showComponent = (pageRequired) => {
       if (pageRequired === "address") {
@@ -59,6 +69,9 @@ export default function Dashboard() {
 
       } else if (pageRequired === "remarks") {
         return <UserRemarks />
+
+      } else if (pageRequired === "deleteUser") {
+        return <UserDeletion />
 
       } else {
         return <UserPersonalInfo />
@@ -75,6 +88,7 @@ export default function Dashboard() {
             <NavLink to={`${userID}/security`}><h3>Seguridad</h3></NavLink>
             <NavLink to={`${userID}/service`} className={userData.role === "PROVIDER" ? style.showService : style.hide}><h3>Servicio</h3></NavLink>
             <NavLink to={`${userID}/remarks`}><h3>Reseñas</h3></NavLink>
+            <NavLink to={`${userID}/deleteUser`}><h3>Eliminar usuario</h3></NavLink>
 
           </aside>
 
@@ -88,7 +102,10 @@ export default function Dashboard() {
     )
   } else {
     return (
-      <h1>Es necesario Iniciar Sesión</h1>
+      <div>
+        <h1>La sesión ha caducado. Es necesario Iniciar Sesión</h1>
+        <button onClick={() => { navigate("/login") }}>Iniciar sesión</button>
+      </div>
     )
   }
 }
