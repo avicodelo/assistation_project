@@ -38,11 +38,11 @@ router.put("/:userID", verifyToken, (req, res) => {
             runValidators: true,
         },
 
-        (err, updatedProvider) => {
+        (err, updatedUser) => {
             if (err) {
                 res.status(400).json({ ok: false, err })
             } else {
-                res.status(200).json({ ok: true, updatedProvider })
+                res.status(200).json({ ok: true, updatedUser })
             }
         });
 })

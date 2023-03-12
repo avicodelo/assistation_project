@@ -88,6 +88,11 @@ const providerSchema = new Schema({
         required: [true, "Necesitamos saber el tipo de servicio que vas a prestar"],
     },
 
+    areaOfResponsibility: {
+        type: Array,
+        default: []
+    },
+
     price: {
         type: Number
     },

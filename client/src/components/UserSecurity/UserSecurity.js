@@ -21,12 +21,12 @@ export default function UserSecurity() {
 
   const userData = useContext(dashboardContext);
   const accessToken = localStorage.getItem("accesstoken")
-  const [denyUpdate, setDenyUpdate] = useState(true)
   const [validator, setValidator] = useState(true);
-  const [dataUpdated, handleInput, updateInfo] = useUpdateInfo(initialPassState)
+  const [dataUpdated, handleInput, updateInfo, _addItem, _removeItem, activateArea, setActivateArea] = useUpdateInfo(initialPassState, userData)
 
   const changePassword = () => {
-    return () => {
+    return (e) => {
+      e.preventDefault()
       if (dataUpdated.password !== dataUpdated.checkNewPass) {
         setValidator(false)
       } else {
@@ -49,7 +49,7 @@ export default function UserSecurity() {
           .then(response => response.json())
           .then(access => {
             if (access.ok) {
-              updateInfo()
+             updateInfo(e)
             }
           })
       }
@@ -58,14 +58,17 @@ export default function UserSecurity() {
 
   return (
     <div className={style.wrapper}>
-      <div className={style.mainContainer}>
+      <form className={style.mainContainer} onSubmit={changePassword()}>
 
         <div className={style.infoContainer}>
           <h3>Email: </h3>
           <h3>{userData.email}</h3>
         </div>
-        {denyUpdate ?
-          <button className={style.changePassContainer} onClick={() => setDenyUpdate(false)}><p>Cambiar contraseña</p></button> :
+        {!activateArea ?
+          <button className={style.changePassContainer} onClick={(e) => {
+            e.preventDefault()
+            setActivateArea(true)
+          }}><p>Cambiar contraseña</p></button> :
           <div className="">
             <div>
               <p>Confirma la contraseña anterior: </p>
@@ -82,14 +85,17 @@ export default function UserSecurity() {
               <input type="password" name="checkNewPass" onChange={handleInput} value={dataUpdated.checkNewPass} />
             </div>
             <div>
-              <button onClick={() => setDenyUpdate(true)}>Cancelar</button>
-              <button onClick={changePassword()}>Actualizar</button>
+              <button onClick={(e) => {
+                e.preventDefault()
+                setActivateArea(false)
+              }}>Cancelar</button>
+              <button type="submit">Actualizar</button>
             </div>
           </div>
         }
 
-      </div>
+      </form >
 
-    </div>
+    </div >
   )
 }

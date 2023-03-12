@@ -2,7 +2,7 @@
 import style from "./Dashboard.module.css"
 
 //Component imports
-import { URL_DASHBOARD } from "../../settings/Settings";
+
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import UserPersonalInfo from "../../components/UserPersonalInfo/UserPersonalInfo";
@@ -12,47 +12,22 @@ import UserService from "../../components/UserService/UserService";
 import UserRemarks from "../../components/UserRemarks/UserRemarks";
 import UserDeletion from "../../components/UserDeletion/UserDeletion";
 
-
 //React imports
-import { useState, useEffect, createContext } from "react";
+import { createContext } from "react";
 import { NavLink, useParams, useNavigate } from "react-router-dom";
+import { useFetchUserData } from "../../Hooks/useFetchUserData";
 
 
 //Context export
 export const dashboardContext = createContext({})
 
-
 export default function Dashboard() {
   //Const declarations
-  const { userID, pageRequired } = useParams();
-  const [userData, setUserData] = useState({})
-  const [tokenValid, setTokenValid] = useState(true)
-  const accessToken = localStorage.getItem("accesstoken")
+  const { pageRequired } = useParams();
+  const [userData, userID, tokenValid] = useFetchUserData()
   const navigate = useNavigate()
 
-  const setGetHeader = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + accessToken
-    },
-  }
 
-  //Fetch info
-  useEffect(() => {
-    fetch(URL_DASHBOARD + userID, setGetHeader)
-      .then(response => response.json())
-      .then(({ ok, result, message }) => {
-        if (!ok && message === "Token inválido") {
-          setTokenValid(false)
-          localStorage.removeItem("accesstoken")
-          localStorage.removeItem("userID")
-
-        } else {
-          setUserData(result);
-        }
-      })
-  }, [userID])
 
   if (tokenValid) {
     //Function: manages data showed
@@ -64,8 +39,7 @@ export default function Dashboard() {
         return <UserSecurity />
 
       } else if (pageRequired === "service") {
-        console.log("service");
-        return <UserService />
+        return <UserService userData={userData}/>
 
       } else if (pageRequired === "remarks") {
         return <UserRemarks />

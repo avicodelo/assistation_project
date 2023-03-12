@@ -49,8 +49,8 @@ router.get("/", verifyToken, (req, res) => {
     
     //Conditions to find
     let sortBy; 
-    order === "highPrice" && (sortBy = {price: 1})
-    order === "lowPrice" && (sortBy = {price: -1})
+    order === "highPrice" && (sortBy = {price: -1})
+    order === "lowPrice" && (sortBy = {price: 1})
     order === "highRate" && (sortBy = {rates: 1})
     order === "lowRate" && (sortBy = {rates: -1})
 
@@ -59,7 +59,7 @@ router.get("/", verifyToken, (req, res) => {
     filters["address.city"] && (filters["address.city"]= {$regex: filters["address.city"], $options:'i'})
     filters["address.locality"] && (filters["address.locality"]= {$regex: filters["address.locality"], $options:'i'})
 
-    providerSchema.find({active: true}).find(filters).sort(order !== "standard" && sortBy).exec((err, showProviders) => {
+    providerSchema.find({active: true, price:{$exists:true}}).find(filters).sort(order !== "standard" && sortBy).exec((err, showProviders) => {
         if(err){
             res.status(400).json({ ok: false, err });
         } else {

@@ -1,22 +1,45 @@
 import { URL_DASHBOARD } from "../settings/Settings"
-import { useState } from "react"
+import {  useState, useEffect } from "react";
+
 import { useParams } from "react-router-dom"
 import { useCities } from "./useCities"
 
-function useUpdateInfo(initialState) {
+function useUpdateInfo(initialState, userData) {
 
     const { userID } = useParams()
     const [dataUpdated, setDataUpdated] = useState(initialState)
+    const [userDataUpdated, setUserDataUpdated] = useState(userData)
+    const [activateArea, setActivateArea] = useState(false)
     const accessToken = localStorage.getItem("accesstoken")
     const city = useCities(dataUpdated["address.postalCode"])
 
+    useEffect(() => {
+        setDataUpdated(initialState)
+       setUserDataUpdated(userData)
+console.log(dataUpdated, userData);
+    }, [initialState.areaOfResponsibility, userData.address])
+
     const handleInput = (e) => {
-        console.log(e.target.name, e.target.value);
         if (e.target.name === "address.postalCode") {
             setDataUpdated({ ...dataUpdated, ...{ [e.target.name]: e.target.value, "address.city": city } });
         } else {
-            console.log("entra en update");
             setDataUpdated({ ...dataUpdated, ...{ [e.target.name]: e.target.value } });
+        }
+    }
+
+    const addItem = () => {
+        return (e) => {
+            e.preventDefault()
+            dataUpdated.setAreaOfResponsibility && dataUpdated.areaOfResponsibility.push(dataUpdated.setAreaOfResponsibility)
+            setDataUpdated({ ...dataUpdated, ...{ setAreaOfResponsibility: "" } })
+        }
+    }
+
+    const removeItem = () => {
+        return (e) => {
+            e.preventDefault()
+            dataUpdated.areaOfResponsibility.splice(parseInt(e.target.name), 1)
+            setDataUpdated({ ...dataUpdated, ...{ areaOfResponsibility: dataUpdated.areaOfResponsibility } });
         }
     }
 
@@ -43,13 +66,15 @@ function useUpdateInfo(initialState) {
 
             fetch(URL_DASHBOARD + userID, putInfo)
                 .then(res => res.json())
-                .then(() => {
-                    window.location.reload()
+                .then(({ updatedUser }) => {
+                    setUserDataUpdated(updatedUser)
+                    setDataUpdated(initialState)
+                    setActivateArea(false)
                 })
         }
     }
 
-    return [dataUpdated, handleInput, updateInfo()]
+    return [dataUpdated, handleInput, updateInfo(), addItem(), removeItem(), activateArea, setActivateArea, userDataUpdated]
 }
 
 export { useUpdateInfo };
