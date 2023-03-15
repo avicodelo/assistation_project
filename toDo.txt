@@ -1,19 +1,20 @@
 Prioridad 1:
-    Crear página de presentación de usuario donde puntuar y comentar. 
-    Introducir puntuación y comentarios de otros usuarios
-
-Prioridad 2: 
     Introducir edición de foto de usuario (UserPersonalInfo)  
-    Establecer flujo de correos en "contraseña olvidada"
     Check ChatApi y usarla en la web (servicio de chat)
     paginación providers y comentarios
 
-Prioridad 3:
-    Retocar CSS en general
+
+Prioridad 2: 
     Gestión de errores y páginas/componentes a mostrar en esos errores
+    Establecer flujo de correos en "contraseña olvidada"
+    Retocar CSS en general
+    Responsive
+
+Prioridad 3:
     Comprobar Api de calendario
     Introducir mapa (leaflet)
     Ver vídeos que faltan del curso FullStack
+
 
 Cumplido:
     Encriptar contraseñas

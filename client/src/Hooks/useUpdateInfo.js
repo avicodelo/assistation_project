@@ -1,5 +1,5 @@
 import { URL_DASHBOARD } from "../settings/Settings"
-import {  useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom"
 import { useCities } from "./useCities"
@@ -15,8 +15,7 @@ function useUpdateInfo(initialState, userData) {
 
     useEffect(() => {
         setDataUpdated(initialState)
-       setUserDataUpdated(userData)
-console.log(dataUpdated, userData);
+        setUserDataUpdated(userData)
     }, [initialState.areaOfResponsibility, userData.address])
 
     const handleInput = (e) => {

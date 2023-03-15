@@ -80,7 +80,7 @@ export default function ServicesSearcher() {
     //Function: fills the card variable with the filtered user info
     useEffect(() => {
 
-        fetch(URL_PROVIDER + dataArrayJoined + orderSelector, setGetHeader)
+        fetch(URL_PROVIDER + "?" + dataArrayJoined + orderSelector, setGetHeader)
             .then(response => {
                 if (response.ok) {
                     return response.json();

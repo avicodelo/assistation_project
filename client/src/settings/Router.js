@@ -6,12 +6,14 @@ import PasswordForgotten from "../pages/PasswordForgotten/PasswordForgotten";
 import SignUp from "../pages/SignUp/SignUp";
 import ServicesSearcher from "../pages/ServicesSearcher/ServicesSearcher";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import UserPublicPresentation from "../pages/UserPublicPresentation/UserPublicPresentation";
 
 //React imports
 import { Route, Routes } from "react-router-dom";
 
 
 export default function Router() {
+
   return (
     <div>
 
@@ -30,6 +32,8 @@ export default function Router() {
           <Route path=":userID" element={<Dashboard />} >
             <Route path=":pageRequired" element={<Dashboard />} />
           </Route>
+        </Route>
+        <Route path="/userInfo/:userID" element={<UserPublicPresentation />} >
         </Route>
         <Route path="*" element={<h1>Error 404: La página no existe</h1>} />
       </Routes>

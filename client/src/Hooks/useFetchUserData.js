@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { URL_DASHBOARD } from "../settings/Settings";
-
-function useFetchUserData() {
+function useFetchUserData(URL) {
     const { userID } = useParams()
     const accessToken = localStorage.getItem("accesstoken")
     const [userData, setUserData] = useState({})
     const [tokenValid, setTokenValid] = useState(true)
-
 
     const setGetHeader = {
         method: "GET",
@@ -21,7 +18,7 @@ function useFetchUserData() {
 
     //Fetch info
     useEffect(() => {
-        fetch(URL_DASHBOARD + userID, setGetHeader)
+        fetch(URL + userID, setGetHeader)
             .then(res => res.json())
             .then(({ ok, result, message }) => {
                 if (!ok && message === "Token inválido") {

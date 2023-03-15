@@ -13,7 +13,6 @@ router.get("/:userID", verifyToken, (req, res) => {
     const id = req.params.userID;
     const payload = req.payload["userDB"]
     const schema = payload.role === "PROVIDER" ? providerSchema : customerSchema
-    
     schema.findOne({ active: true, _id: id }).exec((err, data) => {
         if (err) {
             res.status(401).json({ ok: false, err })
@@ -21,6 +20,18 @@ router.get("/:userID", verifyToken, (req, res) => {
             res.status(200).json({ ok: true, result: data, payload })
         }
     })
+})
+
+router.get("/public/:userID", verifyToken, (req, res) => {
+    const id = req.params.userID;
+
+    providerSchema.findOne({ active: true, _id: id }).exec((err, showProvider) => {
+        if (err) {
+            res.status(400).json({ ok: false, err });
+        } else {
+            res.status(200).json({ ok: true, result: showProvider });
+        }
+    });
 })
 
 router.put("/:userID", verifyToken, (req, res) => {

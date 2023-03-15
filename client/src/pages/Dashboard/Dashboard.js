@@ -11,6 +11,7 @@ import UserSecurity from "../../components/UserSecurity/UserSecurity";
 import UserService from "../../components/UserService/UserService";
 import UserRemarks from "../../components/UserRemarks/UserRemarks";
 import UserDeletion from "../../components/UserDeletion/UserDeletion";
+import { URL_DASHBOARD } from "../../settings/Settings";
 
 //React imports
 import { createContext } from "react";
@@ -24,7 +25,7 @@ export const dashboardContext = createContext({})
 export default function Dashboard() {
   //Const declarations
   const { pageRequired } = useParams();
-  const [userData, userID, tokenValid] = useFetchUserData()
+  const [userData, userID, tokenValid] = useFetchUserData(URL_DASHBOARD)
   const navigate = useNavigate()
 
 

@@ -35,7 +35,7 @@ const providerSchema = new Schema({
         required: [true, "¿Cuándo naciste?"]
     },
 
-    nationality:{
+    nationality: {
         type: String,
         required: [true, "¿Dónde naciste?"]
     },
@@ -49,7 +49,7 @@ const providerSchema = new Schema({
             type: String
         },
 
-        flat:{
+        flat: {
             type: String
         },
 
@@ -102,15 +102,44 @@ const providerSchema = new Schema({
         default: "Descríbete, seguro que a la gente le encantará conocerte mejor"
     },
 
-    rates: {
-        type: Number,
-        
-    },
+    rates: [
+        Number
+    ],
 
-    remarks: {
-        type: String,
-        
-    },
+    remarks: [{
+        writer: {
+            userImage: {
+                type: String /*Añadir un getter (ver documentación: https://mongoosejs.com/docs/schematypes.html#arrays) */
+            },
+            userName: {
+                type: String
+            },
+            userId: {
+                type: String
+            }
+        },
+
+        rate: {
+            type: Number,
+            required: "¿Qué puntuación le das?"
+        },
+
+        title: {
+            type: String,
+            required: "Pon un título a tu opinión"
+        },
+
+        mainBody: {
+            type: String,
+            required: "Necesitamos tu opinión"
+        },
+
+        deployDate: {
+            type: Date,
+            default: new Date()
+        }
+
+    }],
 
     role: {
         type: String,
@@ -144,6 +173,6 @@ providerSchema.methods.toJSON = function () {
     delete provider.__v;
     return provider;
 }
-providerSchema.plugin(uniqueValidator, { message:  "El {PATH} ya existe" });
+providerSchema.plugin(uniqueValidator, { message: "El {PATH} ya existe" });
 
 module.exports = mongoose.model("Provider", providerSchema, "Providers");
