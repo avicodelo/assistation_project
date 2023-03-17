@@ -91,7 +91,7 @@ export default function SignUpProviderStructure({ handleInput, saveProvider, sig
 
           <div className={style.postalCode}>
             <label htmlFor="postalCode">Código Postal:</label>
-            <input type="number" onChange={handleInput} value={signUpData.postalCode} id="postalCode" name="postalCode" min="01000" max="52999" maxLength="5" placeholder='C.P.' required />
+            <input type="text" onChange={handleInput} value={signUpData.postalCode} id="postalCode" name="postalCode" pattern="[0-5][0-9]{4}" maxLength="5"  placeholder='C.P.' required />
           </div>
 
           <div className={style.locality}>

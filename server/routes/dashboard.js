@@ -16,6 +16,8 @@ router.get("/:userID", verifyToken, (req, res) => {
     schema.findOne({ active: true, _id: id }).exec((err, data) => {
         if (err) {
             res.status(401).json({ ok: false, err })
+        } else if(id !== payload._id){
+            res.status(401).json({ ok: false, message: "ID Manipulado" })
         } else {
             res.status(200).json({ ok: true, result: data, payload })
         }

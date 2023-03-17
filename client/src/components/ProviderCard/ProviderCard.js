@@ -25,9 +25,13 @@ export default function ProviderCard({ providerData }) {
         <p className={style.providerData}>{providerData.description}</p>
 
         <div className={style.serviceInfo}>
-          <p className={style.providerData}>Nota: {providerData.rates}</p>
-          <h4 className={style.providerData}>{providerData.price} €/h</h4>
+
+          <p className={style.providerData}>Nota: {providerData.rates?.length > 0 ?
+            /* parseFloat(providerData.rates.reduce((suma, nextRate) => suma + nextRate, 0) / providerData.rates.length).toFixed(1) */
+            providerData?.avgRate :
+            "-"}</p> 
         </div>
+        <h4 className={style.providerData}>{providerData.price} €/h</h4>
       </section>
     </NavLink>
   )

@@ -35,6 +35,11 @@ const providerSchema = new Schema({
         required: [true, "¿Cuándo naciste?"]
     },
 
+    creationDate:{
+        type: Date,
+        default: new Date()
+    },
+
     nationality: {
         type: String,
         required: [true, "¿Dónde naciste?"]
@@ -102,9 +107,13 @@ const providerSchema = new Schema({
         default: "Descríbete, seguro que a la gente le encantará conocerte mejor"
     },
 
-    rates: [
-        Number
-    ],
+    rates: {
+        type: [Number]
+    },
+
+    avgRate:{
+        type: Number
+    },
 
     remarks: [{
         writer: {
