@@ -8,7 +8,7 @@ import ProviderCard from "../../components/ProviderCard/ProviderCard";
 import Filter from "../../components/Filter/Filter";
 
 //React imports
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { URL_PROVIDER } from "../../settings/Settings";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,7 @@ export default function ServicesSearcher() {
     const navigate = useNavigate();
     const initialFilterState = {
         "address.city": "",
-        "address.locality" : "",
+        "address.locality": "",
         price: "",
         typeOfService: "",
         rates: ""
@@ -31,9 +31,9 @@ export default function ServicesSearcher() {
         name: "",
         surname: "",
         typeOfService: "",
-        price: "10",
+        price: "",
         description: "",
-        rates: "8.2"
+        rates: ""
     };
 
     const [cardFiller, setCardFiller] = useState([]); //Manage user data to fill the Card
@@ -41,7 +41,28 @@ export default function ServicesSearcher() {
     const [filterData, setFilterData] = useState(initialFilterState); //Update the data that has been introduced
     const [dataArrayJoined, setDataArrayJoined] = useState(""); //Joins the thata introduced
     const [checkCustomer, setCheckCustomer] = useState(false)
+    const [totalPages, setTotalPages] = useState(undefined)
 
+    const reducer = (state, action) => {
+        if (action.type === "INCREASE") {
+            return { page: state.page + 1 }
+        } else if (action.type === "DECREASE") {
+            return { page: state.page - 1 }
+        } else {
+            return { page: 1 }
+        }
+    }
+
+    const [pageState, dispatch] = useReducer(reducer, { page: 1 })
+
+    const handlePage = (order) => {
+        if (order === "INCREASE" && pageState.page < totalPages) {
+            dispatch({ type: order })
+        } else if (order === "DECREASE" && pageState.page > 1) {
+            dispatch({ type: order })
+        }
+    }
+    
     //Function: Prepares the info to query format and sends it to URL
     const modifyFilter = () => {
         return (e) => {
@@ -62,6 +83,7 @@ export default function ServicesSearcher() {
             } else {
                 setOrderSelector(`&order=${e.target.value}`)
             }
+            dispatch({ type: "RESET" })
             window.scroll(0, 0);
         }
 
@@ -80,18 +102,20 @@ export default function ServicesSearcher() {
     //Function: fills the card variable with the filtered user info
     useEffect(() => {
 
-        fetch(URL_PROVIDER + "?" + dataArrayJoined + orderSelector, setGetHeader)
+        fetch(URL_PROVIDER + "?" + dataArrayJoined + orderSelector + `&page=${pageState.page}`, setGetHeader)
             .then(response => {
                 if (response.ok) {
                     return response.json();
                 }
                 throw new Error("Hay problemas con la información " + response.statusText);
             })
-            .then(({ results, payload }) => {
+            .then(({ results, payload, totalPages }) => {
+
                 if (payload.userDB.role === "CUSTOMER") {
                     setCheckCustomer(true)
                 }
                 setCardFiller([]);
+                setTotalPages(totalPages)
                 results?.map(provider => setCardFiller(previousData => [...previousData, { ...initialCardState, ...provider }]))
             })
             .catch((error) => {
@@ -99,7 +123,7 @@ export default function ServicesSearcher() {
 
             });
 
-    }, [dataArrayJoined, orderSelector]);
+    }, [dataArrayJoined, orderSelector, pageState?.page]);
 
     if (checkCustomer) {
         return (
@@ -116,6 +140,11 @@ export default function ServicesSearcher() {
                                 )
                             })
                         }
+                    </div>
+                    <div>
+                        <button onClick={() => { handlePage("DECREASE") }}>&larr;</button>
+                        <p>{pageState.page + "/" + totalPages}</p>
+                        <button onClick={() => { handlePage("INCREASE") }}>&rarr;</button>
                     </div>
                 </div>
 

@@ -80,7 +80,8 @@ const providerSchema = new Schema({
     email: {
         type: String,
         unique: true,
-        required: [true, "Necesitas un email válido"]
+        required: [true, "Necesitas un email válido"],
+        set: v => v.toLowerCase()
     },
 
     password: {

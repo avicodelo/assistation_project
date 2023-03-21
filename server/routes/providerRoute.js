@@ -46,19 +46,19 @@ router.post("/", (req, res) => {
 router.get("/", verifyToken, async (req, res) => {
     const { page, order, ...filters } = req.query;
     const payload = req.payload;
-
-    //Pagination data
-    const PAGE_SIZE = 12;
-    const pageSelected = page || 1;
-    const totalEntries = await providerSchema.countDocuments({ active: true });
-    const totalPages = Math.ceil(totalEntries / PAGE_SIZE);
-
+    
     //Conditions to find
     filters.price && (filters.price = { $lte: parseInt(filters.price) });
     filters.rates && (filters.rates = { $gte: parseInt(filters.rates) });
     filters["address.city"] && (filters["address.city"] = { $regex: filters["address.city"], $options: 'i' })
     filters["address.locality"] && (filters["address.locality"] = { $regex: filters["address.locality"], $options: 'i' })
-
+    
+    //Pagination data
+    const PAGE_SIZE = 2;
+    const pageSelected = page || 1;
+    const totalEntries = await providerSchema.countDocuments({ ...filters, active: true, price: { $exists: true } });
+    const totalPages = Math.ceil(totalEntries / PAGE_SIZE);
+   
     let sortBy
     switch (order) {
         case "highPrice":
@@ -75,7 +75,7 @@ router.get("/", verifyToken, async (req, res) => {
             break;
 
         default:
-            sortBy = { creationDate: 1 }
+            sortBy = { creationDate: 1, name: 1 }
             break;
     }
 
@@ -83,11 +83,16 @@ router.get("/", verifyToken, async (req, res) => {
         {
             $match: {
                 active: true,
-                price: { $exists: true }
+                price: { $exists: true }, 
+                ...filters
             }
         },
-        { $match: filters },
-        { $project: { photo: 1, name: 1, surname: 1, nationality: 1, "address.city": 1, typeOfService: 1, description: 1, price: 1, avgRate: { $avg: "$rates" } } },
+        {
+            $project: {
+                photo: 1, name: 1, surname: 1, nationality: 1, "address.city": 1,
+                typeOfService: 1, description: 1, price: 1, avgRate: { $avg: "$rates" }
+            }
+        },
         { $sort: sortBy },
         { $skip: (pageSelected - 1) * PAGE_SIZE },
         { $limit: PAGE_SIZE }
@@ -96,7 +101,7 @@ router.get("/", verifyToken, async (req, res) => {
             res.status(400).json({ ok: false, err });
         } else {
 
-            res.status(200).json({ ok: true, totalEntries, totalPages, results: showProviders, payload });
+            res.status(200).json({ ok: true, totalPages, results: showProviders, payload });
         }
     })
 })
