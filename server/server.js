@@ -4,7 +4,7 @@ require("./config/config");
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const cookieParser = require("cookie-parser")
+const path=require("path")
 const mongoose = require("mongoose");
 
 //mongoose config
@@ -19,27 +19,31 @@ db.once("open", () => console.log("Successful DB connection"));
 //Middlewares
 app.use(express.json());
 app.use(cors({origin: "http://localhost:3000", credentials:true}))
-app.use(cookieParser());
 
 //Endpoints config
 
-const contactAlone = require("./routes/contactsAloneRoute");
-app.use("/contactAlone", contactAlone);
+const ContactAlone = require("./routes/contactsAloneRoute");
+app.use("/contactAlone", ContactAlone);
 
-const customer = require("./routes/customerRoute");
-app.use("/customers", customer);
+const Customer = require("./routes/customerRoute");
+app.use("/customers", Customer);
 
-const provider = require("./routes/providerRoute");
-app.use("/providers", provider);
+const Provider = require("./routes/providerRoute");
+app.use("/providers", Provider);
 
-const login = require("./routes/login");
-app.use("/login", login);
+const Login = require("./routes/login");
+app.use("/login", Login);
 
-const passForgotten = require("./routes/passForgotten");
-app.use("/passForgotten", passForgotten);
+const PassForgotten = require("./routes/passForgotten");
+app.use("/passForgotten", PassForgotten);
 
-const dashboard = require("./routes/dashboard");
-app.use("/dashboard", dashboard);
+const Dashboard = require("./routes/dashboard");
+app.use("/dashboard", Dashboard);
+
+const Remarks = require("./routes/remarksRoute");
+app.use("/remarks", Remarks)
+
+app.use(express.static(path.join(__dirname, "assets/images")))
 
 //Activamos la escucha
 app.listen(process.env.PORT, () => console.log("Listening port " + process.env.PORT)); 

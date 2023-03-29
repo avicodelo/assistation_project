@@ -45,12 +45,12 @@ export default function Filter({ modifyFilter, filterData, setFilterData }) {
             </div>
             <form name="filterForm" className={`${style.filterSelections} ${filterActive ? style.showFilter : style.hideFilter}`} onSubmit={modifyFilter()}>
                 <label htmlFor="filtCity">Ciudad</label>
-                <input type="text" id="filtCity" name="address.city" onChange={handleInput} value={filterData["address.city"]} pattern="([a-zA-Z]*\s?){1,}" maxLength="50" placeholder="Ciudad" />
+                <input type="text" id="filtCity" name="address.city" onChange={handleInput} value={filterData["address.city"]} maxLength="50" placeholder="Ciudad" />
 
                 {filterData["address.city"] ?
                     <div>
                         <label htmlFor="filtLocality">Localidad</label>
-                        <input type="text" id="filtLocality" name="address.locality" onChange={handleInput} value={filterData["address.locality"]} pattern="([a-zA-Z]*\s?){1,}" maxLength="50" placeholder="Localidad" />
+                        <input type="text" id="filtLocality" name="areaOfResponsibility" onChange={handleInput} value={filterData.areaOfResponsibility} maxLength="50" placeholder="Localidad" />
                     </div> :
                     <div></div>}
 

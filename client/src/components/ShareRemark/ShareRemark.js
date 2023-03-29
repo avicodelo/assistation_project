@@ -2,7 +2,7 @@
 import { useState } from "react"
 
 //Component imports
-import { URL_PROVIDER } from "../../settings/Settings";
+import { URL_REMARKS } from "../../settings/Settings";
 
 export default function ShareRemark({ setActivateArea, userID }) {
 
@@ -25,8 +25,8 @@ export default function ShareRemark({ setActivateArea, userID }) {
         return (e) => {
             e.preventDefault()
 
-            const putInfo = {
-                method: "PUT",
+            const postInfo = {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + accessToken
@@ -34,7 +34,7 @@ export default function ShareRemark({ setActivateArea, userID }) {
                 body: JSON.stringify(shareRemark)
             }
 
-            fetch(`${URL_PROVIDER}/setRemark/${userID}`, putInfo)
+            fetch(`${URL_REMARKS}/postRemark/${userID}`, postInfo)
                 .then(res => res.json())
                 .then((data) => console.log(data))
         }

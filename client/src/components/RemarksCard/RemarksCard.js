@@ -1,4 +1,6 @@
-//React imports
+
+//Component imports
+import { SERVER_HOST } from "../../settings/Settings";
 
 
 export default function RemarksCard({ remark }) {
@@ -6,7 +8,7 @@ export default function RemarksCard({ remark }) {
 
     return (
         <div>
-            < img src={remark.writer?.userImage} alt="Foto de usuario" />
+            < img src={SERVER_HOST + remark.writer?.userImage} alt="Foto de usuario" />
             <p>{remark.writer?.userName}</p>
             <p>{remark?.rate}</p>
             <p>{remark?.deployDate}</p>

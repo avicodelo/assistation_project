@@ -6,6 +6,9 @@ import style from "./ProviderCard.module.css";
 //React imports
 import { NavLink } from "react-router-dom";
 
+//Component imports
+import { SERVER_HOST } from "../../settings/Settings";
+
 export default function ProviderCard({ providerData }) {
 
   const { _id } = providerData
@@ -13,7 +16,7 @@ export default function ProviderCard({ providerData }) {
   return (
     <NavLink className={style.cardBody} to={`/userInfo/${_id}`} >
       <div className={style.cardPhoto}>
-        <img src={providerData.photo} alt="" />
+        <img src={SERVER_HOST + providerData.photo} alt="" />
       </div>
       <section className={style.cardInfo}>
         <h4 className={style.providerData}>{`${providerData.name} ${providerData.surname}`}</h4>

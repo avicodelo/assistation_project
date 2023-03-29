@@ -1,11 +1,17 @@
 //Const declarations
 const express = require("express");
-const verifyToken = require("../middlewares/auth");
-const bcrypt = require("bcrypt")
 const router = express.Router()
+const bcrypt = require("bcrypt")
+
+//Middles
+const verifyToken = require("../middlewares/auth");
+const multerUserAvatar = require("../middlewares/multerUserAvatar.js")
+
+
 
 const providerSchema = require("../models/provider");
 const customerSchema = require("../models/customer");
+
 
 
 router.get("/:userID", verifyToken, (req, res) => {
@@ -14,9 +20,10 @@ router.get("/:userID", verifyToken, (req, res) => {
     const payload = req.payload["userDB"]
     const schema = payload.role === "PROVIDER" ? providerSchema : customerSchema
     schema.findOne({ active: true, _id: id }).exec((err, data) => {
+
         if (err) {
             res.status(401).json({ ok: false, err })
-        } else if(id !== payload._id){
+        } else if (id !== payload._id) {
             res.status(401).json({ ok: false, message: "ID Manipulado" })
         } else {
             res.status(200).json({ ok: true, result: data, payload })
@@ -36,6 +43,32 @@ router.get("/public/:userID", verifyToken, (req, res) => {
     });
 })
 
+router.post("/uploadImage/:userID", multerUserAvatar, verifyToken, async (req, res) => {
+    const id = req.params.userID;
+    const payload = req.payload["userDB"];
+    const schema = payload.role === "PROVIDER" ? providerSchema : customerSchema
+    const avatarPhotoName = req.file.filename;
+  
+    schema.findByIdAndUpdate(
+        id,
+        { photo: avatarPhotoName },
+
+        {
+            new: true,
+            runValidators: true,
+        },
+
+        (err, updatedUser) => {
+            if (err) {
+                res.status(400).json({ ok: false, err })
+            } else {
+                res.status(200).json({ ok: true, updatedUser })
+            }
+        });
+
+   
+})
+
 router.put("/:userID", verifyToken, (req, res) => {
     const id = req.params.userID;
     const payload = req.payload["userDB"];
@@ -44,7 +77,7 @@ router.put("/:userID", verifyToken, (req, res) => {
 
     schema.findByIdAndUpdate(
         id,
-        body.password ? { password: bcrypt.hashSync(body.password, 10) } :  body ,
+        body.password ? { password: bcrypt.hashSync(body.password, 10) } : body,
 
         {
             new: true,

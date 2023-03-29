@@ -6,11 +6,14 @@ import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import ProviderCard from "../../components/ProviderCard/ProviderCard";
 import Filter from "../../components/Filter/Filter";
+import { URL_PROVIDER } from "../../settings/Settings";
 
 //React imports
-import { useState, useEffect, useReducer } from "react";
-import { URL_PROVIDER } from "../../settings/Settings";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+//Hook imports
+import {usePagination} from "../../Hooks/usePagination"
 
 
 
@@ -20,7 +23,7 @@ export default function ServicesSearcher() {
     const navigate = useNavigate();
     const initialFilterState = {
         "address.city": "",
-        "address.locality": "",
+        areaOfResponsibility: "",
         price: "",
         typeOfService: "",
         rates: ""
@@ -42,26 +45,8 @@ export default function ServicesSearcher() {
     const [dataArrayJoined, setDataArrayJoined] = useState(""); //Joins the thata introduced
     const [checkCustomer, setCheckCustomer] = useState(false)
     const [totalPages, setTotalPages] = useState(undefined)
+    const [handlePage, pageState] = usePagination(totalPages)
 
-    const reducer = (state, action) => {
-        if (action.type === "INCREASE") {
-            return { page: state.page + 1 }
-        } else if (action.type === "DECREASE") {
-            return { page: state.page - 1 }
-        } else {
-            return { page: 1 }
-        }
-    }
-
-    const [pageState, dispatch] = useReducer(reducer, { page: 1 })
-
-    const handlePage = (order) => {
-        if (order === "INCREASE" && pageState.page < totalPages) {
-            dispatch({ type: order })
-        } else if (order === "DECREASE" && pageState.page > 1) {
-            dispatch({ type: order })
-        }
-    }
     
     //Function: Prepares the info to query format and sends it to URL
     const modifyFilter = () => {
@@ -83,7 +68,7 @@ export default function ServicesSearcher() {
             } else {
                 setOrderSelector(`&order=${e.target.value}`)
             }
-            dispatch({ type: "RESET" })
+            handlePage()
             window.scroll(0, 0);
         }
 

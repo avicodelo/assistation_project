@@ -8,12 +8,12 @@ const validRoles = {
     messages: "{VALUE} is not a valid role"
 }
 
+
 //Schema definition
 const providerSchema = new Schema({
     photo: {
         type: String,
-        required: [true, "Imagen requerida"],
-        default: "../../images/vu-anh-TiVPTYCG_3E-unsplash.jpg"
+        default: "blank-profile.png"
     },
 
     name: {
@@ -94,10 +94,7 @@ const providerSchema = new Schema({
         required: [true, "Necesitamos saber el tipo de servicio que vas a prestar"],
     },
 
-    areaOfResponsibility: {
-        type: Array,
-        default: []
-    },
+    areaOfResponsibility: [String],
 
     price: {
         type: Number
@@ -108,48 +105,11 @@ const providerSchema = new Schema({
         default: "Descríbete, seguro que a la gente le encantará conocerte mejor"
     },
 
-    rates: {
-        type: [Number]
-    },
+    rates: [Number],
 
     avgRate:{
         type: Number
     },
-
-    remarks: [{
-        writer: {
-            userImage: {
-                type: String /*Añadir un getter (ver documentación: https://mongoosejs.com/docs/schematypes.html#arrays) */
-            },
-            userName: {
-                type: String
-            },
-            userId: {
-                type: String
-            }
-        },
-
-        rate: {
-            type: Number,
-            required: "¿Qué puntuación le das?"
-        },
-
-        title: {
-            type: String,
-            required: "Pon un título a tu opinión"
-        },
-
-        mainBody: {
-            type: String,
-            required: "Necesitamos tu opinión"
-        },
-
-        deployDate: {
-            type: Date,
-            default: new Date()
-        }
-
-    }],
 
     role: {
         type: String,

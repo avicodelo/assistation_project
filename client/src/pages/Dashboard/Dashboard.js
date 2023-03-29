@@ -39,10 +39,10 @@ export default function Dashboard() {
       } else if (pageRequired === "security") {
         return <UserSecurity />
 
-      } else if (pageRequired === "service") {
-        return <UserService userData={userData}/>
+      } else if (pageRequired === "service" && userData.role === "PROVIDER") {
+        return <UserService/>
 
-      } else if (pageRequired === "remarks") {
+      } else if (pageRequired === "remarks" && userData.role === "PROVIDER") {
         return <UserRemarks />
 
       } else if (pageRequired === "deleteUser") {
@@ -62,7 +62,7 @@ export default function Dashboard() {
             <NavLink to={`${userID}/address`}><h3>Dirección</h3></NavLink>
             <NavLink to={`${userID}/security`}><h3>Seguridad</h3></NavLink>
             <NavLink to={`${userID}/service`} className={userData.role === "PROVIDER" ? style.showService : style.hide}><h3>Servicio</h3></NavLink>
-            <NavLink to={`${userID}/remarks`}><h3>Reseñas</h3></NavLink>
+            <NavLink to={`${userID}/remarks`} className={userData.role === "PROVIDER" ? style.showService : style.hide}><h3>Reseñas</h3></NavLink>
             <NavLink to={`${userID}/deleteUser`}><h3>Eliminar usuario</h3></NavLink>
 
           </aside>

@@ -7,12 +7,13 @@ import { useState, useEffect } from "react"
 //Component imports
 import RemarksCard from "../../components/RemarksCard/RemarksCard";
 import ShareRemark from "../../components/ShareRemark/ShareRemark";
-import { URL_DASHBOARD } from "../../settings/Settings";
+import { URL_DASHBOARD, URL_REMARKS } from "../../settings/Settings";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 
 //Hooks imports
 import { useFetchUserData } from "../../Hooks/useFetchUserData"
+import { usePagination } from "../../Hooks/usePagination"
 
 
 export default function UserPublicPresentation() {
@@ -20,13 +21,21 @@ export default function UserPublicPresentation() {
     const [userData, userID] = useFetchUserData(`${URL_DASHBOARD}public/`)
     const [remarks, setRemarks] = useState([])
     const [activateArea, setActivateArea] = useState(false)
+    const [totalPages, setTotalPages] = useState(undefined)
+    const [handlePage, pageState] = usePagination(totalPages)
 
 
     useEffect(() => {
-        userData.remarks && userData.remarks.length > 0 ?
-            setRemarks(userData.remarks) :
-            setRemarks(undefined)
-    }, [userData.remarks])
+        fetch(`${URL_REMARKS}/getRemarks/${userID}?page=${pageState.page}`)
+            .then(res => res.json())
+            .then(({ totalPages, results }) => {
+                console.log(results, totalPages);
+                setTotalPages(totalPages);
+                results && results.length > 0 ?
+                    setRemarks(results) :
+                    setRemarks(undefined)
+            })
+    }, [pageState.page])
 
     return (
 
@@ -58,12 +67,21 @@ export default function UserPublicPresentation() {
                 {!activateArea ?
 
                     (remarks ?
+                        <div>
+                            {
+                                remarks.map((remark, index) => {
+                                    return (
+                                        <RemarksCard key={remark.title + index} remark={remark} />
+                                    )
+                                })
+                            }
+                            <div>
+                                <button onClick={() => { handlePage("DECREASE") }}>&larr;</button>
+                                <p>{pageState.page + "/" + totalPages}</p>
+                                <button onClick={() => { handlePage("INCREASE") }}>&rarr;</button>
+                            </div>
 
-                        remarks.map((remark, index) => {
-                            return (
-                                <RemarksCard key={remark.title + index} remark={remark} />
-                            )
-                        }) :
+                        </div> :
                         <h2>Todavía no hay opiniones, ¡Anímate a dar la tuya!</h2>
                     ) :
 

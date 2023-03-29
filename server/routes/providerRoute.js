@@ -29,6 +29,7 @@ router.post("/", (req, res) => {
             postalCode,
             country
         },
+        areaOfResponsibility: areaOfResponsibility.push(locality),
         typeOfService
     });
 
@@ -104,42 +105,6 @@ router.get("/", verifyToken, async (req, res) => {
             res.status(200).json({ ok: true, totalPages, results: showProviders, payload });
         }
     })
-})
-
-//PUT to modify remarks and check that user is only customer (only customers write remarks to providers)
-router.put("/setRemark/:userID", verifyToken, (req, res) => {
-    const id = req.params.userID;
-    const payload = req.payload["userDB"];
-    let body = req.body;
-
-    if (payload.role === "CUSTOMER") {
-        body = {
-            ...body,
-            writer: {
-                userImage: payload.photo,
-                userName: payload.name + " " + payload.surname,
-                userId: payload._id
-            }
-        }
-        providerSchema.findByIdAndUpdate(
-            id,
-            { $push: { remarks: body, rates: body.rate } },
-
-            {
-                new: true,
-                runValidators: true,
-            },
-
-            (err, updatedUser) => {
-                if (err) {
-                    res.status(400).json({ ok: false, err })
-                } else {
-                    res.status(200).json({ ok: true, updatedUser })
-                }
-            });
-    } else {
-        res.status(400).json({ ok: false, message: "Es necesario haber contratado el servicio para escribir un comentario" })
-    }
 })
 
 module.exports = router

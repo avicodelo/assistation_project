@@ -1,8 +1,6 @@
 Prioridad 1:
-    paginación providers y comentarios
     Introducir edición de foto de usuario (UserPersonalInfo)  
     Check ChatApi y usarla en la web (servicio de chat)
-establecer en el buscador que busque en zona de responsabilidad
 
 Prioridad 2: 
     Gestión de errores y páginas/componentes a mostrar en esos errores
@@ -13,6 +11,12 @@ Prioridad 2:
 Prioridad 3:
     Comprobar Api de calendario
     Introducir mapa (leaflet)
+    Ajustes menores {
+        publicPresention: {
+            incluir areaOfResponsibility (visible a los usuarios)
+            crear una para los customers
+            }
+        }
     Ver vídeos que faltan del curso FullStack
 
 
@@ -26,3 +30,6 @@ Cumplido:
     Gestionar filtros: filtrar por ciudad y luego por Localidad
     Edición de precio de servicio (si no tiene precio que no salga en búsqueda)
     En PROVIDER: establecer área de trabajo   
+    paginación providers y comentarios. Ajustar Rates de los providers
+    establecer en el buscador que busque en zona de responsabilidad
+

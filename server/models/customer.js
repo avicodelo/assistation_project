@@ -12,8 +12,7 @@ const validRoles = {
 const customerSchema = new Schema({
     photo: {
         type: String,
-        required: [true, "Imagen requerida"],
-        default: "./images/vu-anh-TiVPTYCG_3E-unsplash.jpg"
+        default: "blank-profile.png"
     },
 
     name: {
