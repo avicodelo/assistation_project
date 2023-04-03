@@ -15,12 +15,11 @@ function useFetchUserData(URL) {
         },
     }
 
-
     //Fetch info
     useEffect(() => {
         fetch(URL + userID, setGetHeader)
             .then(res => res.json())
-            .then(({ ok, result, message, payload }) => {
+            .then(({ ok, result, message }) => {
                 if (!ok && message === "Token inválido") {
                     setTokenValid(false)
                     localStorage.removeItem("accesstoken")
@@ -33,8 +32,10 @@ function useFetchUserData(URL) {
                     setUserData(result);
                 }
             })
+        
 
     }, [userID])
+
 
     return [userData, userID, tokenValid]
 }

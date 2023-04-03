@@ -1,12 +1,12 @@
 Prioridad 1:
-    Introducir edición de foto de usuario (UserPersonalInfo)  
     Check ChatApi y usarla en la web (servicio de chat)
-
-Prioridad 2: 
     Gestión de errores y páginas/componentes a mostrar en esos errores
     Establecer flujo de correos en "contraseña olvidada"
     Retocar CSS en general
     Responsive
+
+Prioridad 2: 
+    Ver vídeos que faltan del curso FullStack
 
 Prioridad 3:
     Comprobar Api de calendario
@@ -17,7 +17,6 @@ Prioridad 3:
             crear una para los customers
             }
         }
-    Ver vídeos que faltan del curso FullStack
 
 
 Cumplido:
@@ -32,4 +31,5 @@ Cumplido:
     En PROVIDER: establecer área de trabajo   
     paginación providers y comentarios. Ajustar Rates de los providers
     establecer en el buscador que busque en zona de responsabilidad
+    Introducir edición de foto de usuario (UserPersonalInfo) 
 

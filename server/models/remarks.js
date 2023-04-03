@@ -8,15 +8,8 @@ const remarksSchema = new Schema({
     },
 
     writer: {
-        userImage: {
-            type: String /*Añadir un getter (ver documentación: https://mongoosejs.com/docs/schematypes.html#arrays) */
-        },
-        userName: {
-            type: String
-        },
-        writerId: {
-            type: String
-        }
+        type: Schema.Types.ObjectId,
+        ref: "Customer"
     },
 
     rate: {

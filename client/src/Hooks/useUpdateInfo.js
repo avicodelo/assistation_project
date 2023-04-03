@@ -16,7 +16,7 @@ function useUpdateInfo(initialState, userData) {
     useEffect(() => {
         setDataUpdated(initialState)
         setUserDataUpdated(userData)
-    }, [initialState.areaOfResponsibility, userData.address])
+    }, [initialState.areaOfResponsibility, userData.address, userData.photo])
 
     const handleInput = (e) => {
         if (e.target.name === "address.postalCode") {

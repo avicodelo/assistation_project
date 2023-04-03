@@ -10,6 +10,7 @@ import UserPublicPresentation from "../pages/UserPublicPresentation/UserPublicPr
 
 //React imports
 import { Route, Routes } from "react-router-dom";
+import ChatManager from "../pages/ChatManager/ChatManager";
 
 
 export default function Router() {
@@ -33,8 +34,8 @@ export default function Router() {
             <Route path=":pageRequired" element={<Dashboard />} />
           </Route>
         </Route>
-        <Route path="/userInfo/:userID" element={<UserPublicPresentation />} >
-        </Route>
+        <Route path="/userInfo/:userID" element={<UserPublicPresentation />} />
+        <Route path="/chatManager" element={<ChatManager />} />
         <Route path="*" element={<h1>Error 404: La página no existe</h1>} />
       </Routes>
 

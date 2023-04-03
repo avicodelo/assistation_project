@@ -14,7 +14,7 @@ export default function UserMenu({ userID, menuActive }) {
     <div className={menuActive ? style.userMenuMain : style.hideItem}>
 
       <NavLink className={style.menuItem} to={`/dashboard/${userID}`}> Panel de control </NavLink>
-      <NavLink className={style.menuItem} to={`/dashboard/${userID}/messages`}> Mensajes </NavLink>
+      <NavLink className={style.menuItem} to={`/chatManager`}> Mensajes </NavLink>
       <NavLink className={style.menuItem} to="/login/" onClick={logout}> Cerrar sesión</NavLink>
 
     </div>

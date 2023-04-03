@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router();
 const providerSchema = require("../models/provider")
+const customerSchema = require("../models/customer")
 const remarksSchema = require("../models/remarks")
 const verifyToken = require("../middlewares/auth")
 
@@ -14,22 +15,22 @@ router.get("/getRemarks/:userID", async (req, res) => {
     const totalPages = Math.ceil(totalEntries / PAGE_SIZE);
     const pageSelected = page || 1;
 
-    remarksSchema.aggregate([
-        {
-            $match: {
-                userId: id
-            },
-        },
-        { $skip: (pageSelected - 1) * PAGE_SIZE },
-        { $limit: PAGE_SIZE }
-
-    ]).exec((err, remarks) => {
-        if (err) {
-            res.status(400).json({ ok: false, message: err })
-        } else {
-            res.status(200).json({ ok: true, totalPages, results: remarks })
-        }
-    })
+    remarksSchema.find({ userId: id })
+        .skip((pageSelected - 1) * PAGE_SIZE)
+        .limit(PAGE_SIZE)
+        .populate("writer", {
+            photo: 1,
+            name: 1,
+            surname: 1,
+            "address.city": 1
+        })
+        .exec((err, remarks) => {
+            if (err) {
+                res.status(400).json({ ok: false, message: err })
+            } else {
+                res.status(200).json({ ok: true, totalPages, results: remarks })
+            }
+        })
 })
 
 
@@ -43,24 +44,25 @@ router.post("/postRemark/:userID", verifyToken, async (req, res) => {
 
         const remark = new remarksSchema({
             userId: id,
-            writer: {
-                userImage: payload.photo,
-                userName: payload.name + " " + payload.surname,
-                writerId: payload._id
-            },
+            writer: payload._id,
             rate: body.rate,
             title: body.title,
             mainBody: body.mainBody,
 
         })
         const provider = await providerSchema.findOne({ _id: id })
+        const customer= await customerSchema.findOne({_id: payload._id })
 
         remark.save(async (err, remarkSaved) => {
             if (err) {
                 res.status(400).json({ ok: false, message: err })
             } else {
                 provider.rates = provider.rates.concat(remarkSaved.rate)
-                await provider.save()
+                provider.remarks = provider.remarks.concat(remarkSaved._id)
+
+                customer.writenRemarks = customer.writenRemarks.concat(remarkSaved._id)
+
+                await provider.save(); await customer.save()
                 res.status(200).json({ ok: true, remarkSaved })
             }
         })

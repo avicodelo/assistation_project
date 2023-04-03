@@ -40,7 +40,7 @@ export default function UserPersonalInfo() {
     return () => {
       if (fileUploaded) {
         const formData = new FormData();
-        formData.append("avatar", fileUploaded)
+        formData.append("avatarImage", fileUploaded)
 
         const postData = {
           method: "POST",
@@ -52,7 +52,9 @@ export default function UserPersonalInfo() {
 
         fetch(`${URL_DASHBOARD}/uploadImage/${userData?._id}`, postData)
           .then(res => res.json)
-          .then(window.location.reload())
+          .then(fetch(SERVER_HOST + userData.photo)
+            .then(res => res.json)
+            .then(setActivateInputFile(false)))
           .catch(err => console.log(err))
       }
     }

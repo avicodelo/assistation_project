@@ -36,7 +36,8 @@ export default function ShareRemark({ setActivateArea, userID }) {
 
             fetch(`${URL_REMARKS}/postRemark/${userID}`, postInfo)
                 .then(res => res.json())
-                .then((data) => console.log(data))
+                .then(setActivateArea(false))
+                .catch(err=>console.log(err))
         }
     }
 

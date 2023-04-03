@@ -3,11 +3,12 @@
 
 //React imports
 import { useState, useEffect } from "react"
+import {NavLink} from "react-router-dom"
 
 //Component imports
 import RemarksCard from "../../components/RemarksCard/RemarksCard";
 import ShareRemark from "../../components/ShareRemark/ShareRemark";
-import { URL_DASHBOARD, URL_REMARKS } from "../../settings/Settings";
+import { SERVER_HOST, URL_DASHBOARD, URL_REMARKS } from "../../settings/Settings";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 
@@ -23,6 +24,7 @@ export default function UserPublicPresentation() {
     const [activateArea, setActivateArea] = useState(false)
     const [totalPages, setTotalPages] = useState(undefined)
     const [handlePage, pageState] = usePagination(totalPages)
+    const userSesionID = localStorage.getItem("userID")
 
 
     useEffect(() => {
@@ -35,7 +37,7 @@ export default function UserPublicPresentation() {
                     setRemarks(results) :
                     setRemarks(undefined)
             })
-    }, [pageState.page])
+    }, [pageState.page, activateArea])
 
     return (
 
@@ -43,7 +45,8 @@ export default function UserPublicPresentation() {
             <Navbar />
 
             <div>
-                <p>{userData?.photo}</p>
+                <img src={SERVER_HOST + userData?.photo} alt="" width="100" />
+                <button><NavLink to={`chatManager/${userSesionID}`}>Enviar mensaje</NavLink> </button>
                 <p>{userData?.name}</p>
                 <p>{userData?.surname}</p>
                 <p>{userData.dateOfBirth && parseInt((Date.now() - (new Date(userData.dateOfBirth)).getTime()) / (1000 * 3600 * 24 * 365))}</p>

@@ -5,13 +5,10 @@ const bcrypt = require("bcrypt")
 
 //Middles
 const verifyToken = require("../middlewares/auth");
-const multerUserAvatar = require("../middlewares/multerUserAvatar.js")
-
-
+const sharpUserAvatar = require("../middlewares/sharpUserAvatar.js")
 
 const providerSchema = require("../models/provider");
 const customerSchema = require("../models/customer");
-
 
 
 router.get("/:userID", verifyToken, (req, res) => {
@@ -34,7 +31,7 @@ router.get("/:userID", verifyToken, (req, res) => {
 router.get("/public/:userID", verifyToken, (req, res) => {
     const id = req.params.userID;
 
-    providerSchema.findOne({ active: true, _id: id }).exec((err, showProvider) => {
+    providerSchema.findOne({ active: true, _id: id }).populate("remarks").exec((err, showProvider) => {
         if (err) {
             res.status(400).json({ ok: false, err });
         } else {
@@ -43,15 +40,15 @@ router.get("/public/:userID", verifyToken, (req, res) => {
     });
 })
 
-router.post("/uploadImage/:userID", multerUserAvatar, verifyToken, async (req, res) => {
+router.post("/uploadImage/:userID", sharpUserAvatar, verifyToken, async (req, res) => {
     const id = req.params.userID;
     const payload = req.payload["userDB"];
     const schema = payload.role === "PROVIDER" ? providerSchema : customerSchema
-    const avatarPhotoName = req.file.filename;
-  
+    const imageName = req.imageName
+
     schema.findByIdAndUpdate(
         id,
-        { photo: avatarPhotoName },
+        { photo: imageName },
 
         {
             new: true,
@@ -66,7 +63,6 @@ router.post("/uploadImage/:userID", multerUserAvatar, verifyToken, async (req, r
             }
         });
 
-   
 })
 
 router.put("/:userID", verifyToken, (req, res) => {

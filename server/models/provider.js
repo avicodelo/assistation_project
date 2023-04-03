@@ -107,6 +107,11 @@ const providerSchema = new Schema({
 
     rates: [Number],
 
+    remarks:[{
+        type: Schema.Types.ObjectId,
+        ref: "Remarks"
+    }],
+
     avgRate:{
         type: Number
     },
@@ -122,18 +127,10 @@ const providerSchema = new Schema({
         default: true
     },
 
-    chat: {
-        active: {
-            type: Boolean
-        },
-
-        message: {
-            type: String
-        },
-        lastMessage: {
-            type: Date
-        }
-    }
+    chats: [{
+        type: Schema.Types.ObjectId,
+        ref: "Chats"
+    }]
 })
 
 providerSchema.methods.toJSON = function () {

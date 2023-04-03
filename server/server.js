@@ -6,6 +6,7 @@ const app = express();
 const cors = require("cors");
 const path=require("path")
 const mongoose = require("mongoose");
+const fileUpload = require("express-fileupload")
 
 //mongoose config
 mongoose.set("strictQuery", false);
@@ -19,6 +20,7 @@ db.once("open", () => console.log("Successful DB connection"));
 //Middlewares
 app.use(express.json());
 app.use(cors({origin: "http://localhost:3000", credentials:true}))
+app.use(fileUpload())
 
 //Endpoints config
 
@@ -42,6 +44,9 @@ app.use("/dashboard", Dashboard);
 
 const Remarks = require("./routes/remarksRoute");
 app.use("/remarks", Remarks)
+
+const Chats = require("./routes/chatsRoute");
+app.use("/chats", Chats)
 
 app.use(express.static(path.join(__dirname, "assets/images")))
 

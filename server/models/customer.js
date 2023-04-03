@@ -93,9 +93,10 @@ const customerSchema = new Schema({
         type: Number,
     },
 
-    remarks: {
-        type: String,
-    },
+    writenRemarks: [{
+        type: Schema.Types.ObjectId,
+        ref: "Remarks"
+    }],
 
     role: {
         type: String,
@@ -108,18 +109,10 @@ const customerSchema = new Schema({
         default: true
     },
 
-    chat: {
-        active: {
-            type: Boolean
-        },
-
-        message: {
-            type: String
-        },
-        lastMessage: {
-            type: Date
-        }
-    }
+    chats:[{
+        type: Schema.Types.ObjectId,
+        ref: "Chats"
+    }]
 
 
 })
