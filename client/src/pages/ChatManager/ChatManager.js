@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import ChatCard from "../../components/ChatCard/ChatCard"
+import ChatWriter from "../../components/ChatWriter/ChatWriter"
 import Navbar from "../../components/Navbar/Navbar"
 
 import { URL_CHATS } from "../../settings/Settings"
@@ -7,6 +8,7 @@ import { URL_CHATS } from "../../settings/Settings"
 export default function ChatManager() {
 
     const [chatList, setChatList] = useState([])
+    const [chatID, setChatID] = useState("")
 
 
     useEffect(() => {
@@ -23,20 +25,25 @@ export default function ChatManager() {
             .then(chats => setChatList(chats.chatList))
     }, [])
 
-    console.log(chatList)
+
+    const goToChat = (id) => {
+        setChatID(id)
+    }
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             {
                 chatList.map(({ participants, messages, _id }) => {
 
                     return (
-                        <div>
-                        <ChatCard key={_id} _id={_id} participants={participants} messages={messages}/>
+                        <div key={_id} onClick={() => goToChat(_id)}>
+                            <ChatCard participants={participants} messages={messages}
+                            />
                         </div>
                     )
                 })
             }
+            <ChatWriter chatID={chatID} />
         </div>
     )
 }

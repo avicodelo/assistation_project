@@ -33,12 +33,12 @@ router.get("/", verifyToken, async (req, res, next) => {
 })
 
 router.get("/chatroom", verifyToken, async (req, res, next) => {
-    
+
     const chatID = req.query.chatroom
 
 
     try {
-        const chatroom = await chatSchema.findOne({_id : chatID})
+        const chatroom = await chatSchema.findOne({ _id: chatID })
         res.json({ ok: true, chatroom })
     }
     catch (error) {
@@ -69,6 +69,10 @@ router.post("/", verifyToken, async (req, res, next) => {
         [receiverRole]: receiverID
     }
 
+    //Verify if there is any chat active between customer and provider
+    /*  const chatExist = provider.chats.map(chat=> customer.chats.includes(chat)).includes(true) */
+    const chatExist = provider.chats.find(chatProv => customer.chats.includes(chatProv))
+    console.log(chatExist);
     if (chatID) {
         const chatActivated = await chatSchema.findById(chatID)
         chatActivated.messages = chatActivated.messages.concat(messageSended)
@@ -80,17 +84,22 @@ router.post("/", verifyToken, async (req, res, next) => {
             next(error)
         }
 
+    } else if (chatExist) {
+        try {
+            res.status(200).json({chatExist: chatExist})
+        }
+        catch (error) {
+            next(error)
+        }
+
     } else {
         const newChat = new chatSchema({
-            participants: { ...participants },
-            messages: {
-                ...messageSended
-            }
+            participants: { ...participants }
         })
 
 
         try {
-            const createChat = await newChat.save()
+            await newChat.save()
             customer.chats = customer.chats.concat(newChat._id)
             provider.chats = provider.chats.concat(newChat._id)
             await customer.save(); await provider.save()

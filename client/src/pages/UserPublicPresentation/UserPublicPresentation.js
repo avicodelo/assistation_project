@@ -3,12 +3,12 @@
 
 //React imports
 import { useState, useEffect } from "react"
-import {NavLink} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 //Component imports
 import RemarksCard from "../../components/RemarksCard/RemarksCard";
 import ShareRemark from "../../components/ShareRemark/ShareRemark";
-import { SERVER_HOST, URL_DASHBOARD, URL_REMARKS } from "../../settings/Settings";
+import { SERVER_HOST, URL_DASHBOARD, URL_REMARKS, URL_CHATS } from "../../settings/Settings";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 
@@ -19,13 +19,13 @@ import { usePagination } from "../../Hooks/usePagination"
 
 export default function UserPublicPresentation() {
 
+    const navigate = useNavigate()
     const [userData, userID] = useFetchUserData(`${URL_DASHBOARD}public/`)
     const [remarks, setRemarks] = useState([])
     const [activateArea, setActivateArea] = useState(false)
     const [totalPages, setTotalPages] = useState(undefined)
     const [handlePage, pageState] = usePagination(totalPages)
-    const userSesionID = localStorage.getItem("userID")
-
+    const accessToken = localStorage.getItem("accesstoken")
 
     useEffect(() => {
         fetch(`${URL_REMARKS}/getRemarks/${userID}?page=${pageState.page}`)
@@ -39,6 +39,25 @@ export default function UserPublicPresentation() {
             })
     }, [pageState.page, activateArea])
 
+    const openChat = () => {
+        return () => {
+            const postInfo = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + accessToken
+                },
+                body: JSON.stringify()
+            }
+
+            fetch(`${URL_CHATS}?sendTo=${userID}`, postInfo)
+                .then(res => res.json)
+                .then(
+                    navigate("/chatManager")
+                )
+        }
+    }
+
     return (
 
         <div>
@@ -46,7 +65,7 @@ export default function UserPublicPresentation() {
 
             <div>
                 <img src={SERVER_HOST + userData?.photo} alt="" width="100" />
-                <button><NavLink to={`chatManager/${userSesionID}`}>Enviar mensaje</NavLink> </button>
+                <button onClick={openChat()}>Enviar mensaje</button>
                 <p>{userData?.name}</p>
                 <p>{userData?.surname}</p>
                 <p>{userData.dateOfBirth && parseInt((Date.now() - (new Date(userData.dateOfBirth)).getTime()) / (1000 * 3600 * 24 * 365))}</p>
