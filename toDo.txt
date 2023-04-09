@@ -1,5 +1,4 @@
-Prioridad 1:
-    Check ChatApi y usarla en la web (servicio de chat)
+Prioridad 1:  
     Gestión de errores y páginas/componentes a mostrar en esos errores
     Establecer flujo de correos en "contraseña olvidada"
     Retocar CSS en general
@@ -32,4 +31,5 @@ Cumplido:
     paginación providers y comentarios. Ajustar Rates de los providers
     establecer en el buscador que busque en zona de responsabilidad
     Introducir edición de foto de usuario (UserPersonalInfo) 
+    Check ChatApi y usarla en la web (servicio de chat)
 

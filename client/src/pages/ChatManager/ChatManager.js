@@ -7,9 +7,9 @@ import { URL_CHATS } from "../../settings/Settings"
 
 export default function ChatManager() {
 
+    const urlQuery = new URLSearchParams(window.location.search)
     const [chatList, setChatList] = useState([])
-    const [chatID, setChatID] = useState("")
-
+    const [chatID, setChatID] = useState(urlQuery.has("chat") ? urlQuery.get("chat") : null)
 
     useEffect(() => {
         const accessToken = localStorage.getItem("accesstoken")
@@ -18,11 +18,14 @@ export default function ChatManager() {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + accessToken
-            },
+            }
         }
         fetch(URL_CHATS, setGetHeader)
             .then(res => res.json())
-            .then(chats => setChatList(chats.chatList))
+            .then(chats => {
+                window.history.replaceState({}, "", window.location.pathname);
+                setChatList(chats.chatList)
+            })
     }, [])
 
 

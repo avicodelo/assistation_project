@@ -31,7 +31,6 @@ export default function UserPublicPresentation() {
         fetch(`${URL_REMARKS}/getRemarks/${userID}?page=${pageState.page}`)
             .then(res => res.json())
             .then(({ totalPages, results }) => {
-                console.log(results, totalPages);
                 setTotalPages(totalPages);
                 results && results.length > 0 ?
                     setRemarks(results) :
@@ -51,9 +50,10 @@ export default function UserPublicPresentation() {
             }
 
             fetch(`${URL_CHATS}?sendTo=${userID}`, postInfo)
-                .then(res => res.json)
-                .then(
-                    navigate("/chatManager")
+                .then(res => res.json())
+                .then( ({chatExist, newChatID}) => {
+                    navigate(`/chatManager?chat=${chatExist || newChatID}`)
+                }
                 )
         }
     }

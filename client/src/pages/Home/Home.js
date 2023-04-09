@@ -12,6 +12,7 @@ import Footer from "../../components/Footer/Footer";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Home() {
+  //Starting always at top
   window.scroll(0,0);
 
   //Const sets

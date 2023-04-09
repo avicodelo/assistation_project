@@ -35,11 +35,17 @@ router.get("/", verifyToken, async (req, res, next) => {
 router.get("/chatroom", verifyToken, async (req, res, next) => {
 
     const chatID = req.query.chatroom
+    const payload = req.payload["userDB"]
 
 
     try {
         const chatroom = await chatSchema.findOne({ _id: chatID })
-        res.json({ ok: true, chatroom })
+        //Check if user is a chat's participant
+        if (JSON.stringify(Object.values(chatroom.participants)).includes(payload._id)) {
+            res.json({ ok: true,  chekID: payload._id, chatroom })
+        } else {
+            res.status(400).json({ ok: false, err: "No participas en este chat" })
+        }
     }
     catch (error) {
         next(error)
@@ -70,15 +76,14 @@ router.post("/", verifyToken, async (req, res, next) => {
     }
 
     //Verify if there is any chat active between customer and provider
-    /*  const chatExist = provider.chats.map(chat=> customer.chats.includes(chat)).includes(true) */
     const chatExist = provider.chats.find(chatProv => customer.chats.includes(chatProv))
-    console.log(chatExist);
+
     if (chatID) {
         const chatActivated = await chatSchema.findById(chatID)
         chatActivated.messages = chatActivated.messages.concat(messageSended)
         try {
             await chatActivated.save()
-            res.json({ chatActivated })
+            res.json({ chatActivated: chatActivated })
         }
         catch (error) {
             next(error)
@@ -86,7 +91,8 @@ router.post("/", verifyToken, async (req, res, next) => {
 
     } else if (chatExist) {
         try {
-            res.status(200).json({chatExist: chatExist})
+            console.log(chatExist);
+            res.status(200).json({ ok: true, chatExist: chatExist })
         }
         catch (error) {
             next(error)
@@ -104,7 +110,7 @@ router.post("/", verifyToken, async (req, res, next) => {
             provider.chats = provider.chats.concat(newChat._id)
             await customer.save(); await provider.save()
 
-            res.json({ text: "sended" })
+            res.json({ newChatID: newChat._id })
         }
 
         catch (error) {
