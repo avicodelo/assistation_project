@@ -9,7 +9,7 @@ const sharpUserAvatar = async (req, res, next) => {
     const imageName = `${id}.png`
 
     if (!MIMETYPES.includes(avatarImage.mimetype)) {
-        res.status(400).json({ ok: false, message: "Es necesario enviar una imagen" })
+        res.status(400).json({ ok: false, error: "Es necesario enviar una imagen" })
     }
 
     await sharp(avatarImage.data)
@@ -17,7 +17,7 @@ const sharpUserAvatar = async (req, res, next) => {
         .png()
         .toFile(path.join(__dirname, `../assets/images/${imageName}`), (err, info) => {
             if (err) {
-                res.status(400).json({ ok: false, message: "Ha habido un problema al cargar la imagen" })
+                res.status(400).json({ ok: false, error: "Ha habido un problema al cargar la imagen" })
             } else {
                 req.imageName = imageName
                 next()

@@ -1,6 +1,5 @@
 const nodemailer = require("nodemailer");
 
-
 const mailer = (req, _res, next) => {
     const body = req.body;
     // Create a SMTP transporter object

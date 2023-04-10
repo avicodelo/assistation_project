@@ -1,11 +1,15 @@
-const express = require("express")
-const router = express.Router();
+//Const declarations, collection "remarks"
+const router = require("express").Router();
+
+//Schemas
 const providerSchema = require("../models/provider")
 const customerSchema = require("../models/customer")
 const remarksSchema = require("../models/remarks")
+
+//Middles
 const verifyToken = require("../middlewares/auth")
 
-
+//Get user remarks
 router.get("/getRemarks/:userID", async (req, res) => {
     const id = req.params.userID
     const { page } = req.query
@@ -24,9 +28,9 @@ router.get("/getRemarks/:userID", async (req, res) => {
             surname: 1,
             "address.city": 1
         })
-        .exec((err, remarks) => {
-            if (err) {
-                res.status(400).json({ ok: false, message: err })
+        .exec((error, remarks) => {
+            if (error) {
+                res.status(400).json({ ok: false, error })
             } else {
                 res.status(200).json({ ok: true, totalPages, results: remarks })
             }
@@ -34,14 +38,14 @@ router.get("/getRemarks/:userID", async (req, res) => {
 })
 
 
-//PUT to modify remarks and check that user is only customer (only customers write remarks to providers)
+//Post a remark 
 router.post("/postRemark/:userID", verifyToken, async (req, res) => {
     const id = req.params.userID;
     const payload = req.payload["userDB"];
     let body = req.body;
 
+    //check that user is only customer (only customers write remarks to providers)
     if (payload.role === "CUSTOMER") {
-
         const remark = new remarksSchema({
             userId: id,
             writer: payload._id,
@@ -53,9 +57,9 @@ router.post("/postRemark/:userID", verifyToken, async (req, res) => {
         const provider = await providerSchema.findOne({ _id: id })
         const customer= await customerSchema.findOne({_id: payload._id })
 
-        remark.save(async (err, remarkSaved) => {
-            if (err) {
-                res.status(400).json({ ok: false, message: err })
+        remark.save(async (error, remarkSaved) => {
+            if (error) {
+                res.status(400).json({ ok: false, error })
             } else {
                 provider.rates = provider.rates.concat(remarkSaved.rate)
                 provider.remarks = provider.remarks.concat(remarkSaved._id)
@@ -67,8 +71,11 @@ router.post("/postRemark/:userID", verifyToken, async (req, res) => {
             }
         })
 
-    } else {
-        res.status(400).json({ ok: false, message: "Es necesario haber contratado el servicio para escribir un comentario" })
+    } 
+    //It is needed use the service in order to set a remark
+    else {
+        /*IMPLEMENTAR CHECK DE QUE EL SERVICIO HA SIDO CONTRATADO */
+        res.status(400).json({ ok: false, error: "Es necesario haber contratado el servicio para escribir un comentario" })
     }
 
 })

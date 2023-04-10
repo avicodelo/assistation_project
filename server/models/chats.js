@@ -15,27 +15,14 @@ const chatSchema = new Schema({
     },
     messages: [{
         sender: {
-            provider: {
-                type: Schema.Types.ObjectId,
-                ref: "Provider"
-            },
-            customer: {
-                type: Schema.Types.ObjectId,
-                ref: "Customer"
-            },
+            type: String
         },
         receiver: {
-            provider: {
-                type: Schema.Types.ObjectId,
-                ref: "Provider"
-            },
-            customer: {
-                type: Schema.Types.ObjectId,
-                ref: "Customer"
-            },
+            type: String
         },
         text: {
-            type: String
+            type: String,
+            required: [true, "Necesitas añadir un mensaje"]
         },
         read: {
             type: Boolean,

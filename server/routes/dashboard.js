@@ -1,45 +1,46 @@
 //Const declarations
-const express = require("express");
-const router = express.Router()
+const router = require("express").Router();
 const bcrypt = require("bcrypt")
+
+//Schemas
+const providerSchema = require("../models/provider");
+const customerSchema = require("../models/customer");
 
 //Middles
 const verifyToken = require("../middlewares/auth");
 const sharpUserAvatar = require("../middlewares/sharpUserAvatar.js")
 
-const providerSchema = require("../models/provider");
-const customerSchema = require("../models/customer");
-
-
+//Get user Data using ID
 router.get("/:userID", verifyToken, (req, res) => {
-
     const id = req.params.userID;
     const payload = req.payload["userDB"]
     const schema = payload.role === "PROVIDER" ? providerSchema : customerSchema
-    schema.findOne({ active: true, _id: id }).exec((err, data) => {
 
-        if (err) {
-            res.status(401).json({ ok: false, err })
+    schema.findOne({ active: true, _id: id }).exec((error, data) => {
+        if (error) {
+            res.status(401).json({ ok: false, error })
         } else if (id !== payload._id) {
-            res.status(401).json({ ok: false, message: "ID Manipulado" })
+            res.status(401).json({ ok: false, error: "ID Manipulado" })
         } else {
             res.status(200).json({ ok: true, result: data, payload })
         }
     })
 })
 
+//Get user Data that can be showed to public
 router.get("/public/:userID", verifyToken, (req, res) => {
     const id = req.params.userID;
 
-    providerSchema.findOne({ active: true, _id: id }).populate("remarks").exec((err, showProvider) => {
-        if (err) {
-            res.status(400).json({ ok: false, err });
+    providerSchema.findOne({ active: true, _id: id }).populate("remarks").exec((error, showProvider) => {
+        if (error) {
+            res.status(400).json({ ok: false, error });
         } else {
             res.status(200).json({ ok: true, result: showProvider });
         }
     });
 })
 
+//Upload a personal image
 router.post("/uploadImage/:userID", sharpUserAvatar, verifyToken, async (req, res) => {
     const id = req.params.userID;
     const payload = req.payload["userDB"];
@@ -48,6 +49,7 @@ router.post("/uploadImage/:userID", sharpUserAvatar, verifyToken, async (req, re
 
     schema.findByIdAndUpdate(
         id,
+
         { photo: imageName },
 
         {
@@ -55,9 +57,9 @@ router.post("/uploadImage/:userID", sharpUserAvatar, verifyToken, async (req, re
             runValidators: true,
         },
 
-        (err, updatedUser) => {
-            if (err) {
-                res.status(400).json({ ok: false, err })
+        (error, updatedUser) => {
+            if (error) {
+                res.status(400).json({ ok: false, error })
             } else {
                 res.status(200).json({ ok: true, updatedUser })
             }
@@ -65,6 +67,7 @@ router.post("/uploadImage/:userID", sharpUserAvatar, verifyToken, async (req, re
 
 })
 
+//Modify information about user
 router.put("/:userID", verifyToken, (req, res) => {
     const id = req.params.userID;
     const payload = req.payload["userDB"];
@@ -73,6 +76,7 @@ router.put("/:userID", verifyToken, (req, res) => {
 
     schema.findByIdAndUpdate(
         id,
+
         body.password ? { password: bcrypt.hashSync(body.password, 10) } : body,
 
         {
@@ -80,15 +84,16 @@ router.put("/:userID", verifyToken, (req, res) => {
             runValidators: true,
         },
 
-        (err, updatedUser) => {
-            if (err) {
-                res.status(400).json({ ok: false, err })
+        (error, updatedUser) => {
+            if (error) {
+                res.status(400).json({ ok: false, error })
             } else {
                 res.status(200).json({ ok: true, updatedUser })
             }
         });
 })
 
+//Deactivate a user
 router.delete("/:userID", verifyToken, (req, res) => {
     const id = req.params.userID;
     const payload = req.payload["userDB"];
@@ -97,6 +102,7 @@ router.delete("/:userID", verifyToken, (req, res) => {
 
     schema.findByIdAndUpdate(
         id,
+
         { active: false },
 
         {
@@ -104,15 +110,14 @@ router.delete("/:userID", verifyToken, (req, res) => {
             runValidators: true,
         },
 
-        (err, userDB) => {
-            if (err) {
-                res.status(500).json({ ok: false, err });
+        (error, userDB) => {
+            if (error) {
+                res.status(500).json({ ok: false, error });
 
             } else if (!bcrypt.compareSync(body.password, userDB.password)) {
                 res.status(400).json({ ok: false, error: "Wrong password" });
 
             } else {
-
                 res.status(200).json({ ok: true, message: "User deleted" });
             }
         }

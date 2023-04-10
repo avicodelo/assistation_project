@@ -1,11 +1,15 @@
+//Const declarations, collection "chats"
 const router = require("express").Router()
 
+//Schemas
 const chatSchema = require("../models/chats")
 const providerSchema = require("../models/provider")
 const customerSchema = require("../models/customer")
 
+//Middles
 const verifyToken = require("../middlewares/auth")
 
+//Get all chats where user is included
 router.get("/", verifyToken, async (req, res, next) => {
     const payload = req.payload["userDB"];
     const { _id, role } = payload;
@@ -24,7 +28,7 @@ router.get("/", verifyToken, async (req, res, next) => {
                 }
             });
         const chatList = userToFind.chats
-        res.json({ ok: true, chatList })
+        res.status(200).json({ ok: true, chatList })
     }
     catch (error) {
         next(error)
@@ -32,19 +36,19 @@ router.get("/", verifyToken, async (req, res, next) => {
 
 })
 
+//Get all messages inside a chat
 router.get("/chatroom", verifyToken, async (req, res, next) => {
 
     const chatID = req.query.chatroom
     const payload = req.payload["userDB"]
 
-
     try {
         const chatroom = await chatSchema.findOne({ _id: chatID })
         //Check if user is a chat's participant
         if (JSON.stringify(Object.values(chatroom.participants)).includes(payload._id)) {
-            res.json({ ok: true,  chekID: payload._id, chatroom })
+            res.json({ ok: true, chekID: payload._id, chatroom })
         } else {
-            res.status(400).json({ ok: false, err: "No participas en este chat" })
+            res.status(400).json({ ok: false, error: "No participas en este chat" })
         }
     }
     catch (error) {
@@ -53,6 +57,7 @@ router.get("/chatroom", verifyToken, async (req, res, next) => {
 
 })
 
+//Post new messages 
 router.post("/", verifyToken, async (req, res, next) => {
     const payload = req.payload["userDB"];
     const receiverID = req.query.sendTo
@@ -65,8 +70,8 @@ router.post("/", verifyToken, async (req, res, next) => {
     const provider = await providerSchema.findById(payload.role === "PROVIDER" ? senderID : receiverID)
 
     const messageSended = {
-        sender: { [senderRole]: senderID },
-        receiver: { [receiverRole]: receiverID },
+        sender: senderID,
+        receiver: receiverID,
         text: text
     }
 
@@ -75,30 +80,38 @@ router.post("/", verifyToken, async (req, res, next) => {
         [receiverRole]: receiverID
     }
 
-    //Verify if there is any chat active between customer and provider
+    //Verify if there is any chat active between customer and provider 
     const chatExist = provider.chats.find(chatProv => customer.chats.includes(chatProv))
 
+    //If there is a chat with ID, it's possible add new messages
     if (chatID) {
+
+        if(!text){
+            res.status(400).json({ok:false, error:"Escribe un mensaje"})
+        }
+
         const chatActivated = await chatSchema.findById(chatID)
         chatActivated.messages = chatActivated.messages.concat(messageSended)
+
         try {
             await chatActivated.save()
-            res.json({ chatActivated: chatActivated })
+            res.status(200).json({ok: true, chatActivated: chatActivated })
         }
         catch (error) {
             next(error)
         }
-
-    } else if (chatExist) {
+    }
+    //Give the chat ID
+    else if (chatExist) {
         try {
-            console.log(chatExist);
             res.status(200).json({ ok: true, chatExist: chatExist })
         }
         catch (error) {
             next(error)
         }
-
-    } else {
+    }
+    //If there isn´t any chat, create new one and give the ID
+    else {
         const newChat = new chatSchema({
             participants: { ...participants }
         })
@@ -110,7 +123,7 @@ router.post("/", verifyToken, async (req, res, next) => {
             provider.chats = provider.chats.concat(newChat._id)
             await customer.save(); await provider.save()
 
-            res.json({ newChatID: newChat._id })
+            res.status(200).json({ok:true, newChatID: newChat._id })
         }
 
         catch (error) {

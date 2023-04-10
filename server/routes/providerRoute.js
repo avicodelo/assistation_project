@@ -1,14 +1,16 @@
 //Const declarations, collection "providers"
-const express = require("express");
+const router = require("express").Router();
 const bcrypt = require("bcrypt");
+
+//Schemas
 const providerSchema = require("../models/provider");
-const router = express.Router();
+
+//Middles
 const handleDate = require("../middlewares/handleDate");
 const verifyToken = require("../middlewares/auth");
 
 //provider creation "POST"
 router.post("/", (req, res) => {
-
     const { name, surname, phone, dateOfBirth, nationality, email, password,
         street, number, flat, city, locality, postalCode, country, typeOfService } = req.body;
 
@@ -33,9 +35,9 @@ router.post("/", (req, res) => {
         typeOfService
     });
 
-    provider.save((err, providerData) => {
-        if (err) {
-            res.status(400).json({ ok: false, err: err.message, cause: "user error" });
+    provider.save((error, providerData) => {
+        if (error) {
+            res.status(400).json({ ok: false, error });
         } else {
             res.status(200).json({ ok: true, providerData });
 
@@ -97,11 +99,11 @@ router.get("/", verifyToken, async (req, res) => {
         { $sort: sortBy },
         { $skip: (pageSelected - 1) * PAGE_SIZE },
         { $limit: PAGE_SIZE }
-    ]).exec((err, showProviders) => {
-        if (err) {
-            res.status(400).json({ ok: false, err });
-        } else {
+    ]).exec((error, showProviders) => {
+        if (error) {
+            res.status(400).json({ ok: false, error });
 
+        } else {
             res.status(200).json({ ok: true, totalPages, results: showProviders, payload });
         }
     })

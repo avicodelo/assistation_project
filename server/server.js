@@ -17,7 +17,7 @@ const db = mongoose.connection;
 db.on("error", (err) => console.log("Conection to DB has failed", err));
 db.once("open", () => console.log("Successful DB connection"));
 
-//Middlewares
+//Middles
 app.use(express.json());
 app.use(cors({origin: "http://localhost:3000", credentials:true}))
 app.use(fileUpload())

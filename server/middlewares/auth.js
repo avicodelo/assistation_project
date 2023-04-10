@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
 
-    !req.get("authorization") && res.status(401).json({ ok: false, message: "no estas autorizado" })
+    !req.get("authorization") && res.status(401).json({ ok: false, error: "no estas autorizado" })
 
     let token = req.get("authorization");
 
@@ -13,7 +13,7 @@ const verifyToken = (req, res, next) => {
 
     jwt.verify(token, process.env.SEED, (error, payload) => {
         if (error) {
-            res.status(401).json({ ok: false, message: "Token inválido" })
+            res.status(401).json({ ok: false, error: "Token inválido" })
         } else {
             req.payload = payload;
             next()

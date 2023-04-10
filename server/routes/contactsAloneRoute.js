@@ -1,7 +1,10 @@
 //Const declarations, collection "contactsAlone"
-const express = require("express");
+const router = require("express").Router();
+
+//Schemas
 const contactAloneSchema = require("../models/contactsAlone");
-const router = express.Router();
+
+//Middles
 const mailer = require("../middlewares/mailer");
 
 //ContactAlone creation "POST"
@@ -10,14 +13,13 @@ router.post("/", mailer, (req, res) => {
     const mailerInfo = req.mailerInfo;
     const mailerError = req.mailerError;
 
-    ({ name, surname, email, helpText } = body)
+    const { name, surname, email } = body
 
     const contactAlone = new contactAloneSchema({
         name,
         surname,
         email
     })
-
 
     contactAlone.save((_err, contact) => {
         if (mailerError) {
@@ -29,5 +31,4 @@ router.post("/", mailer, (req, res) => {
     })
 })
 
-//router export
 module.exports = router;
