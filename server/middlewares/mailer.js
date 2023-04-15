@@ -8,14 +8,14 @@ const mailer = (req, _res, next) => {
         port: 587,
         secure: false,
         auth: {
-            user: "faye49@ethereal.email",
-            pass: "qbDx8bq9C7gkZbVuAV"
+            user: process.env.MAIL,
+            pass: process.env.MAILPASS
         }
     });
     // Message object
     const message = {
         from: `${body.name} <${body.email}>`,
-        to: 'Customer support <faye49@ethereal.email>',
+        to: `Customer support <${process.env.MAIL}>`,
         subject: 'Message from Contact page',
         html: `<p>${body.helpText}</p>`
     };

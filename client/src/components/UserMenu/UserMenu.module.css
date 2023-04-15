@@ -11,7 +11,7 @@
     width: 20rem;
     display: flex;
     flex-direction: column;
-    
+    z-index: 5;
 }
 
 .menuItem {

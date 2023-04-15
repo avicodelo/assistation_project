@@ -7,7 +7,7 @@ import swal from "sweetalert";
 
 export default function ContactForm() {
     //Const sets
-    const URL_CONTACTALONE = "http://localhost:3002/createContactAlone";
+    const URL_CONTACTALONE = "http://localhost:3002/contactAlone";
     const initialStateContactForm = {
         name: "",
         surname: "",

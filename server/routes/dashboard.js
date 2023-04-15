@@ -30,14 +30,19 @@ router.get("/:userID", verifyToken, (req, res) => {
 //Get user Data that can be showed to public
 router.get("/public/:userID", verifyToken, (req, res) => {
     const id = req.params.userID;
+    const payload = req.payload["userDB"]
 
-    providerSchema.findOne({ active: true, _id: id }).populate("remarks").exec((error, showProvider) => {
-        if (error) {
-            res.status(400).json({ ok: false, error });
-        } else {
-            res.status(200).json({ ok: true, result: showProvider });
-        }
-    });
+    if (payload.role === "CUSTOMER") {
+        providerSchema.findOne({ active: true, _id: id }).populate("remarks").exec((error, showProvider) => {
+            if (error) {
+                res.status(400).json({ ok: false, error });
+            } else {
+                res.status(200).json({ ok: true, result: showProvider });
+            }
+        });
+    } else {
+        res.status(400).json({ ok: false, error: "No eres un cliente" })
+    }
 })
 
 //Upload a personal image

@@ -22,6 +22,7 @@ export default function Login() {
   }
 
   const [loginData, setLoginData] = useState(initialLogState); //login data variable
+  const [allowAccess, setAllowAccess] = useState(true)
 
   //Function: updates customer data
   const handleInput = (e) => {
@@ -47,11 +48,20 @@ export default function Login() {
 
       //Does login
       fetch(URL_LOGIN, checkLoginInfo)
-        .then(response => response.json())
+        .then(response => {
+          if (response.status === "500") {
+            throw new Error("Ha habido un problema con el servidor")
+          } else {
+            return response.json()
+          }
+        })
         .then(access => {
-          const { token } = access
-          const { _id, role } = access.userDB;
-          if (access.ok) {
+          if (!access.ok) {
+            setAllowAccess(false)
+          }
+          else {
+            const { token } = access
+            const { _id, role } = access.userDB;
             localStorage.setItem("accesstoken", token);
             localStorage.setItem("userID", _id);
             if (role === "PROVIDER") {
@@ -68,15 +78,14 @@ export default function Login() {
 
       })
 
-      /* Establecer validación si hace match, encriptar passwords, crear token y redirigir */
     };
   };
 
   return (
 
     <div className={style.LoginPageBody}>
-      <Navbar />
 
+      <Navbar />
       <div className={style["generalDiv-blur"]}>
 
         <div className={style.loginMain}>
@@ -85,11 +94,15 @@ export default function Login() {
 
           <div className={style.divLoginData}> {/* Div with form to login */}
 
-            <h2>BIENVENID@ !</h2>
+            <h2>ÁREA PERSONAL</h2>
 
             <form className={style.formLoginData} onSubmit={doLogin()}>
 
               <fieldset className={style.inputGroup}>
+
+                <p className={allowAccess ? style.hide : style.redLabel}>
+                  El usuario y/o la contraseña no son correctos
+                </p>
 
                 <div className={style.userData}>
 
@@ -134,7 +147,6 @@ export default function Login() {
         </div>
 
       </div>
-
     </div>
   )
 }

@@ -1,31 +1,34 @@
-.LoginPageBody{
-    width: 100vw;
-    height: 100vh;
-    min-height: 100vh;
-    overflow: hidden;
+
+ .LoginPageBody {
+    height: 100%;
     background-image: url(../../images/vu-anh-TiVPTYCG_3E-unsplash.jpg);
-    
-}
-
-.generalDiv-blur{
-    height:100%;
-    width: 100%;
     display: flex;
-    justify-content: center;  
-    backdrop-filter: blur(6px);
-    background-color: rgba(250,250,250,0.5);
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.loginMain{ 
+.generalDiv-blur {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+    background-color: rgba(250, 250, 250, 0.5);
+}
+
+.loginMain {
     width: 60vw;
     height: 70vh;
+    min-height: 350px;
     display: flex;
-    background-color: rgba(250,250,250,0.6);
+    background-color: rgba(250, 250, 250, 0.6);
     border-radius: 10px;
-    border:none;
+    border: none;
+    margin-bottom: 5%;
 }
 
-.login-image{
+.login-image {
     width: 40%;
     background-image: url(../../images/vu-anh-TiVPTYCG_3E-unsplash.jpg);
     background-position: center center;
@@ -34,16 +37,18 @@
 
 }
 
-.divLoginData{
+.divLoginData {
     width: 60%;
+    height: 100%;
+    padding-top: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-   
+
 }
 
-.formLoginData{
+.formLoginData {
     padding: 5%;
     width: 100%;
     display: flex;
@@ -52,18 +57,18 @@
     align-items: center;
 }
 
-.inputGroup{
-    border:none;
+.inputGroup {
+    border: none;
     width: 100%;
 }
 
-.inputGroup i{
+.inputGroup i {
     font-size: 1.5rem;
 }
 
-.userData{
+.userData {
     border-radius: 5px;
-    padding: 1rem ;
+    padding: 1rem;
     margin: 1rem 0;
     width: 100%;
     background-color: white;
@@ -72,7 +77,7 @@
 }
 
 
-.controlInput{
+.controlInput {
     border: none;
     margin-left: 1rem;
     border-radius: 5px;
@@ -80,29 +85,29 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.controlInput:focus{
+.controlInput:focus {
     outline: none;
 }
 
-.typeOfUser{
+.typeOfUser {
     width: 100%;
     display: flex;
-    justify-content:flex-start;
+    justify-content: flex-start;
     align-items: center;
 }
 
-.typeOfUser>div{
+.typeOfUser>div {
     margin-right: 2.5rem;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-.typeOfUser>div>input{
-    margin:1.5rem 0.5rem;
+.typeOfUser>div>input {
+    margin: 1.5rem 0.5rem;
 }
 
-.submitArea{
+.submitArea {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -110,35 +115,46 @@
     margin-top: 2rem;
 }
 
-.passForgotten{
+.passForgotten {
     text-decoration: none;
     font-size: 1.5rem;
     color: black;
 
 }
 
-.passForgotten:hover{
+.passForgotten:hover {
     color: var(--primary);
     text-decoration: underline;
 
 }
 
-.submitLogin{
+.submitLogin {
     font-size: 1.5rem;
     font-weight: bold;
     padding: 1rem;
     border-radius: 5px;
     width: 50%;
     border: none;
-    color:white;
+    color: white;
     background: linear-gradient(to right, var(--secondary), var(--primary));
-    cursor:pointer;
+    cursor: pointer;
     transition-duration: 200ms;
 }
 
-.submitLogin:hover{
+.submitLogin:hover {
     font-size: 1.6;
     transform: scale(1.05);
     transition: all 200ms ease-out;
 }
 
+.hide {
+    display: none;
+}
+
+.redLabel {
+    color: red;
+    background-color: rgb(255, 168, 161);
+    border-radius: 5px;
+    padding: 1rem;
+    text-align: center;
+}

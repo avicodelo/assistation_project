@@ -19,12 +19,9 @@ function useFetchUserData(URL) {
     useEffect(() => {
         fetch(URL + userID, setGetHeader)
             .then(res => res.json())
-            .then(({ ok, result, message }) => {
-                if (!ok && message === "Token inválido") {
-                    setTokenValid(false)
-                    localStorage.removeItem("accesstoken")
-                    localStorage.removeItem("userID")
-                } else if (!ok && message === "ID Manipulado") {
+            .then(({ ok, result, error}) => {
+                if (!ok ) {
+                    console.log(error);
                     setTokenValid(false)
                     localStorage.removeItem("accesstoken")
                     localStorage.removeItem("userID")

@@ -54,7 +54,7 @@ export default function Dashboard() {
     }
 
     return (
-      <div>
+      <div className={style.dashPage}>
         <Navbar />
         <div className={style.mainContainer}>
           <aside className={style.asideMenu}>

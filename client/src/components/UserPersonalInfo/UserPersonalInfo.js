@@ -15,7 +15,6 @@ import { useMinAge } from "../../Hooks/useMinAge";
 export default function UserPersonalInfo() {
 
   const userData = useContext(dashboardContext)
-  const accessToken = localStorage.getItem("accesstoken")
 
   const initialUserData = {
     name: "",
@@ -26,9 +25,10 @@ export default function UserPersonalInfo() {
     description: ""
   }
 
-  const [dataUpdated, handleInput, updateInfo, _addItem, _removeItem, activateArea, setActivateArea, userDataUpdated] = useUpdateInfo(initialUserData, userData)
+  const accessToken = localStorage.getItem("accesstoken")
   const minAge = useMinAge()
 
+  const [dataUpdated, handleInput, updateInfo, _addItem, _removeItem, activateArea, setActivateArea, userDataUpdated] = useUpdateInfo(initialUserData, userData)
   const [activateInputFile, setActivateInputFile] = useState(false)
   const [fileUploaded, setFileUploaded] = useState(null)
 
@@ -54,7 +54,11 @@ export default function UserPersonalInfo() {
           .then(res => res.json)
           .then(fetch(SERVER_HOST + userData.photo)
             .then(res => res.json)
-            .then(setActivateInputFile(false)))
+            .then(() => {
+              setActivateInputFile(false);
+              window.location.reload()
+            }
+            ))
           .catch(err => console.log(err))
       }
     }
@@ -64,24 +68,29 @@ export default function UserPersonalInfo() {
     <div className={style.wrapper}>
 
       {!activateInputFile ?
-        <div>
+        <div className={style.imageContainer}>
           <img src={SERVER_HOST + userData?.photo} alt="user" className={style.userDataPhoto} />
-          <button onClick={() => {
-            setActivateInputFile(true)
-          }}>Cambiar foto de perfil</button>
+          <button onClick={() => { setActivateInputFile(true) }} className={style.btnChange}>
+            Cambiar foto de perfil
+          </button>
         </div> :
-        <div>
+        <div className={style.imageContainer}>
+
+          <img src={SERVER_HOST + userData?.photo} alt="user" className={style.userDataPhoto} />
           <input onChange={fileHandler} type="file" accept="image/png, image/jpeg" />
-          <button onClick={managePhoto()}>Aplicar Foto</button>
-          <button onClick={() => {
-            setActivateInputFile(false)
-          }}>Cancelar</button>
+
+          <div>
+            <button onClick={managePhoto()} className={style.btnChange}>Aplicar Foto</button>
+            <button onClick={() => {
+              setActivateInputFile(false)
+            }} className={style.btnChange}>Cancelar</button>
+          </div>
         </div>
 
       }
       <form className={style.mainContainer} onSubmit={updateInfo}>
         <div className={style.infoContainer}>
-          <h3>Nombre: </h3>
+          <h4>Nombre: </h4>
           {activateArea ?
             <div>
               <input type="text" name="name" onChange={handleInput} value={dataUpdated.name}
@@ -89,44 +98,44 @@ export default function UserPersonalInfo() {
               <input type="text" name="surname" onChange={handleInput} value={dataUpdated.surname}
                 placeholder={userData?.surname} pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" />
             </div> :
-            <h3>{userDataUpdated.name ? userDataUpdated.name + " " + userDataUpdated.surname : userData?.name + " " + userData?.surname}</h3>
+            <h4>{userDataUpdated.name ? userDataUpdated.name + " " + userDataUpdated.surname : userData?.name + " " + userData?.surname}</h4>
           }
         </div>
 
         <div className={style.infoContainer}>
-          <h3>Fecha de nacimiento</h3>
+          <h4>Fecha de nacimiento:</h4>
           {activateArea ?
             <input type="date" name="dateOfBirth" onChange={handleInput} value={dataUpdated.dateOfBirth}
               placeholder={(new Date(userData?.dateOfBirth)).toLocaleDateString()} max={minAge} /> :
-            <h3>{userDataUpdated.dateOfBirth ? (new Date(userDataUpdated.dateOfBirth)).toLocaleDateString() : (new Date(userData?.dateOfBirth)).toLocaleDateString()}</h3>
+            <h4>{userDataUpdated.dateOfBirth ? (new Date(userDataUpdated.dateOfBirth)).toLocaleDateString() : (new Date(userData?.dateOfBirth)).toLocaleDateString()}</h4>
           }
         </div>
 
         <div className={style.infoContainer}>
-          <h3>Teléfono: </h3>
+          <h4>Teléfono: </h4>
           {activateArea ?
             <input type="text" name="phone" onChange={handleInput} value={dataUpdated.phone}
               placeholder={userData?.phone} pattern="^\+34[0-9]{9}" title="Es necesario añadir +34" /> :
-            <h3>{userDataUpdated.phone ? userDataUpdated.phone : userData?.phone}</h3>
+            <h4>{userDataUpdated.phone ? userDataUpdated.phone : userData?.phone}</h4>
           }
         </div>
 
         <div className={style.infoContainer}>
-          <h3>Nacionalidad: </h3>
+          <h4>Nacionalidad: </h4>
           {activateArea ?
             <input type="text" name="nationality" onChange={handleInput} value={dataUpdated.nationality}
               placeholder={userData?.nationality} maxLength="50" /> :
-            <h3>{userDataUpdated.nationality ? userDataUpdated.nationality : userData?.nationality}</h3>
+            <h4>{userDataUpdated.nationality ? userDataUpdated.nationality : userData?.nationality}</h4>
           }
         </div>
 
         <div className={style.descriptionContainer}>
-          <h3>Sobre ti: </h3>
+          <h4>Sobre ti: </h4>
           {activateArea ?
             <textarea name="description" onChange={handleInput} value={dataUpdated.description}
               placeholder={userData?.description} rows="5" maxLength="2000">
             </textarea> :
-            <h3 className={style.descriptionInfo}>{userDataUpdated.description ? userDataUpdated.description : userData?.description}</h3>
+            <p className={style.descriptionInfo}>{userDataUpdated.description ? userDataUpdated.description : userData?.description}</p>
           }
         </div>
 
@@ -135,14 +144,17 @@ export default function UserPersonalInfo() {
             <button onClick={(e) => {
               e.preventDefault()
               setActivateArea(true)
-            }}>Actualizar</button>
+            }} className={style.btnChange}>Actualizar datos</button>
           </div> :
           <div>
+            <button type="submit" className={style.btnChange}>Aplicar cambios</button>
             <button onClick={(e) => {
               e.preventDefault()
               setActivateArea(false)
-            }}>Cancelar</button>
-            <button type="submit">Aplicar cambios</button>
+            }} className={style.btnChange}>
+              Cancelar
+            </button>
+
           </div>}
 
       </form>

@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 //Hook imports
-import {usePagination} from "../../Hooks/usePagination"
+import { usePagination } from "../../Hooks/usePagination"
 
 
 
@@ -42,26 +42,26 @@ export default function ServicesSearcher() {
     const [cardFiller, setCardFiller] = useState([]); //Manage user data to fill the Card
     const [orderSelector, setOrderSelector] = useState("&order=standard"); //Update the data in the order selector
     const [filterData, setFilterData] = useState(initialFilterState); //Update the data that has been introduced
-    const [dataArrayJoined, setDataArrayJoined] = useState(""); //Joins the thata introduced
+    const [filterString, setFilterString] = useState(""); //Joins the thata introduced
     const [checkCustomer, setCheckCustomer] = useState(false)
     const [totalPages, setTotalPages] = useState(undefined)
     const [handlePage, pageState] = usePagination(totalPages)
 
-    
+
     //Function: Prepares the info to query format and sends it to URL
     const modifyFilter = () => {
         return (e) => {
             e.preventDefault();
             if (e.target.name === "filterForm") {
                 const filterDataArray = Object.entries(filterData);
-                setDataArrayJoined(filterDataArray
+                setFilterString(filterDataArray
                     .filter(values => values[1] !== "")
                     .map(doubleData => doubleData.join("="))
                     .join("&"));
 
             } else if (e.target.type === "reset") {
                 setFilterData(initialFilterState);
-                setDataArrayJoined("");
+                setFilterString("");
                 navigate("/servicesSearcher");
 
 
@@ -87,7 +87,7 @@ export default function ServicesSearcher() {
     //Function: fills the card variable with the filtered user info
     useEffect(() => {
 
-        fetch(URL_PROVIDER + "?" + dataArrayJoined + orderSelector + `&page=${pageState.page}`, setGetHeader)
+        fetch(URL_PROVIDER + "?" + filterString + orderSelector + `&page=${pageState.page}`, setGetHeader)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -96,7 +96,7 @@ export default function ServicesSearcher() {
             })
             .then(({ results, payload, totalPages }) => {
 
-                if (payload.userDB.role === "CUSTOMER") {
+                if (payload?.userDB.role === "CUSTOMER") {
                     setCheckCustomer(true)
                 }
                 setCardFiller([]);
@@ -108,40 +108,59 @@ export default function ServicesSearcher() {
 
             });
 
-    }, [dataArrayJoined, orderSelector, pageState?.page]);
+    }, [filterString, orderSelector, pageState?.page]);
 
-    if (checkCustomer) {
-        return (
-            <div>
-                <Navbar />
 
-                <div>
-                    <Filter modifyFilter={modifyFilter} filterData={filterData} setFilterData={setFilterData} />
-                    <div className={style.cardsContainer}>
-                        {
-                            cardFiller.map((providerData) => {
-                                return (
-                                    <ProviderCard key={providerData._id} providerData={providerData} />
-                                )
-                            })
-                        }
-                    </div>
-                    <div>
-                        <button onClick={() => { handlePage("DECREASE") }}>&larr;</button>
-                        <p>{pageState.page + "/" + totalPages}</p>
-                        <button onClick={() => { handlePage("INCREASE") }}>&rarr;</button>
+    return (
+        <div className={style.pageBody}>
+            <Navbar />
+
+            <div className={style.mainPageWrapper}>
+
+                <div className={checkCustomer ? style.hide : style.noLoginWrapper}>
+                    <div className={style.actionWrapper}>
+                        <h1 className={style.noLoginTitle}>
+                            Es necesario Iniciar Sesión como cliente
+                        </h1>
+                        <button onClick={() => { navigate("/login") }} className={style.goToLogin}>
+                            Iniciar sesión
+                        </button>
                     </div>
                 </div>
 
-                <Footer />
+                <div className={style.usersWrapper}>
+                    <Filter modifyFilter={modifyFilter} filterData={filterData} setFilterData={setFilterData} />
+                    <div className={style.mainContainer}>
+                        <div className={style.cardsContainer}>
+                            {
+                                cardFiller.map((providerData) => {
+                                    return (
+                                        <ProviderCard key={providerData._id} providerData={providerData} />
+                                    )
+                                })
+                            }
+                        </div>
+                        <div >
+                            {totalPages !== 0 ?
+                                <div className={style.pagination}>
+                                    <button className={style.pageBut} onClick={() => { handlePage("DECREASE") }}>&larr;</button>
+                                    <p className={style.pageNumber}>{pageState.page + " / " + totalPages}</p>
+                                    <button className={style.pageBut} onClick={() => { handlePage("INCREASE") }}>&rarr;</button>
+                                </div> :
+                                <div className={style.noResults}>
+                                    <h3>No se encontraron resultados</h3>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
-        )
-    } else {
-        return (
-            <div>
-                <Navbar />
-                <h1>Es necesario Iniciar Sesión como cliente</h1>
-            </div>
-        )
-    }
+
+            <Footer />
+
+
+
+        </div>
+
+    )
 }

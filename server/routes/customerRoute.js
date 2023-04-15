@@ -33,9 +33,9 @@ router.post("/", (req, res) => {
         }
     })
 
-    customer.save((err, newCustomer) => {
-        if (err) {
-            res.status(400).json({ ok: false, err: err.message, cause: "user error" });
+    customer.save((error, newCustomer) => {
+        if (error) {
+            res.status(400).json({ ok: false, error});
         } else {
             res.status(201).json({ ok: true, newCustomer });
         }

@@ -1,43 +1,69 @@
-.cardBody{
-    width: 20%;
-    margin: 1.5rem;
+.cardBody {
+    width: 30%;
+    margin: 1.5rem auto;
     padding: 1.5rem;
-    background-color: rgb(195, 222, 229);
+    background-color: rgba(195, 222, 229, 0.5);
+    border: 1px solid lightgray;
     border-radius: 10px;
+    text-decoration: none;
+    color: black;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
 
-.cardPhoto{
-    width: 80%;
-    
+.cardAvatar {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    column-gap: 1.5rem;
 }
 
-.cardPhoto>img{
+.cardAvatar>img {
     width: 100%;
     border-radius: 500px;
+    grid-column: 1;
+    grid-row: 1 / 3;
+}
+
+.nameData {
+    margin: 0 0.5rem;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: self-end;
+}
+
+.addressData {
+    margin: 0 0.5rem;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: self-start;
 }
 
 
-.cardInfo{
-    width: 90%;
+.cardInfo {
+    width: 100%;
+    height: 100%;
     padding: 1rem 0;
-   
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
 }
 
-.cardInfo h3{
-    font-size: 1.8rem;
-}
-
-.serviceInfo{
+.serviceData {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.providerData{
-    padding: 0.5rem 0;
+.priceData {
+    width: 33%;
+    text-align: center;
 }
 
+.providerData {
+    padding: 0.5rem 0;
+}

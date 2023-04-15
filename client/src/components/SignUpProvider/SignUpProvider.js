@@ -70,7 +70,7 @@ export default function SignUpProvider() {
         fetch(URL_PROVIDER, addInfo)
           .then(response => response.json())
           .then(data => {
-            if (data.cause === "user error") {
+            if (data.error) {
               swal({
                 text: "No se ha podido crear el usuario, inténtelo de nuevo",
                 icon: "error",
@@ -86,7 +86,7 @@ export default function SignUpProvider() {
               setSignUpData(initialStateSignUp);
             }
 
-          }) /* Gestionar todas las validaciones*/
+          })
 
       } else {
         setValidator(false);

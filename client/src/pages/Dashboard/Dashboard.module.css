@@ -1,6 +1,13 @@
+.dashPage{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .mainContainer {
     width: 100%;
-    min-height: 60vh;
+    flex-grow: 1;
     display: flex;
     justify-content: space-between;
 }

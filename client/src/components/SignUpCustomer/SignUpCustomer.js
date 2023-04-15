@@ -69,10 +69,9 @@ export default function SignUpCustomer() {
           .then(response => response.json())
           .then(data => {
 
-            if (data.cause === "user error") {
+            if (data.error) {
               swal({
-                title: "No se ha podido crear el usuario",
-                text: data.err,
+                text: "No se ha podido crear el usuario, inténtelo de nuevo",
                 icon: "error",
                 timer: "10000"
               })
@@ -86,9 +85,8 @@ export default function SignUpCustomer() {
               setSignUpData(initialStateSignUp);
             }
 
-          }); /* Gestionar todas las validaciones*/
+          }); 
 
-        /* redireccionar al login después del registro */
       } else {
         setValidator(false);
         window.scroll(0, 300);

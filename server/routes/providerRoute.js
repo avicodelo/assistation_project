@@ -1,6 +1,7 @@
 //Const declarations, collection "providers"
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 //Schemas
 const providerSchema = require("../models/provider");
@@ -46,22 +47,31 @@ router.post("/", (req, res) => {
 });
 
 //Search customer "GET" to Card
-router.get("/", verifyToken, async (req, res) => {
+router.get("/", async (req, res) => {
+
+    let token = req.get("authorization");
+    token = token && token.split(" ")[1];
     const { page, order, ...filters } = req.query;
+    if (token) {
+        jwt.verify(token, process.env.SEED, (error, payload) => {
+            req.payload = payload;
+        }
+        )
+    }
     const payload = req.payload;
-    
+
     //Conditions to find
     filters.price && (filters.price = { $lte: parseInt(filters.price) });
     filters.rates && (filters.rates = { $gte: parseInt(filters.rates) });
     filters["address.city"] && (filters["address.city"] = { $regex: filters["address.city"], $options: 'i' })
     filters["address.locality"] && (filters["address.locality"] = { $regex: filters["address.locality"], $options: 'i' })
-    
+
     //Pagination data
-    const PAGE_SIZE = 2;
+    const PAGE_SIZE = 12;
     const pageSelected = page || 1;
     const totalEntries = await providerSchema.countDocuments({ ...filters, active: true, price: { $exists: true } });
     const totalPages = Math.ceil(totalEntries / PAGE_SIZE);
-   
+
     let sortBy
     switch (order) {
         case "highPrice":
@@ -86,7 +96,7 @@ router.get("/", verifyToken, async (req, res) => {
         {
             $match: {
                 active: true,
-                price: { $exists: true }, 
+                price: { $exists: true },
                 ...filters
             }
         },

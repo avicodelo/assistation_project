@@ -82,7 +82,7 @@ export default function SignUpCustomerStructure({ handleImput, signUpCustomer, s
 
           <div className={style.postalCode}>
             <label htmlFor="postalCode">Código Postal:</label>
-            <input type="text" onChange={handleImput} value={signUpData.postalCode} id="postalCode" name="postalCode" pattern="[0-9]{5}" placeholder='C.P.' required />
+            <input type="text" onChange={handleImput} value={signUpData.postalCode} id="postalCode" name="postalCode" pattern="[0-5][0-9]{4}" maxLength="5" placeholder='C.P.' required />
           </div>
 
           <div className={style.locality}>

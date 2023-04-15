@@ -4,14 +4,15 @@
     position: sticky;
     top: 2rem;
     float:left;
+
 }
 
 .filterOpener{
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     width: 90%;
     border: 1px solid lightgray;
     border-radius: 10px;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     padding: 0.5rem 2rem;
     display: flex;
     align-items: center;
@@ -19,7 +20,7 @@
 }
 
 .filterOpener>.icon>i{
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     padding-right: 1rem;
 }
 
@@ -41,7 +42,7 @@
 }
 
 .orderSelector>select{
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     border: none;
     background-color: transparent;
     padding-right: 0.5rem;
@@ -49,7 +50,7 @@
 }
 
 .mainDivFilter option {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .mainDivFilter select:focus{
@@ -67,11 +68,11 @@
 }
 
 .filterSelections>label{
-    font-size: 1.5rem;
-    padding: 1rem 0;
+    font-size: 1.4rem;
+    padding: 0.5rem 0;
 }
 .filterSelections>input, .filterSelections>select{
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     padding: 0.2rem 1rem;
     border-radius: 5px;
     border: 1px solid gray;
@@ -80,7 +81,7 @@
 
 
 .filterSelections>button{
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: white;
     margin-bottom: 1rem;

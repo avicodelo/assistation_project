@@ -8,27 +8,37 @@ const contactAloneSchema = require("../models/contactsAlone");
 const mailer = require("../middlewares/mailer");
 
 //ContactAlone creation "POST"
-router.post("/", mailer, (req, res) => {
+router.post("/", mailer, async (req, res, next) => {
     const body = req.body;
     const mailerInfo = req.mailerInfo;
     const mailerError = req.mailerError;
 
     const { name, surname, email } = body
 
-    const contactAlone = new contactAloneSchema({
-        name,
-        surname,
-        email
-    })
 
-    contactAlone.save((_err, contact) => {
+
+    try {
+        const emailExist = await contactAloneSchema.findOne({ email: email })
+
+        if (!emailExist) {
+            const contactAlone = new contactAloneSchema({
+                name,
+                surname,
+                email
+            })
+            await contactAlone.save()
+        }
+
         if (mailerError) {
             res.status(500).json({ ok: false, err: mailerError, cause: "mailer fail" })
+        } else {
+            res.status(200).json({ ok: true, info: mailerInfo.accepted });
         }
-        else {
-            res.status(200).json({ ok: true, contact, info: mailerInfo.accepted });
-        }
-    })
+    }
+    catch (error) {
+        next(error)
+    }
+
 })
 
 module.exports = router;

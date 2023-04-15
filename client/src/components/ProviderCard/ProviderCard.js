@@ -15,26 +15,24 @@ export default function ProviderCard({ providerData }) {
 
   return (
     <NavLink className={style.cardBody} to={`/userInfo/${_id}`} >
-      <div className={style.cardPhoto}>
+
+      <div className={style.cardAvatar}>
         <img src={SERVER_HOST + providerData.photo} alt="" />
+        <h4 className={`${style.providerData} ${style.nameData}`}>{`${providerData.name} ${providerData.surname}`}</h4>
+        <h4 className={`${style.providerData} ${style.addressData}`}>{providerData.address.city}</h4>
       </div>
+
       <section className={style.cardInfo}>
-        <h4 className={style.providerData}>{`${providerData.name} ${providerData.surname}`}</h4>
-
-        <h4 className={style.providerData}>{providerData.address.city}</h4>
-
-        <h4 className={style.providerData}>{providerData.typeOfService}</h4>
-
-        <p className={style.providerData}>{providerData.description}</p>
-
-        <div className={style.serviceInfo}>
-
-          <p className={style.providerData}>Nota: {providerData?.avgRate ?
-            providerData?.avgRate :
-            "-"}</p> 
+        <div className={style.serviceData}>
+          <h4 className={style.providerData}>{providerData.typeOfService}</h4>
+          <h4 className={`${style.providerData} ${style.priceData}`}>{providerData.price} €/h</h4>
         </div>
-        <h4 className={style.providerData}>{providerData.price} €/h</h4>
+        <p className={style.providerData}>{providerData.description}</p>
+        <p className={style.providerData}>Puntuación: {providerData?.avgRate ?
+          providerData?.avgRate.toFixed(1) :
+          "-"}</p>
       </section>
+
     </NavLink>
   )
 }
