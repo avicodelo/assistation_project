@@ -24,7 +24,6 @@
 }
 
 .infoContainer{
-
     display: flex;
 }
 
@@ -48,6 +47,7 @@
 }
 
 .descriptionContainer>h4:first-child{
+    margin-bottom: 0.5rem;
     padding: 0 1.5rem;
     font-weight: bold;
 }
@@ -56,7 +56,25 @@
     padding: 0 1.5rem;
 }
 
-.btnChange{
+.mainContainer input, .mainContainer textarea{
+    padding: 0 0.5rem;
+    margin-left: 1.5rem;
+    border: none;
+    border-bottom: 1px solid gray;
+    font-size: 1.2rem;
+}
+
+.mainContainer input:focus, .mainContainer textarea:focus{
+    outline: none;
+    border-bottom: 1.5px solid var(--primary);
+    transition: border 1s;
+}
+
+input[type=file]{
+    display: none;
+}
+
+.btnChange, .uploadFile{
     padding: 0.5rem;
     margin-left: 1.5rem;
     border-radius: 5px;
@@ -66,4 +84,9 @@
     color: white;
     border: none;
     cursor: pointer;
+}
+
+.fileName{
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
 }

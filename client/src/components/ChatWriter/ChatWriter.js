@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react'
+//CSS import
+import style from "./ChatWriter.module.css"
 
+//React imports
+import { useEffect, useState } from 'react'
+
+//Component imports
 import { URL_CHATS } from '../../settings/Settings'
 
 export default function ChatWriter({ chatID }) {
-  const [allowedToWrite, setAllowedToWrite] = useState(true)
-  const [messages, setMessages] = useState([])
+
   const userID = localStorage.getItem("userID")
   const accessToken = localStorage.getItem("accesstoken")
 
@@ -13,6 +17,8 @@ export default function ChatWriter({ chatID }) {
   }
   const [textToSend, setTextToSend] = useState(initialState)
   const [participants, setParticipants] = useState({})
+  const [allowedToWrite, setAllowedToWrite] = useState(true)
+  const [messages, setMessages] = useState([])
 
 
   useEffect(() => {
@@ -27,7 +33,7 @@ export default function ChatWriter({ chatID }) {
 
       fetch(`${URL_CHATS}/chatroom?chatroom=${chatID}`, setGetHeader)
         .then(res => {
-          if (res.ok) { 
+          if (res.ok) {
             return res.json()
           } else {
             throw Error(res.statusText)
@@ -45,6 +51,7 @@ export default function ChatWriter({ chatID }) {
     }
 
   }, [chatID, textToSend.text])
+
 
   const handleInput = (e) => {
     setTextToSend({ ...textToSend, ...{ [e.target.name]: e.target.value } })
@@ -73,32 +80,31 @@ export default function ChatWriter({ chatID }) {
 
   if (chatID && allowedToWrite) {
     return (
-      <div>
-        <div>
+      <div className={style.mainWrapper}>
+        <div className={style.messagesContainer}>
           {
             messages.map(({ createdAt, text, sender, _id }) => {
-
               return (
-                <div key={_id} style={{ backgroundColor: Object.values(sender).includes(userID) ? "lightblue" : "white" }}>
+                <div key={_id} className={sender === userID ? style.senderMsgContainer : style.receiverMsgContainer}>
                   <p >{text}</p>
-                  <h6>{createdAt}</h6>
+                  <h6>{createdAt.split("T").join(" ")}</h6>
                 </div>
               )
 
             })
           }
-
         </div>
-        <div>
-          <input type="text" name="text" onChange={handleInput} value={textToSend.text} placeholder='Enviar mensaje' />
+
+        <div className={style.writerContainer}>
           <button onClick={sendMessage()}>Enviar</button>
+          <input type="text" name="text" onChange={handleInput} value={textToSend.text} placeholder='Enviar mensaje' />
         </div>
       </div>
     )
   } else if (!allowedToWrite) {
     return (
       <div>
-        <h3>No hagas un mal uso de la página, sabes que no perteneces a este chat</h3>
+        <h3>Algo salió mal, vuelve a intentarlo</h3>
       </div>
     )
   }

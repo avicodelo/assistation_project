@@ -58,7 +58,7 @@ router.get("/", async (req, res) => {
         }
         )
     }
-    const payload = req.payload;
+    const payload = req.payload?.userDB;
 
     //Conditions to find
     filters.price && (filters.price = { $lte: parseInt(filters.price) });
@@ -67,7 +67,7 @@ router.get("/", async (req, res) => {
     filters["address.locality"] && (filters["address.locality"] = { $regex: filters["address.locality"], $options: 'i' })
 
     //Pagination data
-    const PAGE_SIZE = 12;
+    const PAGE_SIZE = payload?.role === "CUSTOMER" ? 12 : 3;
     const pageSelected = page || 1;
     const totalEntries = await providerSchema.countDocuments({ ...filters, active: true, price: { $exists: true } });
     const totalPages = Math.ceil(totalEntries / PAGE_SIZE);

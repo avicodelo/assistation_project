@@ -1,23 +1,46 @@
 .wrapper{
-    width: 70%;
-    margin: 0 auto;
+    width: 80%;
+    padding: 2rem 10rem;
+    display: flex;
+    justify-content: space-around;
+
 }
 
 .mainContainer{
+    padding-left: 5rem;
     width: 100%;
-    padding: 2rem 0;
     display: flex;
     flex-direction: column;
+
 }
 
 .infoContainer{
-    padding: 2rem 0;
     display: flex;
 }
 
-.infoContainer>h3:first-child{
+.infoContainer>h4:first-child{
     padding: 0 1.5rem;
+    margin: 1rem 0;
     font-weight: bold;
+}
+
+.infoContainer>h4:last-child{
+    margin: 0.75rem 0;
+    font-weight: normal;
+}
+
+.infoContainer input, .priceContainer input{
+    padding: 0 0.5rem;
+    margin: 1rem 1.5rem;
+    border: none;
+    border-bottom: 1px solid gray;
+    font-size: 1.2rem;
+}
+
+.infoContainer input:focus, .priceContainer input:focus{
+    outline: none;
+    border-bottom: 1.5px solid var(--primary);
+    transition: border 1s;
 }
 
 .textPrice{
@@ -37,4 +60,30 @@
 
 .savePrice{
     padding: 0.5rem 1.5rem;
+}
+
+.btnChange{
+    padding: 0.5rem;
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+    border-radius: 5px;
+    background: linear-gradient(to right, var(--secondary), var(--primary));
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.btnDelete{
+    width: 2rem;
+    height: 2rem;
+    margin: 0.5rem;
+    border-radius: 5px;
+    background: rgb(254, 55, 55);
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    cursor: pointer;
 }

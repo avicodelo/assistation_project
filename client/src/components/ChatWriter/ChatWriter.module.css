@@ -1,0 +1,85 @@
+.mainWrapper {
+    margin-left: 2rem;
+    flex-grow: 1;
+    border-left: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.messagesContainer {
+    width: 100%;
+    flex-grow: 1;
+    max-height: 80vh;
+    overflow-y: scroll;
+    scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 0);
+    scrollbar-width: thin;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.senderMsgContainer {
+    width: 50%;
+    padding: 0.5rem 1.5rem;
+    margin: 0.5rem 0;
+    align-self: flex-end;
+    background-color: lightblue;
+    border-radius: 5px;
+}
+
+.receiverMsgContainer {
+    width: 50%;
+    padding: 0.5rem 1.5rem;
+}
+
+.writerContainer {
+    width: 100%;
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.writerContainer>button {
+    padding: 0.5rem;
+    margin: 0.5rem 1.5rem;
+    border-radius: 5px;
+    background: linear-gradient(to right, var(--secondary), var(--primary));
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.writerContainer>input {
+    font-size: 1.3rem;
+    width: 80%;
+    padding: 0.5rem;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+/*Scrollbar customization*/
+.messagesContainer::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.messagesContainer::-webkit-scrollbar:vertical {
+    width: 10px;
+}
+
+.messagesContainer::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.messagesContainer::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+}
+
+.messagesContainer::-webkit-scrollbar-track {
+    border-radius: 10px;
+}

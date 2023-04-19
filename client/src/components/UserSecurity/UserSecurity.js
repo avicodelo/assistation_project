@@ -49,7 +49,7 @@ export default function UserSecurity() {
           .then(response => response.json())
           .then(access => {
             if (access.ok) {
-             updateInfo(e)
+              updateInfo(e)
             }
           })
       }
@@ -61,35 +61,36 @@ export default function UserSecurity() {
       <form className={style.mainContainer} onSubmit={changePassword()}>
 
         <div className={style.infoContainer}>
-          <h3>Email: </h3>
-          <h3>{userData.email}</h3>
+          <h4>Email: </h4>
+          <h4>{userData.email}</h4>
         </div>
         {!activateArea ?
-          <button className={style.changePassContainer} onClick={(e) => {
+          <button className={style.btnChange} onClick={(e) => {
             e.preventDefault()
             setActivateArea(true)
-          }}><p>Cambiar contraseña</p></button> :
-          <div className="">
+          }}>Cambiar contraseña</button> :
+          <div className={style.passwordsWrapper}>
             <div>
-              <p>Confirma la contraseña anterior: </p>
-              <input type="password" name="oldPass" onChange={handleInput} value={dataUpdated.oldPass} />
+              <h4>Confirma la contraseña anterior: </h4>
+              <input type="password" name="oldPass" onChange={handleInput} value={dataUpdated.oldPass} maxLength="16" />
             </div>
 
             <div>
-              <p>Introduce la nueva contraseña: </p>
-              <input type="password" name="password" onChange={handleInput} value={dataUpdated.password} />
+              <h4>Introduce la nueva contraseña: </h4>
+              <input type="password" name="password" onChange={handleInput} value={dataUpdated.password} maxLength="16"/>
             </div>
             {!validator && <p>Las contraseñas no coinciden</p>}
             <div>
-              <p>Repite la nueva contraseña: </p>
-              <input type="password" name="checkNewPass" onChange={handleInput} value={dataUpdated.checkNewPass} />
+              <h4>Repite la nueva contraseña: </h4>
+              <input type="password" name="checkNewPass" onChange={handleInput} value={dataUpdated.checkNewPass} maxLength="16"/>
             </div>
             <div>
-              <button onClick={(e) => {
+              <button className={style.btnChange} type="submit">Actualizar</button>
+              <button className={style.btnChange} onClick={(e) => {
                 e.preventDefault()
                 setActivateArea(false)
               }}>Cancelar</button>
-              <button type="submit">Actualizar</button>
+
             </div>
           </div>
         }

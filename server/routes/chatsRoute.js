@@ -72,7 +72,8 @@ router.post("/", verifyToken, async (req, res, next) => {
     const messageSended = {
         sender: senderID,
         receiver: receiverID,
-        text: text
+        text: text,
+        createdAt: new Date
     }
 
     const participants = {

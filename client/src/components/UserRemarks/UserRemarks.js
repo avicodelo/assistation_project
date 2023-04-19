@@ -23,7 +23,7 @@ export default function UserRemarks() {
         fetch(`${URL_REMARKS}/getRemarks/${userData?._id}?page=${pageState.page}`)
             .then(res => res.json())
             .then(({ totalPages, results }) => {
-                setTotalPages (totalPages);
+                setTotalPages(totalPages);
                 results && results.length > 0 ?
                     setRemarks(results) :
                     setRemarks(undefined)
@@ -32,14 +32,15 @@ export default function UserRemarks() {
 
     return (
         <div className={style.wrapper}>
-            <div>
-                <h2>Puntuación</h2>
-                <p>{userData.rates?.length > 0 ?
-                    parseFloat(userData.rates.reduce((suma, nextRate) => suma + nextRate, 0) / userData.rates.length).toFixed(1) :
-                    "El esfuerzo dará su recompensa, anima a los usuarios a que te puntúen"}</p>
+            <div className={style.markContainer}>
+                <h3 >Puntuación</h3>
+                {userData.rates?.length > 0 ?
+                    <h3>{parseFloat(userData.rates.reduce((suma, nextRate) => suma + nextRate, 0) / userData.rates.length).toFixed(1)}  <i className="fa-solid fa-star"></i></h3> :
+                    <p>Todavía no tienes ninguna puntuación</p>
+                }
             </div>
-            <div>
-                <h2>Opiniones</h2>
+            <div className={style.remarksContainer}>
+                <h3>Opiniones</h3>
                 {remarks ?
                     <div>
                         {
@@ -49,15 +50,16 @@ export default function UserRemarks() {
                                 )
                             })
                         }
-                             <div>
-                                <button onClick={() => { handlePage("DECREASE") }}>&larr;</button>
-                                <p>{pageState.page + "/" + totalPages}</p>
-                                <button onClick={() => { handlePage("INCREASE") }}>&rarr;</button>
-                            </div>
+                        <div className={style.pagination}>
+                            <button className={style.pageBut} onClick={() => { handlePage("DECREASE") }}>&larr;</button>
+                            <p className={style.pageNumber}>{pageState.page + "/" + totalPages}</p>
+                            <button className={style.pageBut} onClick={() => { handlePage("INCREASE") }}>&rarr;</button>
+                        </div>
                     </div> :
                     <h2>Todavía no hay opiniones. Continúa prestando tus servicios, llegarán pronto</h2>
                 }
             </div>
+
         </div>
     )
 }

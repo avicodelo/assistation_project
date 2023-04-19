@@ -96,7 +96,7 @@ export default function ServicesSearcher() {
             })
             .then(({ results, payload, totalPages }) => {
 
-                if (payload?.userDB.role === "CUSTOMER") {
+                if (payload?.role === "CUSTOMER") {
                     setCheckCustomer(true)
                 }
                 setCardFiller([]);

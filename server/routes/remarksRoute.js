@@ -14,7 +14,7 @@ router.get("/getRemarks/:userID", async (req, res) => {
     const id = req.params.userID
     const { page } = req.query
 
-    const PAGE_SIZE = 1;
+    const PAGE_SIZE = 10;
     const totalEntries = await remarksSchema.countDocuments({ userId: id });
     const totalPages = Math.ceil(totalEntries / PAGE_SIZE);
     const pageSelected = page || 1;

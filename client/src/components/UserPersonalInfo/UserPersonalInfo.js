@@ -77,7 +77,11 @@ export default function UserPersonalInfo() {
         <div className={style.imageContainer}>
 
           <img src={SERVER_HOST + userData?.photo} alt="user" className={style.userDataPhoto} />
-          <input onChange={fileHandler} type="file" accept="image/png, image/jpeg" />
+          <input id="changePhoto" onChange={fileHandler} type="file" accept="image/png, image/jpeg" />
+          <label htmlFor="changePhoto">
+            <span className={style.uploadFile}>Examinar...</span>
+            <span className={style.fileName} >{fileUploaded? fileUploaded.name : "Archivo seleccionado"}</span>
+          </label>
 
           <div>
             <button onClick={managePhoto()} className={style.btnChange}>Aplicar Foto</button>
@@ -133,7 +137,7 @@ export default function UserPersonalInfo() {
           <h4>Sobre ti: </h4>
           {activateArea ?
             <textarea name="description" onChange={handleInput} value={dataUpdated.description}
-              placeholder={userData?.description} rows="5" maxLength="2000">
+              placeholder={userData?.description} rows="5"cols="50" maxLength="2000">
             </textarea> :
             <p className={style.descriptionInfo}>{userDataUpdated.description ? userDataUpdated.description : userData?.description}</p>
           }

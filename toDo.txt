@@ -1,5 +1,4 @@
 Prioridad 1:  
-    Gestión de errores y páginas/componentes a mostrar en esos errores
     Retocar CSS en general
     Responsive
     Establecer flujo de correos en "contraseña olvidada"
@@ -15,6 +14,7 @@ Prioridad 3:
             incluir areaOfResponsibility (visible a los usuarios)
             crear una para los customers
             }
+        formato de fechas y horas en mensajes y comentarios
         }
 
 
@@ -32,4 +32,5 @@ Cumplido:
     establecer en el buscador que busque en zona de responsabilidad
     Introducir edición de foto de usuario (UserPersonalInfo) 
     Check ChatApi y usarla en la web (servicio de chat)
+    Gestión de errores y páginas/componentes a mostrar en esos errores
 

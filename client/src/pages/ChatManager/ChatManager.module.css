@@ -1,0 +1,48 @@
+.pageBody {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chatWrapper {
+    width: 80%;
+    margin: 2rem auto;
+    flex-grow: 1;
+    display: flex;
+}
+
+.listWrapper {
+    max-height: 200vh;
+    overflow-y: scroll;
+    scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 0);
+    scrollbar-width: thin;
+}
+
+.userWrapper {
+    margin: 1.5rem 1rem;
+    cursor: pointer;
+}
+
+/*Scrollbar customization*/
+.listWrapper::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.listWrapper::-webkit-scrollbar:vertical {
+    width: 10px;
+}
+
+.listWrapper::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.listWrapper::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+}
+
+.listWrapper::-webkit-scrollbar-track {
+    border-radius: 10px;
+}

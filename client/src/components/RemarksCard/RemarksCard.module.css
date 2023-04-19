@@ -1,0 +1,51 @@
+.mainWrapper {
+    margin: 1rem 0;
+    padding: 1.5rem;
+    border-top: 1px solid lightgrey;
+
+}
+
+.writerInfo {
+    margin:0.5rem 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 1.5rem;
+}
+
+.img {
+    border-radius: 100px;
+    justify-self: center;
+    grid-column: 1;
+    grid-row: 1 /3;
+}
+
+.name {
+    font-weight: bold;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.address {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.rate {
+    margin:0.5rem;
+}
+
+.rate>i{
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.remarkWrapper{
+    margin:0.5rem;
+}
+
+.title{
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
