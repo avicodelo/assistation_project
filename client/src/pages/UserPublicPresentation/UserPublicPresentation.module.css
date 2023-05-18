@@ -1,9 +1,132 @@
-.pageBody{
+.pageBody {
     height: 100vh;
     min-height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.generalContainer {
+    width: 80%;
+    padding: 1.5rem;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 0.5fr;
+    grid-template-rows: 1fr fit-content;
+}
+
+.mainWrapper {
+    border-bottom: 1px solid lightgray;
+    padding: 1.5rem 0;
+    grid-column: 1;
+    grid-row: 1;
+
+}
+
+.serviceInfoWrapper {
+    height: fit-content;
+    width: fit-content;
+    padding: 3rem;
+    margin: 0 auto;
+    border: 1px solid var(--secondary);
+    border-radius: 5px;
+    grid-column: 2;
+    grid-row: 1 / 3;
+    position: sticky;
+    top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: -1;
+}
+
+.userWrapper {
+    padding: 2rem;
+    display: flex;
+}
+
+.personalInfoWrapper {
+    margin-left: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.personalInfoWrapper>p>span,
+.descriptionWrapper>h3,
+.opinionsTitle>h3 {
+    font-weight: bold;
+}
+
+.personalInfoWrapper>p>span {
+    font-size: 1.5rem;
+}
+
+.descriptionWrapper {
+    padding: 1rem 2rem;
+}
+
+.opinionsContainer {
+    height: fit-content;
+    width: 100%;
+    padding: 1.5rem 0;
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+}
+
+.opinionsTitle {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rate {
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.remarksWrapper {
+    width: 100%;
+    padding: 1rem 2rem;
+}
+
+.rate>i {
+    padding-left: 0.5rem;
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.remarksCard :first-child {
+    border: none;
+}
+
+.avatarImg {
+    height: 100px;
+    width: 100px;
+    border-radius: 500px;
+}
+
+
+.stdBtn {
+    height: fit-content;
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    background: linear-gradient(to right, var(--secondary), var(--primary));
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .noLoginWrapper {
@@ -14,6 +137,29 @@
 
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.pageNumber {
+    font-size: 1.5rem;
+}
+
+.pageBut {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+    background: linear-gradient(to right, var(--secondary), var(--primary));
+    border: none;
+    cursor: pointer;
+}
+
 .actionWrapper {
     display: flex;
     flex-direction: column;
@@ -22,6 +168,7 @@
 }
 
 .noLoginTitle {
+    font-weight: bold;
     padding-bottom: 3%;
 }
 
@@ -29,7 +176,7 @@
     padding: 1rem;
     border-radius: 5px;
     background: linear-gradient(to right, var(--secondary), var(--primary));
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: white;
     border: none;

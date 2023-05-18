@@ -1,4 +1,4 @@
-.dashPage{
+.dashPage {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -10,10 +10,16 @@
     flex-grow: 1;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+}
+
+.mainContainer>i {
+    display: none;
 }
 
 .asideMenu {
     width: 20%;
+    min-width: 150px;
     height: fit-content;
     padding: 2rem;
     margin-left: 2rem;
@@ -30,10 +36,76 @@
     color: black;
 }
 
+.asideSmallMenu {
+    display: none;
+}
+
 .hide {
     display: none;
 }
 
 .showService {
     display: block;
+}
+
+.actionWrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.noLoginTitle {
+    padding-bottom: 3%;
+}
+
+.goToLogin {
+    padding: 1rem;
+    border-radius: 5px;
+    background: linear-gradient(to right, var(--secondary), var(--primary));
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/*Media queries*/
+/*Screens <= 500px*/
+@media only screen and (max-width: 500px) {
+    .asideMenu {
+        display: none;
+    }
+
+    .asideSmallMenu {
+        display: block;
+        width: 20%;
+        min-width: 150px;
+        height: fit-content;
+        padding: 2rem;
+        border: 1px solid gray;
+        border-radius: 5%;
+        box-shadow: 5px 5px 20px rgb(156, 155, 155);
+        background-color: white;
+        position: absolute;
+        top: 10rem;
+        left: 7rem;
+        z-index: 5;
+    }
+
+    .asideSmallMenu * {
+        margin: 2rem 0;
+        text-decoration: none;
+        color: black;
+    }
+
+    .mainContainer>i {
+        font-size: 1.5rem;
+        padding: 1rem;
+        margin-left: 2rem;
+        border: 1px solid lightgray;
+        border-radius: 50px;
+        display: block;
+    }
 }

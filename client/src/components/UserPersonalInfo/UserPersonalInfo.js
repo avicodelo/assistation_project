@@ -98,9 +98,9 @@ export default function UserPersonalInfo() {
           {activateArea ?
             <div>
               <input type="text" name="name" onChange={handleInput} value={dataUpdated.name}
-                placeholder={userData?.name} pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" />
+                placeholder={userDataUpdated.name ? userDataUpdated.name : userData?.name} pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" />
               <input type="text" name="surname" onChange={handleInput} value={dataUpdated.surname}
-                placeholder={userData?.surname} pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" />
+                placeholder={userDataUpdated.surname ? userDataUpdated.surname : userData?.surname} pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" />
             </div> :
             <h4>{userDataUpdated.name ? userDataUpdated.name + " " + userDataUpdated.surname : userData?.name + " " + userData?.surname}</h4>
           }
@@ -110,7 +110,7 @@ export default function UserPersonalInfo() {
           <h4>Fecha de nacimiento:</h4>
           {activateArea ?
             <input type="date" name="dateOfBirth" onChange={handleInput} value={dataUpdated.dateOfBirth}
-              placeholder={(new Date(userData?.dateOfBirth)).toLocaleDateString()} max={minAge} /> :
+              placeholder={userDataUpdated.dateOfBirth ? (new Date(userDataUpdated.dateOfBirth)).toLocaleDateString() : (new Date(userData?.dateOfBirth)).toLocaleDateString()} max={minAge} /> :
             <h4>{userDataUpdated.dateOfBirth ? (new Date(userDataUpdated.dateOfBirth)).toLocaleDateString() : (new Date(userData?.dateOfBirth)).toLocaleDateString()}</h4>
           }
         </div>
@@ -119,7 +119,7 @@ export default function UserPersonalInfo() {
           <h4>Teléfono: </h4>
           {activateArea ?
             <input type="text" name="phone" onChange={handleInput} value={dataUpdated.phone}
-              placeholder={userData?.phone} pattern="^\+34[0-9]{9}" title="Es necesario añadir +34" /> :
+              placeholder={userDataUpdated.phone ? userDataUpdated.phone : userData?.phone} pattern="^\+34[0-9]{9}" title="Es necesario añadir +34" /> :
             <h4>{userDataUpdated.phone ? userDataUpdated.phone : userData?.phone}</h4>
           }
         </div>
@@ -128,7 +128,7 @@ export default function UserPersonalInfo() {
           <h4>Nacionalidad: </h4>
           {activateArea ?
             <input type="text" name="nationality" onChange={handleInput} value={dataUpdated.nationality}
-              placeholder={userData?.nationality} maxLength="50" /> :
+              placeholder={userDataUpdated.nationality ? userDataUpdated.nationality : userData?.nationality} maxLength="50" /> :
             <h4>{userDataUpdated.nationality ? userDataUpdated.nationality : userData?.nationality}</h4>
           }
         </div>
@@ -137,7 +137,7 @@ export default function UserPersonalInfo() {
           <h4>Sobre ti: </h4>
           {activateArea ?
             <textarea name="description" onChange={handleInput} value={dataUpdated.description}
-              placeholder={userData?.description} rows="5"cols="50" maxLength="2000">
+              placeholder={userDataUpdated.description ? userDataUpdated.description : userData?.description} rows="5"cols="50" maxLength="2000">
             </textarea> :
             <p className={style.descriptionInfo}>{userDataUpdated.description ? userDataUpdated.description : userData?.description}</p>
           }
@@ -148,7 +148,7 @@ export default function UserPersonalInfo() {
             <button onClick={(e) => {
               e.preventDefault()
               setActivateArea(true)
-            }} className={style.btnChange}>Actualizar datos</button>
+            }} className={style.btnChange}>Actualizar</button>
           </div> :
           <div>
             <button type="submit" className={style.btnChange}>Aplicar cambios</button>

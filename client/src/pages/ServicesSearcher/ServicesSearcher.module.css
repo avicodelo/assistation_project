@@ -20,7 +20,6 @@
     grid-column: 1;
     grid-row: 1;
     display: flex;
-
 }
 
 
@@ -104,4 +103,32 @@
 
 .noResults {
     margin: 1.5rem;
+}
+
+/*Media queries*/
+/*Screens <= 800px*/
+@media only screen and (max-width: 800px) {
+
+    .cardsContainer {
+        width: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+}
+
+/*Screens <= 500px*/
+@media only screen and (max-width: 500px) {
+    .usersWrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .mainContainer {
+        width: 100%;
+    }
 }

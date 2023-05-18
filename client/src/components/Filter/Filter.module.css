@@ -1,19 +1,19 @@
 .mainDivFilter{
     width: 20%;
+    min-width: 200px;
     margin: 1.5rem 1rem;
     position: sticky;
     top: 2rem;
-    float:left;
 
 }
 
 .filterOpener{
     font-size: 1.3rem;
-    width: 90%;
+    width: 100%;
     border: 1px solid lightgray;
     border-radius: 10px;
     margin-bottom: 1rem;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1.5rem;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -25,11 +25,11 @@
 }
 
 .orderSelector{
-    width: 90%;
+    width: 100%;
     border: 1px solid lightgray;
     border-radius: 10px;
     margin-bottom: 1rem;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1.5rem;
     display: flex;
     justify-content:flex-start ;
     align-items: center;
@@ -58,20 +58,27 @@
     border-radius: 5px;
 }
 .filterSelections{
-    width: 90%;
+    width: 100%;
     border: 1px solid lightgray;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-radius: 10px;
 }
 
-.filterSelections>label{
+.locality{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.filterSelections>label, .locality>label{
     font-size: 1.4rem;
     padding: 0.5rem 0;
 }
-.filterSelections>input, .filterSelections>select{
+
+.filterSelections>input, .filterSelections>select, .locality>input{
     font-size: 1.2rem;
     padding: 0.2rem 1rem;
     border-radius: 5px;
@@ -104,3 +111,16 @@
 }
 
 
+
+
+/*Media queries*/
+/*Screens <= 500px*/
+@media only screen and (max-width: 500px) {
+    .mainDivFilter{
+        width: 20%;
+        min-width: 200px;
+        margin: 1.5rem auto;
+        position: relative;
+    
+    }
+}

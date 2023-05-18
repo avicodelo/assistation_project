@@ -1,12 +1,13 @@
-.wrapper{
+.wrapper {
     width: 80%;
-    padding: 2rem 10rem;
+    padding: 2rem 5rem;
     display: flex;
     justify-content: space-around;
 
 }
 
-.imageContainer{
+.imageContainer {
+
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -14,49 +15,49 @@
     align-items: center;
 }
 
-.mainContainer{
+.mainContainer {
     padding-left: 5rem;
     width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 1rem;
 
 }
 
-.infoContainer{
+.infoContainer {
     display: flex;
 }
 
-.infoContainer>h4:first-child{
+.infoContainer>h4:first-child {
     padding: 0 1.5rem;
     font-weight: bold;
 }
 
-.infoContainer>h4:last-child{
+.infoContainer>h4:last-child {
     font-weight: normal;
 }
 
-.userDataPhoto{
+.userDataPhoto {
     width: 150px;
     height: 150px;
     border-radius: 500px;
 }
 
-.descriptionContainer{
-    padding: 1rem 0;
-}
-
-.descriptionContainer>h4:first-child{
+.descriptionContainer>h4:first-child {
     margin-bottom: 0.5rem;
     padding: 0 1.5rem;
     font-weight: bold;
 }
 
-.descriptionInfo{
+.descriptionInfo {
+    height: fit-content;
     padding: 0 1.5rem;
+    overflow-x: hidden;
 }
 
-.mainContainer input, .mainContainer textarea{
+.mainContainer input,
+.mainContainer textarea {
     padding: 0 0.5rem;
     margin-left: 1.5rem;
     border: none;
@@ -64,17 +65,19 @@
     font-size: 1.2rem;
 }
 
-.mainContainer input:focus, .mainContainer textarea:focus{
+.mainContainer input:focus,
+.mainContainer textarea:focus {
     outline: none;
     border-bottom: 1.5px solid var(--primary);
     transition: border 1s;
 }
 
-input[type=file]{
+input[type=file] {
     display: none;
 }
 
-.btnChange, .uploadFile{
+.btnChange,
+.uploadFile {
     padding: 0.5rem;
     margin-left: 1.5rem;
     border-radius: 5px;
@@ -86,7 +89,51 @@ input[type=file]{
     cursor: pointer;
 }
 
-.fileName{
+.fileName {
     font-size: 1.2rem;
     padding: 0.5rem 1rem;
+}
+
+/*Media queries*/
+/*Screens <= 800px*/
+@media only screen and (max-width: 800px) {
+    .wrapper {
+        padding-right: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .imageContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-end;
+    }
+
+    .imageContainer>.btnChange {
+        margin: 0;
+    }
+
+    .mainContainer {
+        width: 100%;
+        padding: 0;
+        display: flex;
+
+    }
+
+    .userDataPhoto {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/*Screens <= 500px*/
+@media only screen and (max-width: 500px) {
+    .wrapper {
+        width: 100%;
+        padding-left: 2rem;
+    }
+
 }

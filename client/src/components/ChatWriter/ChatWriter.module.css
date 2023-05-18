@@ -10,7 +10,7 @@
 .messagesContainer {
     width: 100%;
     flex-grow: 1;
-    max-height: 80vh;
+    max-height: 50vh;
     overflow-y: scroll;
     scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 0);
     scrollbar-width: thin;

@@ -52,7 +52,7 @@ export default function UserService() {
 
         {userData.areaOfResponsibility?.length !== 0 ?
           <div className={style.infoContainer}>
-            <h4>Municipios donde trabajo: </h4>
+            <h4>Desplazamiento a: </h4>
             {!activateArea ?
 
               <h4>{userDataUpdated.areaOfResponsibility ? userDataUpdated.areaOfResponsibility?.join(", ") : userData.areaOfResponsibility?.join(", ")}</h4>

@@ -15,7 +15,7 @@ export default function RemarksCard({ remark }) {
                 <p className={style.name}>{remark.writer?.name + " " + remark.writer?.surname}</p>
                 <p className={style.address}>{remark.writer?.address.city}</p>
             </div>
-            <p className={style.rate}>{remark?.rate} <i class="fa-solid fa-star"></i></p>
+            <p className={style.rate}>{remark?.rate} <i className="fa-solid fa-star"></i></p>
             <div className={style.remarkWrapper}>
             <p className={style.title}>{remark?.title}</p>
             <h6 className={style.date}>{deplowDate[0]}</h6>

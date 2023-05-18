@@ -31,10 +31,10 @@ export default function Filter({ modifyFilter, filterData, setFilterData }) {
                     <i className={`fa-solid fa-plus ${filterActive ? style.hideFilter : style.showFilter}`}></i>
                     <i className={`fa-solid fa-minus ${filterActive ? style.showFilter : style.hideFilter}`}></i>
                 </div>
-                <p className={style.openerTitle}>Añadir filtros</p>
+                <p className={style.openerTitle}>Filtrar</p>
             </section>
             <div className={`${style.orderSelector} ${filterActive ? style.showFilter : style.hideFilter}`}>
-                <label htmlFor="orderResults">Ordenar por : </label>
+                <label htmlFor="orderResults">Ordenar: </label>
                 <select name="orderResults" id="orderResults" onChange={modifyFilter()}>
                     <option value="standard">Más relevantes</option>
                     <option value="highPrice">Más caros</option>
@@ -48,7 +48,7 @@ export default function Filter({ modifyFilter, filterData, setFilterData }) {
                 <input type="text" id="filtCity" name="address.city" onChange={handleInput} value={filterData["address.city"]} maxLength="50" placeholder="Ciudad" />
 
                 {filterData["address.city"] ?
-                    <div>
+                    <div className={style.locality}>
                         <label htmlFor="filtLocality">Localidad</label>
                         <input type="text" id="filtLocality" name="areaOfResponsibility" onChange={handleInput} value={filterData.areaOfResponsibility} maxLength="50" placeholder="Localidad" />
                     </div> :

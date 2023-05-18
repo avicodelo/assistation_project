@@ -1,76 +1,93 @@
-.contactForm{
-    padding:3rem;
-    width: 35vw;
+.contactForm {
+    padding: 3rem;
+    width: 35%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.contactForm>h3{
-    padding:1.5rem 0;
+.contactForm>h3 {
+    padding: 1.5rem 0;
     font-weight: bold;
     text-align: center;
 }
 
-.contactFormTable td{
+.contactFormTable td {
     padding: 1rem 0;
     padding-right: 1.5rem;
     width: 50%;
 }
 
-.tituloCelda>label{
+.tituloCelda>label {
     font-size: 1.5rem;
-	margin: auto;
-	margin-top:1rem;
+    margin: auto;
+    margin-top: 1rem;
     font-weight: bold;
 }
 
-.datosCelda{
-	border:none;
-	margin: auto;
-	border-bottom: 1px solid rgb(171, 171, 171);
-	font-size: 1.5rem;
-	width:100%;
-    margin:1.5rem 0;
-	transition: transform 0.3s ease-in-out;
+.datosCelda {
+    border: none;
+    margin: auto;
+    border-bottom: 1px solid rgb(171, 171, 171);
+    font-size: 1.5rem;
+    width: 100%;
+    margin: 1.5rem 0;
+    transition: transform 0.3s ease-in-out;
 }
 
-.datosCelda:focus{
-	outline:none;
-	border-bottom: 1px solid var(--secondary);
-	color: black;
-	transform: scale(1.01);
+.datosCelda:focus {
+    outline: none;
+    border-bottom: 1px solid var(--secondary);
+    color: black;
+    transform: scale(1.01);
 }
 
-.btnSendMsg{
+.btnSendMsg {
     font-size: 1.5rem;
     font-weight: bold;
     padding: 1rem;
     width: 50%;
     border-radius: 5px;
     border: none;
-    color:white;
+    color: white;
     background: linear-gradient(to right, var(--secondary), var(--primary));
-    cursor:pointer;
+    cursor: pointer;
     transition-duration: 200ms;
 }
 
-.datosCelda::placeholder{
-	color: rgb(171, 171, 171);
+.datosCelda::placeholder {
+    color: rgb(171, 171, 171);
 }
 
-.contactEmail{
-	width:100%;
-	height:auto;
+.contactEmail {
+    width: 100%;
+    height: auto;
 }
 
-.helpText{
-	width:100%;
-	height:auto;
-	resize: none;
+.helpText {
+    width: 100%;
+    height: auto;
+    resize: none;
 }
 
-.required{
+.required {
     font-size: 1.5rem;
-	color:red;
+    color: red;
+}
+
+/*Media queries*/
+/*Screens <= 800px*/
+@media only screen and (max-width: 800px) {
+    .contactForm {
+        width: 50%;
+
+    }
+}
+
+/*Screens <= 500px*/
+@media only screen and (max-width: 500px) {
+    .contactForm {
+        width: 100%;
+
+    }
 }

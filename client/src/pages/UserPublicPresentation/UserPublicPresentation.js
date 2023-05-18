@@ -62,36 +62,51 @@ export default function UserPublicPresentation() {
 
         <div className={style.pageBody}>
             <Navbar />
-            <div>
-                {tokenValid ?
-                    <div>
-                        <div>
-                            <img src={SERVER_HOST + userData?.photo} alt="" width="100" />
-                            <button onClick={openChat()}>Enviar mensaje</button>
-                            <p>{userData?.name}</p>
-                            <p>{userData?.surname}</p>
-                            <p>{userData.dateOfBirth && parseInt((Date.now() - (new Date(userData.dateOfBirth)).getTime()) / (1000 * 3600 * 24 * 365))}</p>
-                            <p>{userData?.tipeOfService}</p>
-                            <p>{userData?.price}</p>
-                            {<p>{userData.address?.city + ", " + userData.address?.locality}</p>}
-                            <p>{userData?.description}</p>
-                            <div>
-                                <h2>Puntuación</h2>
-                                <p>{userData.rates?.length > 0 ?
-                                    parseFloat(userData.rates.reduce((suma, nextRate) => suma + nextRate, 0) / userData.rates.length).toFixed(1) :
-                                    "Contribuye con la primera puntuación"}</p>
+
+            {tokenValid ?
+                <div className={style.generalContainer}>
+                    <div className={style.mainWrapper}>
+
+                        <div className={style.userWrapper}>
+
+
+                            <img src={SERVER_HOST + userData?.photo} className={style.avatarImg} alt="" width="100" />
+
+                            <div className={style.personalInfoWrapper}>
+                                <p><span>Nombre: </span>{userData?.name + " " + userData?.surname}</p>
+                                <p><span>Edad: </span>{userData.dateOfBirth && parseInt((Date.now() - (new Date(userData.dateOfBirth)).getTime()) / (1000 * 3600 * 24 * 365))}</p>
+                                <p><span>Ciudad: </span>{userData.address?.city}</p>
+                                <p><span>Población: </span>{userData.address?.locality}</p>
+
                             </div>
+
+
                         </div>
-                        <div>
-                            <h2>Opiniones</h2>
-                            <button onClick={(e) => {
-                                e.preventDefault();
-                                setActivateArea(true)
-                            }}>Añadir comentario</button>
+                        <div className={style.descriptionWrapper}>
+                            <h3>Descripción: </h3>
+                            <p>{userData?.description}</p>
+                        </div>
+                    </div>
+                    <div className={style.opinionsContainer}>
+
+                        <div className={style.remarksWrapper}>
+                            <div className={style.flex}>
+                                <div className={style.opinionsTitle}>
+                                    <h3>Opiniones</h3>
+                                    <p className={style.rate}>{userData.rates?.length > 0 ?
+                                        parseFloat(userData.rates.reduce((suma, nextRate) => suma + nextRate, 0) / userData.rates.length).toFixed(1) :
+                                        "-"}
+                                        <i className="fa-solid fa-star"></i></p>
+                                </div>
+                                <button onClick={(e) => {
+                                    e.preventDefault();
+                                    setActivateArea(true)
+                                }} className={style.stdBtn}>Añadir comentario</button>
+                            </div>
                             {!activateArea ?
 
                                 (remarks ?
-                                    <div>
+                                    <div className={style.remarksCard}>
                                         {
                                             remarks.map((remark, index) => {
                                                 return (
@@ -99,37 +114,47 @@ export default function UserPublicPresentation() {
                                                 )
                                             })
                                         }
-                                        <div>
-                                            <button onClick={() => { handlePage("DECREASE") }}>&larr;</button>
-                                            <p>{pageState.page + "/" + totalPages}</p>
-                                            <button onClick={() => { handlePage("INCREASE") }}>&rarr;</button>
+                                        <div className={style.pagination}>
+                                            <button className={style.pageBut} onClick={() => { handlePage("DECREASE") }}>&larr;</button>
+                                            <p className={style.pageNumber}>{pageState.page + "/" + totalPages}</p>
+                                            <button className={style.pageBut} onClick={() => { handlePage("INCREASE") }}>&rarr;</button>
                                         </div>
 
                                     </div> :
-                                    <h2>Todavía no hay opiniones, ¡Anímate a dar la tuya!</h2>
+                                    <p>Todavía no hay opiniones, ¡Anímate a dar la tuya!</p>
                                 ) :
 
                                 <ShareRemark setActivateArea={setActivateArea} userID={userID} />
                             }
 
-
-                        </div>
-                    </div> :
-
-                    <div className={style.bodyNoLogin}>
-                        <div className={style.noLoginWrapper}>
-                            <div className={style.actionWrapper}>
-                                <h1 className={style.noLoginTitle}>
-                                    La sesión ha caducado, es necesario iniciar sesión
-                                </h1>
-                                <button onClick={() => { navigate("/login") }} className={style.goToLogin}>
-                                    Iniciar sesión
-                                </button>
-                            </div>
                         </div>
                     </div>
-                }
-            </div>
+
+                    <div className={style.serviceInfoWrapper}>
+
+                        <h3>{userData?.typeOfService}</h3>
+                        <h3>{userData?.price} € hora</h3>
+                        <button onClick={openChat()} className={style.stdBtn}>Enviar mensaje</button>
+
+                    </div>
+                </div>
+                :
+
+                <div className={style.bodyNoLogin}>
+                    <div className={style.noLoginWrapper}>
+                        <div className={style.actionWrapper}>
+                            <h2 className={style.noLoginTitle}>
+                                La sesión ha caducado, es necesario iniciar sesión
+                            </h2>
+                            <button onClick={() => { navigate("/login") }} className={style.goToLogin}>
+                                Iniciar sesión
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
 
             <Footer />
         </div>

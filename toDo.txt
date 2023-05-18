@@ -1,5 +1,5 @@
 Prioridad 1:  
-    Retocar CSS en general
+    
     Responsive
     Establecer flujo de correos en "contraseña olvidada"
 
@@ -33,4 +33,4 @@ Cumplido:
     Introducir edición de foto de usuario (UserPersonalInfo) 
     Check ChatApi y usarla en la web (servicio de chat)
     Gestión de errores y páginas/componentes a mostrar en esos errores
-
+    Retocar CSS en general

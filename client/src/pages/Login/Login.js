@@ -135,8 +135,8 @@ export default function Login() {
 
               <div className={style.submitArea}>
 
-                <NavLink className={style.passForgotten} to="passwordForgotten">¿Contraseña olvidada?</NavLink>
                 <input className={style.submitLogin} type="submit" value="ENTRAR" />
+                <NavLink className={style.passForgotten} to="passwordForgotten">¿Contraseña olvidada?</NavLink>
 
               </div>
 
