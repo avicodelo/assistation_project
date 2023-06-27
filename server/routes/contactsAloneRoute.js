@@ -30,7 +30,7 @@ router.post("/", mailer, async (req, res, next) => {
         }
 
         if (mailerError) {
-            res.status(500).json({ ok: false, err: mailerError, cause: "mailer fail" })
+            res.status(500).json({ ok: false, error: mailerError, cause: "mailer fail" })
         } else {
             res.status(200).json({ ok: true, info: mailerInfo.accepted });
         }

@@ -6,14 +6,14 @@
 }
 
 .chatWrapper {
-    width: 80%;
+    width: 95%;
     margin: 2rem auto;
     flex-grow: 1;
     display: flex;
 }
 
 .listWrapper {
-    max-height: 200vh;
+    max-height: 100vh;
     overflow-y: scroll;
     scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 0);
     scrollbar-width: thin;
@@ -68,4 +68,25 @@
 
 .listWrapper::-webkit-scrollbar-track {
     border-radius: 10px;
+}
+
+/*Media queries*/
+/*Screens <= 800px*/
+@media only screen and (max-width: 800px) {
+
+}
+
+/*Screens <= 500px*/
+@media only screen and (max-width: 500px) {
+    .chatWrapper{
+        flex-direction: column;
+    }
+
+    .listWrapper {
+        display: flex;
+        max-width: 95vw;
+        overflow-x: scroll;
+        scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 0);
+        scrollbar-width: thin;
+    }
 }

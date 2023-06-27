@@ -5,8 +5,8 @@ const mailer = (req, _res, next) => {
     // Create a SMTP transporter object
     const transporter = nodemailer.createTransport({
         host: "smtp.ethereal.email",
-        port: 587,
-        secure: false,
+        port: 465,
+        secure: true,
         auth: {
             user: process.env.MAIL,
             pass: process.env.MAILPASS
@@ -15,7 +15,7 @@ const mailer = (req, _res, next) => {
     // Message object
     const message = {
         from: `${body.name} <${body.email}>`,
-        to: `Customer support <${process.env.MAIL}>`,
+        to: `Equipo de Assistation <${process.env.MAIL}>`,
         subject: 'Message from Contact page',
         html: `<p>${body.helpText}</p>`
     };

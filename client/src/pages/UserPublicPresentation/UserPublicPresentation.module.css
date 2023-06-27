@@ -26,7 +26,7 @@
 .serviceInfoWrapper {
     height: fit-content;
     width: fit-content;
-    padding: 3rem;
+    padding: 3rem 2rem;
     margin: 0 auto;
     border: 1px solid var(--secondary);
     border-radius: 5px;
@@ -40,13 +40,27 @@
     z-index: -1;
 }
 
+.serviceInfoWrapper h3 {
+    font-weight: bold;
+}
+
+.serviceSpecifics{
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+.serviceSpecifics>h3{
+    font-size: 1.8rem;
+}
+
 .userWrapper {
     padding: 2rem;
     display: flex;
 }
 
 .personalInfoWrapper {
-    margin-left: 5rem;
+    margin-left: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -76,10 +90,9 @@
 }
 
 .opinionsTitle {
-    width: 25%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 1.5rem;
 }
 
 .rate {
@@ -127,6 +140,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.noRemarks {
+    padding-top: 1.5rem;
 }
 
 .noLoginWrapper {
@@ -181,4 +198,41 @@
     color: white;
     border: none;
     cursor: pointer;
+}
+
+/*Media queries*/
+/*Screens <= 800px*/
+@media only screen and (max-width: 800px) {
+    .generalContainer {
+        width: 100%;
+    }
+
+    .serviceInfoWrapper h3 {
+        font-size: 1.5rem;
+    }
+
+    .opinionsTitle {
+        gap: 1rem;
+    }
+
+    .stdBtn {
+        font-size: 1.3rem;
+    }
+}
+
+/*Screens <= 500px*/
+@media only screen and (max-width: 500px) {
+    .generalContainer {
+        display: flex;
+        flex-direction: column;
+    }
+    .serviceInfoWrapper {
+        width: 100%;
+        background-color: white;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1fr 0.5fr;
+        grid-column: 1fr 1fr;
+        top:0;
+    }
 }

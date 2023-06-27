@@ -157,3 +157,18 @@
     background-color: khaki;
     border-radius: 5px;
 }
+
+/*Media queries*/
+/*Screens <= 800px*/
+@media only screen and (max-width: 800px) {
+    .generalDiv{
+        width: 75%;
+    }
+}
+
+/*Screens <= 500px*/
+@media only screen and (max-width: 500px) {
+    .generalDiv{
+        width: 95%;
+    }
+}

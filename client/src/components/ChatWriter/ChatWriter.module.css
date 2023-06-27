@@ -10,7 +10,7 @@
 .messagesContainer {
     width: 100%;
     flex-grow: 1;
-    max-height: 50vh;
+    max-height: 100vh;
     overflow-y: scroll;
     scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 0);
     scrollbar-width: thin;
@@ -82,4 +82,37 @@
 
 .messagesContainer::-webkit-scrollbar-track {
     border-radius: 10px;
+}
+
+/*Media queries*/
+/*Screens <= 800px*/
+@media only screen and (max-width: 800px) {
+    .mainWrapper {
+        margin-left: 1rem;
+    }
+    
+    .senderMsgContainer {
+        width: 75%;
+    }
+    
+    .receiverMsgContainer {
+        width: 75%;
+    }
+
+    
+}
+
+/*Screens <= 500px*/
+@media only screen and (max-width: 500px) {
+    .mainWrapper {
+        border:none;
+    }
+
+    .senderMsgContainer {
+        width: 65%;
+    }
+    
+    .receiverMsgContainer {
+        width: 65%;
+    }
 }

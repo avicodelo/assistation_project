@@ -1,7 +1,7 @@
 .chatUserWrapper {
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows:  1fr 0.25fr 0.25fr;
     column-gap: 1.5rem;
 }
 
@@ -24,4 +24,22 @@
 .date{
     grid-column: 2;
     grid-row: 3;
+}
+
+/*Screens <= 500px*/
+@media only screen and (max-width: 500px) {
+    .chatUserWrapper {
+        min-width: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .name{
+        font-size: 1.3rem;
+    }
+
+    .lastMessage, .date{
+        display: none;
+    }
 }

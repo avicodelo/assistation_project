@@ -130,7 +130,11 @@ const providerSchema = new Schema({
     chats: [{
         type: Schema.Types.ObjectId,
         ref: "Chats"
-    }]
+    }],
+
+    activationCode: {
+        type: Number
+    }
 })
 
 providerSchema.methods.toJSON = function () {

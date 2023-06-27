@@ -31,7 +31,16 @@
     border: none;
 }
 
+.passDataDiv{
+    width: 90%;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
 
+.passDataDiv>input{
+    padding-left: 1rem;
+}
 
 .divEmailData, .msgSended {
     width: 90%;
@@ -46,7 +55,6 @@
 
 
 .formPassForgotten {
-    padding: 5% 5% 0 5%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -64,30 +72,8 @@
     overflow: hidden;
 }
 
-.emailDiv i {
-    font-size: 1.5rem;
-}
-
-.typeOfUser{
-    width: 100%;
-    display: flex;
-    justify-content:space-around;
-    align-items: center;
-}
-
-.typeOfUser>div{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-
-.typeOfUser>div>input{
-    margin:1.5rem 0.5rem;
-}
-
 .controlInput {
-    width: 100%;
+    width: 50%;
     border: none;
     margin-left: 1rem;
     border-radius: 5px;
@@ -99,11 +85,11 @@
     outline: none;
 }
 
-.submitLogin {
+.stdBtn {
     font-size: 1.5rem;
     font-weight: bold;
-    padding: 1rem;
-    margin-top: 3rem;
+    padding: 0.5rem;
+    margin-top: 2rem;
     border-radius: 5px;
     width: 50%;
     border: none;
@@ -113,30 +99,17 @@
     transition-duration: 200ms;
 }
 
-.submitLogin:hover {
-    font-size: 1.6;
-    transform: scale(1.05);
-    transition: all 200ms ease-out;
-}
-
 /*Media queries*/
 /*Screens <= 800px*/
 @media only screen and (max-width: 800px) {
     .passForgottenMain {
-        width: 75vw;
+        width: 80vw;
     }
     .divEmailData {
         width: 95%;
+        padding: 5% 0;
     }
 
-    .typeOfUser{
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .typeOfUser>div>input{
-        margin: 0.5rem;
-    }
 }
 
 /*Screens <= 500px*/
@@ -146,5 +119,14 @@
     }
     .divEmailData {
         width: 100%;
+    }
+
+    .passDataDiv{
+        width: 90%;
+        padding: 0.5rem 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap:0.5rem;
     }
 }

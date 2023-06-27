@@ -52,6 +52,7 @@ export default function UserPublicPresentation() {
             fetch(`${URL_CHATS}?sendTo=${userID}`, postInfo)
                 .then(res => res.json())
                 .then(({ chatExist, newChatID }) => {
+                    console.log(chatExist, newChatID)
                     navigate(`/chatManager?chat=${chatExist || newChatID}`)
                 }
                 )
@@ -65,6 +66,20 @@ export default function UserPublicPresentation() {
 
             {tokenValid ?
                 <div className={style.generalContainer}>
+
+                    <div className={style.serviceInfoWrapper}>
+
+                        <h3>{userData?.typeOfService}</h3>
+                        <div className={style.serviceSpecifics}>
+                            <h3>{userData?.price} €/h</h3>
+                            <h3 className={style.rate}>{userData.rates?.length > 0 ?
+                                parseFloat(userData.rates.reduce((suma, nextRate) => suma + nextRate, 0) / userData.rates.length).toFixed(1) :
+                                "-"}
+                                <i className="fa-solid fa-star"></i></h3>
+                        </div>
+                        <button onClick={openChat()} className={style.stdBtn}>Enviar mensaje</button>
+
+                    </div>
                     <div className={style.mainWrapper}>
 
                         <div className={style.userWrapper}>
@@ -121,7 +136,7 @@ export default function UserPublicPresentation() {
                                         </div>
 
                                     </div> :
-                                    <p>Todavía no hay opiniones, ¡Anímate a dar la tuya!</p>
+                                    <p className={style.noRemarks}>Todavía no hay opiniones, ¡Anímate a dar la tuya!</p>
                                 ) :
 
                                 <ShareRemark setActivateArea={setActivateArea} userID={userID} />
@@ -130,13 +145,6 @@ export default function UserPublicPresentation() {
                         </div>
                     </div>
 
-                    <div className={style.serviceInfoWrapper}>
-
-                        <h3>{userData?.typeOfService}</h3>
-                        <h3>{userData?.price} € hora</h3>
-                        <button onClick={openChat()} className={style.stdBtn}>Enviar mensaje</button>
-
-                    </div>
                 </div>
                 :
 

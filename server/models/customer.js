@@ -112,8 +112,11 @@ const customerSchema = new Schema({
     chats:[{
         type: Schema.Types.ObjectId,
         ref: "Chats"
-    }]
+    }],
 
+    activationCode: {
+        type: Number
+    }
 
 })
 

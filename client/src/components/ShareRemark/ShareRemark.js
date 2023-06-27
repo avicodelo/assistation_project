@@ -1,3 +1,6 @@
+//CSS import
+import style from "./ShareRemark.module.css"
+
 //React imports
 import { useState } from "react"
 
@@ -9,7 +12,7 @@ export default function ShareRemark({ setActivateArea, userID }) {
     const initialState = {
         title: "",
         mainBody: "",
-        rate: ""
+        rate: 3
     }
 
     const [shareRemark, setShareRemark] = useState(initialState)
@@ -18,8 +21,6 @@ export default function ShareRemark({ setActivateArea, userID }) {
     const handleInput = (e) => {
         setShareRemark({ ...shareRemark, ...{ [e.target.name]: e.target.value } })
     }
-
-    console.log(shareRemark);
 
     const setRemark = () => {
         return (e) => {
@@ -37,26 +38,33 @@ export default function ShareRemark({ setActivateArea, userID }) {
             fetch(`${URL_REMARKS}/postRemark/${userID}`, postInfo)
                 .then(res => res.json())
                 .then(setActivateArea(false))
-                .catch(err=>console.log(err))
+                .catch(err => console.log(err))
         }
     }
 
     return (
-        <form onSubmit={setRemark()}>
-            <label htmlFor="title">Título</label>
-            <input type="text" onChange={handleInput} value={shareRemark.title} id="title" name="title" required />
+        <form className={style.remarkForm} onSubmit={setRemark()}>
+            <div className={style.remarkTitle}>
+                <label htmlFor="title">Título</label>
+                <input  type="text" onChange={handleInput} value={shareRemark.title} id="title" name="title" required />
+            </div>
 
-            <label htmlFor="mainBody">Escribe tu opinión</label>
-            <textarea onChange={handleInput} value={shareRemark.mainBody} id="mainBody" name="mainBody" required></textarea>
+            <div className={style.remarkText}>
+                <label htmlFor="mainBody">Escribe tu opinión</label>
+                <textarea onChange={handleInput} value={shareRemark.mainBody} id="mainBody" name="mainBody" rows="3" maxLength="200" required></textarea>
+            </div>
 
-            <label htmlFor="rate">Puntuación</label>
-            <input type="number" onChange={handleInput} value={shareRemark.rate} id="rate" name="rate" min="0" max="5" required />
+            <div className={style.remarkRate}>
+                <label htmlFor="rate">Puntuación</label>
+                <input  type="range" onChange={handleInput} value={shareRemark.rate} id="rate" name="rate" step="0.5" min="0" max="5" required/>
+                <p>{shareRemark.rate}</p>
+            </div>
 
-            <button onClick={(e) => {
+            <button className={style.stdBtn} onClick={(e) => {
                 e.preventDefault();
                 setActivateArea(false)
             }}>Cancelar</button>
-            <button type="submit">Enviar</button>
+            <button className={style.stdBtn} type="submit">Enviar</button>
         </form>
     )
 }

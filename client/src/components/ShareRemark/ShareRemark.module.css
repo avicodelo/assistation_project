@@ -1,0 +1,63 @@
+.remarkForm {
+    width: 80%;
+    padding: 2rem;
+}
+
+.remarkForm>div{
+    margin: 1.5rem;
+    display: flex;
+}
+
+.remarkForm label {
+    font-size: 1.5rem;
+}
+
+.remarkForm input, .remarkForm textarea{
+    font-size: 1.3rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-bottom: 1px solid gray;
+}
+
+.remarkForm input:focus, .remarkForm textarea:focus{
+    outline: none;
+    border-bottom: 1.5px solid var(--primary);
+    transition: all 1s;
+}
+
+.remarkTitle {
+    gap: 1.5rem;
+}
+
+.remarkText {
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.remarkText>textarea{
+    width: 50%;
+}
+
+.remarkRate{
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.remarkRate>input {
+    padding: 0;
+}
+
+.stdBtn {
+    height: fit-content;
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    margin: 1.5rem;
+    border-radius: 5px;
+    background: linear-gradient(to right, var(--secondary), var(--primary));
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+}
