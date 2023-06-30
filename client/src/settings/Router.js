@@ -26,7 +26,7 @@ export default function Router() {
           <Route path="passwordForgotten" >
             <Route index element={<PasswordForgotten />} />
             <Route path="setpass" >
-              < Route path=":role" element={<SetPass />} />
+              < Route path=":userRole" element={<SetPass />} />
               </Route>
             </Route>
           </Route>

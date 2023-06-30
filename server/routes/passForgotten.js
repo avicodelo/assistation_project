@@ -1,5 +1,6 @@
 //Const declarations
 const router = require("express").Router();
+const bcrypt = require("bcrypt");
 
 //Schemas
 const providerSchema = require("../models/provider");
@@ -9,7 +10,7 @@ const customerSchema = require("../models/customer");
 const passMailer = require("../middlewares/passMailer");
 
 //Alert if any user has forgotten his password
-router.post("/", passMailer, async (req, res,next) => {
+router.post("/", passMailer, async (req, res, next) => {
     const body = req.body;
     const randomCode = req.randomCode
     const schema = body.role === "PROVIDER" ? providerSchema : customerSchema
@@ -19,13 +20,13 @@ router.post("/", passMailer, async (req, res,next) => {
 
     if (mailerError) {
         res.status(500).json({ ok: false, error: "No se pudo enviar el correo" })
+
     } else {
 
         try {
             const userToChangePass = await schema.findOne({ active: true, email: body.email });
-            userToChangePass.activationCode= randomCode;
+            userToChangePass.activationCode = randomCode;
             await userToChangePass.save()
-            console.log(userToChangePass.activationCode);
             res.status(200).json({ ok: true, message: mailerInfo.accepted });
         }
 
@@ -35,8 +36,26 @@ router.post("/", passMailer, async (req, res,next) => {
     }
 })
 
-router.put("/setPass", (req, res) => {
+router.put("/setPass", async (req, res, next) => {
+    const body = req.body;
+    const schema = body.role && body.role === "PROVIDER" ? providerSchema : customerSchema;
+    const userToChangePass = await schema.findOne({ active: true, email: body.email })
 
+    if (!userToChangePass) {
+        res.status(400).json({ ok: false, error: "El email no existe" })
+    } else if (Number(body.code) !== userToChangePass.activationCode) {
+        res.status(400).json({ ok: false, error: "El código de activación no es correcto" })
+    } else {
+        try {
+            userToChangePass.password = bcrypt.hashSync(body.password, 10)
+            userToChangePass.activationCode = undefined
+            userToChangePass.save()
+            res.status(200).json({ ok: true, message: "Contraseña actualizada" })
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 })
 
 

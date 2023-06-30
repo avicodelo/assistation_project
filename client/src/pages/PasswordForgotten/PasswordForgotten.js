@@ -79,11 +79,11 @@ export default function PasswordForgotten() {
 
                   <div>
                     <input type="radio" id="customer" name="role" onChange={handleInput} value="CUSTOMER" required />
-                    <label htmlFor="customer"><p>Entrar como Cliente</p></label>
+                    <label htmlFor="customer"><p>Soy Cliente</p></label>
                   </div>
                   <div>
                     <input type="radio" id="provider" name="role" onChange={handleInput} value="PROVIDER" />
-                    <label htmlFor="provider"><p>Entrar como Proveedor</p></label>
+                    <label htmlFor="provider"><p>Soy Proveedor</p></label>
                   </div>
 
                 </div>
