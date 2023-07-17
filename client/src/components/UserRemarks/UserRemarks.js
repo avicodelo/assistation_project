@@ -1,3 +1,5 @@
+//SHOWS USER'S REMARKS
+
 //CSS imports
 import style from "./UserRemarks.module.css";
 
@@ -14,11 +16,13 @@ import { usePagination } from "../../Hooks/usePagination"
 
 export default function UserRemarks() {
 
+    //Const settings
     const userData = useContext(dashboardContext)
     const [remarks, setRemarks] = useState([])
     const [totalPages, setTotalPages] = useState(undefined)
     const [handlePage, pageState] = usePagination(totalPages)
 
+    //Set pages to show remarks
     useEffect(() => {
         fetch(`${URL_REMARKS}/getRemarks/${userData?._id}?page=${pageState.page}`)
             .then(res => res.json())

@@ -1,11 +1,18 @@
-import { URL_DASHBOARD } from "../settings/Settings"
-import { useState, useEffect } from "react";
+//SEVERAL REQUESTS TO API TO MANAGE USER INFO
 
+//React imports
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"
+
+//Component imports
+import { URL_DASHBOARD } from "../settings/Settings"
+
+//Hook imports
 import { useCities } from "./useCities"
 
 function useUpdateInfo(initialState, userData) {
 
+    //Const settings
     const { userID } = useParams()
     const [dataUpdated, setDataUpdated] = useState(initialState)
     const [userDataUpdated, setUserDataUpdated] = useState(userData)
@@ -18,6 +25,7 @@ function useUpdateInfo(initialState, userData) {
         setUserDataUpdated(userData)
     }, [initialState.areaOfResponsibility, userData.address, userData.photo])
 
+    //Manages the inputs that are introduced by user
     const handleInput = (e) => {
         if (e.target.name === "address.postalCode") {
             setDataUpdated({ ...dataUpdated, ...{ [e.target.name]: e.target.value, "address.city": city } });
@@ -26,6 +34,7 @@ function useUpdateInfo(initialState, userData) {
         }
     }
 
+    //Adds a municipality in user data
     const addItem = () => {
         return (e) => {
             e.preventDefault()
@@ -34,6 +43,7 @@ function useUpdateInfo(initialState, userData) {
         }
     }
 
+    //Deletes a municipality from user data
     const removeItem = () => {
         return (e) => {
             e.preventDefault()
@@ -42,10 +52,13 @@ function useUpdateInfo(initialState, userData) {
         }
     }
 
+    //Modify user data in DDBB
     const updateInfo = () => {
 
         return (e) => {
             e.preventDefault()
+
+            //Deletes empty properties
             for (const property in dataUpdated) {
                 if (!dataUpdated[property]) {
                     delete dataUpdated[property];
@@ -53,7 +66,7 @@ function useUpdateInfo(initialState, userData) {
                 setDataUpdated(dataUpdated)
             }
 
-            //PUT
+            //PUT data
             const putInfo = {
                 method: "PUT",
                 headers: {
@@ -63,6 +76,7 @@ function useUpdateInfo(initialState, userData) {
                 body: JSON.stringify(dataUpdated)
             }
 
+            //Updates vars with data saved
             fetch(URL_DASHBOARD + userID, putInfo)
                 .then(res => res.json())
                 .then(({ updatedUser }) => {

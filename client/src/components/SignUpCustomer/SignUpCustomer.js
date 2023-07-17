@@ -14,7 +14,7 @@ import { useCities } from "../../Hooks/useCities";
 
 export default function SignUpCustomer() {
 
-  //Const sets
+  //Const settings
   const initialStateSignUp = {
     name: "",
     surname: "",
@@ -32,13 +32,12 @@ export default function SignUpCustomer() {
     country: "",
     postalCode: "",
   }
-
   const [signUpData, setSignUpData] = useState(initialStateSignUp); //User data variable
   const [validator, setValidator] = useState(true); //traffic light for passwords
   const navigate = useNavigate()
   const city = useCities(signUpData.postalCode)
 
-  //Function: updates customer data
+  //Updates customer data and check the password
   const handleImput = (e) => {
     if (e.target.name === "postalCode") {
       setSignUpData({ ...signUpData, ...{ [e.target.name]: e.target.value, city: city } });
@@ -51,11 +50,13 @@ export default function SignUpCustomer() {
     }
   }
 
-  //Function: sends the info to server
+  //Sends the info to server
   const signUpCustomer = () => {
     return (e) => {
       e.preventDefault()
-      if (signUpData.password === signUpData.passwordRepeated) { //checks if passwords are equal
+
+      //checks if passwords are equal
+      if (signUpData.password === signUpData.passwordRepeated) { 
 
         //POST data
         const addInfo = {
@@ -64,7 +65,7 @@ export default function SignUpCustomer() {
           body: JSON.stringify(signUpData)
         };
 
-        //Save new contact
+        //Shows status of request
         fetch(URL_CUSTOMER, addInfo)
           .then(response => response.json())
           .then(data => {
@@ -95,6 +96,7 @@ export default function SignUpCustomer() {
 
   }
 
+  //Shows the page structure
   return (
     <SignUpCustomerStructure handleImput={handleImput} signUpCustomer={signUpCustomer}
       signUpData={signUpData} validator={validator} />

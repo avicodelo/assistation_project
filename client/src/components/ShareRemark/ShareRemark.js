@@ -1,3 +1,5 @@
+//SHARES THE REMARK AND KEEP IT IN DDBB
+
 //CSS import
 import style from "./ShareRemark.module.css"
 
@@ -9,15 +11,16 @@ import { URL_REMARKS } from "../../settings/Settings";
 
 export default function ShareRemark({ setActivateArea, userID }) {
 
+    //Const settings
     const initialState = {
         title: "",
         mainBody: "",
         rate: 3
     }
-
     const [shareRemark, setShareRemark] = useState(initialState)
     const accessToken = localStorage.getItem("accesstoken")
 
+    //Saves inputs in an object variable
     const handleInput = (e) => {
         setShareRemark({ ...shareRemark, ...{ [e.target.name]: e.target.value } })
     }
@@ -26,6 +29,7 @@ export default function ShareRemark({ setActivateArea, userID }) {
         return (e) => {
             e.preventDefault()
 
+            //POST data
             const postInfo = {
                 method: "POST",
                 headers: {
@@ -35,10 +39,10 @@ export default function ShareRemark({ setActivateArea, userID }) {
                 body: JSON.stringify(shareRemark)
             }
 
+            //Comunicates with API REST
             fetch(`${URL_REMARKS}/postRemark/${userID}`, postInfo)
                 .then(res => res.json())
                 .then(setActivateArea(false))
-                .catch(err => console.log(err))
         }
     }
 

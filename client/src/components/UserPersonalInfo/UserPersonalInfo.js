@@ -1,3 +1,5 @@
+//SHOWS USER'S PERSONAL INFO
+
 //CSS imports
 import style from "./UserPersonalInfo.module.css";
 
@@ -14,8 +16,8 @@ import { useMinAge } from "../../Hooks/useMinAge";
 
 export default function UserPersonalInfo() {
 
+  //Const settings
   const userData = useContext(dashboardContext)
-
   const initialUserData = {
     name: "",
     surname: "",
@@ -24,24 +26,27 @@ export default function UserPersonalInfo() {
     nationality: "",
     description: ""
   }
-
   const accessToken = localStorage.getItem("accesstoken")
   const minAge = useMinAge()
-
-  const [dataUpdated, handleInput, updateInfo, _addItem, _removeItem, activateArea, setActivateArea, userDataUpdated] = useUpdateInfo(initialUserData, userData)
   const [activateInputFile, setActivateInputFile] = useState(false)
   const [fileUploaded, setFileUploaded] = useState(null)
 
+  //Hook that manages the user data
+  const [dataUpdated, handleInput, updateInfo, _addItem, _removeItem, activateArea, setActivateArea, userDataUpdated] = useUpdateInfo(initialUserData, userData)
+
+  //Saves the file uploaded
   const fileHandler = (e) => {
     setFileUploaded(e.target.files[0]);
   }
 
+  //Manage the image data to save it in DDBB
   const managePhoto = () => {
     return () => {
       if (fileUploaded) {
         const formData = new FormData();
         formData.append("avatarImage", fileUploaded)
 
+        //POST data
         const postData = {
           method: "POST",
           headers: {
@@ -50,6 +55,7 @@ export default function UserPersonalInfo() {
           body: formData
         }
 
+        //Sends the image data to API REST
         fetch(`${URL_DASHBOARD}/uploadImage/${userData?._id}`, postData)
           .then(res => res.json)
           .then(fetch(SERVER_HOST + userData.photo)
@@ -59,7 +65,6 @@ export default function UserPersonalInfo() {
               window.location.reload()
             }
             ))
-          .catch(err => console.log(err))
       }
     }
   }
@@ -80,7 +85,7 @@ export default function UserPersonalInfo() {
           <input id="changePhoto" onChange={fileHandler} type="file" accept="image/png, image/jpeg" />
           <label htmlFor="changePhoto">
             <span className={style.uploadFile}>Examinar...</span>
-            <span className={style.fileName} >{fileUploaded? fileUploaded.name : "Archivo seleccionado"}</span>
+            <span className={style.fileName} >{fileUploaded ? fileUploaded.name : "Archivo seleccionado"}</span>
           </label>
 
           <div>
@@ -137,7 +142,7 @@ export default function UserPersonalInfo() {
           <h4>Sobre ti: </h4>
           {activateArea ?
             <textarea name="description" onChange={handleInput} value={dataUpdated.description}
-              placeholder={userDataUpdated.description ? userDataUpdated.description : userData?.description} rows="5"cols="50" maxLength="2000">
+              placeholder={userDataUpdated.description ? userDataUpdated.description : userData?.description} rows="5" cols="50" maxLength="2000">
             </textarea> :
             <p className={style.descriptionInfo}>{userDataUpdated.description ? userDataUpdated.description : userData?.description}</p>
           }

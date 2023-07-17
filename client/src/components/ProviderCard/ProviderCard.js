@@ -1,4 +1,4 @@
-//SETS THE PROVIDERCARD STRUCTURE 
+//SETS THE PROVIDERCARD STRUCTURE AND THE LINK TO GO TO PUBLIC INFO
 
 //CSS imports
 import style from "./ProviderCard.module.css";
@@ -11,6 +11,7 @@ import { SERVER_HOST } from "../../settings/Settings";
 
 export default function ProviderCard({ providerData }) {
 
+  //Const settings
   const { _id } = providerData
 
   return (

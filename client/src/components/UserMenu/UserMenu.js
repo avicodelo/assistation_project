@@ -1,3 +1,5 @@
+//USER'S MENU ON NAVBAR WHEN USER IS LOGGED
+
 //CSS imports
 import style from "./UserMenu.module.css"
 
@@ -6,10 +8,12 @@ import { NavLink } from "react-router-dom"
 
 export default function UserMenu({ userID, menuActive }) {
 
+  //Deletes athorizations to allows user to logout
   const logout = () => {
     localStorage.removeItem("accesstoken")
     localStorage.removeItem("userID")
   }
+  
   return (
     <div className={menuActive ? style.userMenuMain : style.hideItem}>
 

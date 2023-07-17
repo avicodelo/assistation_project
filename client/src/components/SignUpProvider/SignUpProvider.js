@@ -9,12 +9,13 @@ import swal from "sweetalert";
 import SignUpProviderStructure from "./SignUpProviderStructure";
 import { URL_PROVIDER } from "../../settings/Settings";
 
+//Hook imports
 import { useCities } from "../../Hooks/useCities";
 
 
 export default function SignUpProvider() {
 
-  //Const sets
+  //Const settings
   const initialStateSignUp = {
     name: "",
     surname: "",
@@ -33,13 +34,12 @@ export default function SignUpProvider() {
     postalCode: "",
     typeOfService: "",
   }
-
   const [signUpData, setSignUpData] = useState(initialStateSignUp); //User data variable
   const [validator, setValidator] = useState(true); //traffic light for passwords
   const navigate = useNavigate()
   const city = useCities(signUpData.postalCode)
 
-  //Function: updates customer data
+  //Updates customer data
   const handleInput = (e) => {
     if (e.target.name === "postalCode") {
       setSignUpData({ ...signUpData, ...{ [e.target.name]: e.target.value, city: city } });
@@ -53,11 +53,12 @@ export default function SignUpProvider() {
 
   }
 
-  //Function: sends the info to server
+  //Sends the info to server
   const saveProvider = () => {
     return (e) => {
       e.preventDefault()
-      if (signUpData.password === signUpData.passwordRepeated) { //checks if passwords are equal
+      //checks if passwords are equal
+      if (signUpData.password === signUpData.passwordRepeated) {
 
         //POST data
         const addInfo = {
@@ -66,7 +67,7 @@ export default function SignUpProvider() {
           body: JSON.stringify(signUpData)
         };
 
-        //Save new contact
+        //Shows status of request
         fetch(URL_PROVIDER, addInfo)
           .then(response => response.json())
           .then(data => {
@@ -97,6 +98,6 @@ export default function SignUpProvider() {
 
   return (
     <SignUpProviderStructure handleInput={handleInput} saveProvider={saveProvider}
-      signUpData={signUpData} validator={validator}/>
+      signUpData={signUpData} validator={validator} />
   )
 }

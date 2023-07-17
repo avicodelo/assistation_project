@@ -6,20 +6,19 @@ import style from "./Filter.module.css";
 //React imports
 import { useState } from "react";
 
-
 export default function Filter({ modifyFilter, filterData, setFilterData }) {
 
-    //Const sets
+    //Const settings
     const [filterActive, setFilterActive] = useState(false) //Detects if the fields in form are active
 
-    //Function: activates/deactivates filter div
+    //Activates/deactivates filter div
     const changeFilter = () => {
         return () => {
             setFilterActive(!filterActive)
         }
     }
 
-    //Function: Saves inputs in an object variable
+    //Saves inputs in an object variable
     const handleInput = (e) => {
         setFilterData({ ...filterData, ...{ [e.target.name]: e.target.value } })
     }

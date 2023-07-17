@@ -1,13 +1,8 @@
 Prioridad 1:  
-
-    Establecer flujo de correos en "contraseña olvidada"
     Comprobar Api de calendario
     Probar el chat cuando hay muchos usuarios en la lista
 
-Prioridad 2: 
-    Ver vídeos que faltan del curso FullStack
-
-Prioridad 3:
+Prioridad 2:
     Introducir mapa (leaflet)
     Ajustes menores {
         publicPresention: {
@@ -35,3 +30,4 @@ Cumplido:
     Gestión de errores y páginas/componentes a mostrar en esos errores
     Retocar CSS en general
     Responsive
+    Establecer flujo de correos en "contraseña olvidada"

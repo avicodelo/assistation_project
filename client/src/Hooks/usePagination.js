@@ -1,6 +1,11 @@
+//MANAGES THE PAGINATION
+
+//React imports
 import {useReducer} from "react"
 
 export default function usePagination(totalPages) {
+
+    //Reducer setting to manage pagination
     const reducer = (state, action) => {
         if (action.type === "INCREASE") {
             return { page: state.page + 1 }

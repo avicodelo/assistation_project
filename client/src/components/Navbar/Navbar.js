@@ -11,12 +11,13 @@ import UserMenu from "../UserMenu/UserMenu";
 
 export default function Navbar() {
 
-    //Const sets
+    //Const settings
     const userID = localStorage.getItem("userID");
     const [loged, setLoged] = useState(false)
-    const [menuActive, setMenuActive] = useState(false)
-    const [reducedMenuActive, setReducedMenuActive] = useState(false)
+    const [menuActive, setMenuActive] = useState(false) //User menu
+    const [reducedMenuActive, setReducedMenuActive] = useState(false) //Options menu
 
+    //Detects if the user is logged
     const checkLoged = () => {
         if (localStorage.getItem("accesstoken")) {
             setLoged(true)
@@ -25,11 +26,13 @@ export default function Navbar() {
         }
     }
 
+    //Sets a listener on the document to detect where the user is clicking
     useEffect(() => {
         document.addEventListener("click", manageMenu())
         document.addEventListener("click", changeReducedMenu())
     }, [])
 
+    //Opens or closes the user menu depending on the status
     const manageMenu = () => {
         return (e) => {
             e.stopPropagation()
@@ -42,6 +45,7 @@ export default function Navbar() {
         }
     }
 
+    //opens or closes the option menu depending on the status (<800px format)
     const changeReducedMenu = () => {
         return (e) => {
             e.stopPropagation()

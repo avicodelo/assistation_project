@@ -6,7 +6,7 @@ import ContactStructure from "./ContactStructure";
 import swal from "sweetalert";
 
 export default function ContactForm() {
-    //Const sets
+    //Const settings
     const URL_CONTACTALONE = "http://localhost:3002/contactAlone";
     const initialStateContactForm = {
         name: "",
@@ -15,15 +15,14 @@ export default function ContactForm() {
         helpText: ""
 
     }
-
     const [contactFormData, setContactFormData] = useState(initialStateContactForm);
 
-    //Function: Saves inputs in an object variable
+    //Saves inputs in an object variable
     const handleInput = (e) => {
         setContactFormData({ ...contactFormData, ...{ [e.target.name]: e.target.value } })
     }
 
-    //Function: Comunication with server when the info is sent
+    //Comunication with server when the info is sent
     const sendInfo = () => {
         return (e) => {
             e.preventDefault();
@@ -35,7 +34,7 @@ export default function ContactForm() {
                 body: JSON.stringify(contactFormData)
             };
 
-            //Save new contact
+            //Shows the status of the request
             fetch(URL_CONTACTALONE, addInfo)
                 .then(response => response.json())
                 .then(data => {

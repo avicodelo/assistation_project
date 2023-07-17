@@ -1,3 +1,5 @@
+//COMPONENT TO DELETE DE USER
+
 //CSS imports
 import style from "./UserDeletion.module.css";
 
@@ -10,19 +12,23 @@ import { URL_DASHBOARD } from '../../settings/Settings'
 
 export default function UserDeletion() {
 
+    //Const settings
     const { userID } = useParams()
     const accessToken = localStorage.getItem("accesstoken")
     const navigate = useNavigate()
-
     const [checkPassword, setCheckPassword] = useState({ password: "" })
     const [activateInput, setActivateInput] = useState(false)
 
-
+    //Saves inputs in an object variable
     const handleInput = (e) => {
         setCheckPassword({ ...checkPassword, ...{ [e.target.name]: e.target.value } })
     }
+
+    //Deletes the user using the API REST
     const deleteUser = () => {
         return () => {
+
+            //DELETE data
             const deleteInfo = {
                 method: "DELETE",
                 headers: {
@@ -32,7 +38,7 @@ export default function UserDeletion() {
                 body: JSON.stringify(checkPassword)
             }
 
-
+            //Resets the local Storage and goes to home page
             fetch(URL_DASHBOARD + userID, deleteInfo)
                 .then(res => res.json())
                 .then((deletionData) => {

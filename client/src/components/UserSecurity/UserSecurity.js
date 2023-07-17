@@ -1,3 +1,5 @@
+//SHOWS USER'S SECURITY AREA
+
 //CSS imports
 import style from "./UserSecurity.module.css";
 
@@ -13,17 +15,20 @@ import { useUpdateInfo } from "../../Hooks/useUpdateInfo";
 
 export default function UserSecurity() {
 
+  //Const settings
   const initialPassState = {
     oldPass: "",
     password: "",
     checkNewPass: ""
   }
-
   const userData = useContext(dashboardContext);
   const accessToken = localStorage.getItem("accesstoken")
   const [validator, setValidator] = useState(true);
+  
+  //Hook that manages the user data
   const [dataUpdated, handleInput, updateInfo, _addItem, _removeItem, activateArea, setActivateArea] = useUpdateInfo(initialPassState, userData)
 
+  //Allows to change the user's password
   const changePassword = () => {
     return (e) => {
       e.preventDefault()
@@ -33,6 +38,8 @@ export default function UserSecurity() {
         setValidator(true)
 
         const checkPass = {
+
+          //POST data
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -45,6 +52,7 @@ export default function UserSecurity() {
           })
         };
 
+        //Update user info
         fetch(URL_LOGIN, checkPass)
           .then(response => response.json())
           .then(access => {

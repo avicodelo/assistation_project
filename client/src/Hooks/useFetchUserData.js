@@ -1,12 +1,18 @@
+//GET USER DATA FROM DDBB
+
+//React imports
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 function useFetchUserData(URL) {
+
+    //Const settings
     const { userID } = useParams()
     const accessToken = localStorage.getItem("accesstoken")
     const [userData, setUserData] = useState({})
     const [tokenValid, setTokenValid] = useState(true)
 
+    //GET data
     const setGetHeader = {
         method: "GET",
         headers: {
@@ -15,7 +21,7 @@ function useFetchUserData(URL) {
         },
     }
 
-    //Fetch info
+    //Modify output with user data
     useEffect(() => {
         fetch(URL + userID, setGetHeader)
             .then(res => res.json())

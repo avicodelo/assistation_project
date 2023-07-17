@@ -11,6 +11,7 @@ import { useMinAge } from "../../Hooks/useMinAge";
 
 export default function SignUpCustomerStructure({ handleImput, signUpCustomer, signUpData, validator }) {
 
+  //Const settings
   const minAge = useMinAge()
 
   return (

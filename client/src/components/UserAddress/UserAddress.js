@@ -1,3 +1,5 @@
+//SHOWS USER'S ADDRESS INFO
+
 //CSS imports
 import style from "./UserAddress.module.css";
 
@@ -12,8 +14,9 @@ import { dashboardContext } from "../../pages/Dashboard/Dashboard"
 import { useUpdateInfo } from "../../Hooks/useUpdateInfo";
 
 export default function UserAddress() {
-    const userData = useContext(dashboardContext);
 
+    //Const settings
+    const userData = useContext(dashboardContext);
     const initialUserData = {
         "address.street": "",
         "address.number": "",
@@ -22,6 +25,8 @@ export default function UserAddress() {
         "address.locality": "",
         "address.city": ""
     }
+    
+    //Hook that manages the user data
     const [dataUpdated, handleInput, updateInfo, _addItem, _removeItem, activateArea, setActivateArea, userDataUpdated] = useUpdateInfo(initialUserData, userData)
     const { address } = userDataUpdated.address ? userDataUpdated : userData;
 

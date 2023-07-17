@@ -1,3 +1,5 @@
+//SHOWS THE USER'S SERVICE INFORMATION IF HE IS A PROVIDER
+
 //CSS imports
 import style from "./UserService.module.css";
 
@@ -10,16 +12,15 @@ import { useUpdateInfo } from "../../Hooks/useUpdateInfo"
 
 export default function UserService() {
 
-
+  //Const settings
   const userData = useContext(dashboardContext)
-
   const serviceInitialState = {
     price: "",
     areaOfResponsibility: userData.areaOfResponsibility,
     setAreaOfResponsibility: ""
   }
 
-
+  //Hook that manages the user data
   const [dataUpdated, handleInput, updateInfo, addItem, removeItem, activateArea, setActivateArea, userDataUpdated] = useUpdateInfo(serviceInitialState, userData)
 
   return (

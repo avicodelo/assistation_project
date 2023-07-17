@@ -1,6 +1,6 @@
+//SETS MIN AGE TO USE DE SERVICE
 
-
-//Hook: set min age as 16
+//Sets min age as 16
 function useMinAge() {
 
     const today = new Date();

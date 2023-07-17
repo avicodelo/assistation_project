@@ -1,3 +1,5 @@
+//MANAGES SPAIN CITIES DEPENDING ON THE POSTAL CODE INPUT
+
 //Component imports
 import { URL_PROVINCIAS } from "../settings/Settings"
 
@@ -9,6 +11,7 @@ function useCities(cp) {
   const [city, setCities] = useState("")
   const postalCode = cp >= 2 ? cp.substring(0, 2) : "";
 
+  //Request to external API to get cities
   useEffect(() => {
     if (postalCode.length === 2 && postalCode !== "54") {
       fetch(URL_PROVINCIAS(postalCode))
