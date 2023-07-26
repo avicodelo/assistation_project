@@ -1,3 +1,6 @@
+//CONFIGURES MAILER TO CONTACT WITH AN USER
+
+//Modules imports
 const nodemailer = require("nodemailer");
 
 const mailer = (req, _res, next) => {
@@ -30,23 +33,5 @@ const mailer = (req, _res, next) => {
         }
     });
 }
-
-//test account created to check the functionality. 
-//Only needed if you don't have a real mail account for testing
-//delete in production phase
-/*nodemailer.createTestAccount((err, account) => {
-    if (err) {
-        console.error('Failed to create a testing account. ' + err.message);
-        return process.exit(1);
-    }
- 
-    console.log('Credentials obtained, sending message...');
-*/
-
-
-
-
-
-
 
 module.exports = mailer;

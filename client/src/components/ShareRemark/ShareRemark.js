@@ -40,7 +40,7 @@ export default function ShareRemark({ setActivateArea, userID }) {
             }
 
             //Comunicates with API REST
-            fetch(`${URL_REMARKS}/postRemark/${userID}`, postInfo)
+            fetch(`${URL_REMARKS}/${userID}`, postInfo)
                 .then(res => res.json())
                 .then(setActivateArea(false))
         }

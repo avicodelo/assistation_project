@@ -1,3 +1,5 @@
+//PAGE WHERE IS THE CHAT
+
 //CSS import
 import style from "./ChatManager.module.css"
 
@@ -14,6 +16,7 @@ import { URL_CHATS } from "../../settings/Settings"
 
 export default function ChatManager() {
 
+    //Const settings
     const urlQuery = new URLSearchParams(window.location.search)
     const accessToken = localStorage.getItem("accesstoken")
     const navigate = useNavigate()
@@ -21,12 +24,14 @@ export default function ChatManager() {
     const [chatID, setChatID] = useState(urlQuery.has("chat") ? urlQuery.get("chat") : null)
     const [plugToFetch, setPlugToFetch] = useState(true)
 
+    //Listener on document to update chat
     useEffect(() => {
         document.addEventListener("click", manageFetch())
     }, [])
 
     useEffect(() => {
 
+        //GET data
         const setGetHeader = {
             method: "GET",
             headers: {
@@ -34,6 +39,7 @@ export default function ChatManager() {
                 "Authorization": "Bearer " + accessToken
             }
         }
+        //Update the list of chats
         fetch(URL_CHATS, setGetHeader)
             .then(res => res.json())
             .then(chats => {
@@ -44,12 +50,14 @@ export default function ChatManager() {
 
     }, [plugToFetch])
 
+    //Changes the var's value when document is clicked (updates page)
     const manageFetch = () => {
         return () => {
             setPlugToFetch(!plugToFetch)
         }
     }
 
+    //Searches the chat with a specific ID and shows it
     const goToChat = (id) => {
         setChatID(id)
     }

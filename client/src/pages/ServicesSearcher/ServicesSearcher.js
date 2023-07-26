@@ -1,3 +1,5 @@
+//SEARCHER OF SERVICE PAGE
+
 //Css imports
 import style from "./ServicesSearcher.module.css"
 
@@ -15,12 +17,11 @@ import { useNavigate } from "react-router-dom";
 //Hook imports
 import { usePagination } from "../../Hooks/usePagination"
 
-
-
 export default function ServicesSearcher() {
 
-    //Const declarations
+    //Const settings
     const navigate = useNavigate();
+    const accessToken = localStorage.getItem("accesstoken")
     const initialFilterState = {
         "address.city": "",
         areaOfResponsibility: "",
@@ -28,7 +29,6 @@ export default function ServicesSearcher() {
         typeOfService: "",
         rates: ""
     };
-
     const initialCardState = {
         photo: "",
         name: "",
@@ -38,7 +38,6 @@ export default function ServicesSearcher() {
         description: "",
         rates: ""
     };
-
     const [cardFiller, setCardFiller] = useState([]); //Manage user data to fill the Card
     const [orderSelector, setOrderSelector] = useState("&order=standard"); //Update the data in the order selector
     const [filterData, setFilterData] = useState(initialFilterState); //Update the data that has been introduced
@@ -47,8 +46,7 @@ export default function ServicesSearcher() {
     const [totalPages, setTotalPages] = useState(undefined)
     const [handlePage, pageState] = usePagination(totalPages)
 
-
-    //Function: Prepares the info to query format and sends it to URL
+    //Prepares the info to query format and sends it to URL
     const modifyFilter = () => {
         return (e) => {
             e.preventDefault();
@@ -64,18 +62,15 @@ export default function ServicesSearcher() {
                 setFilterString("");
                 navigate("/servicesSearcher");
 
-
             } else {
                 setOrderSelector(`&order=${e.target.value}`)
             }
             handlePage()
             window.scroll(0, 0);
         }
-
     }
 
-    //Auth info
-    const accessToken = localStorage.getItem("accesstoken")
+    //GET data
     const setGetHeader = {
         method: "GET",
         headers: {
@@ -84,9 +79,9 @@ export default function ServicesSearcher() {
         }
     }
 
-    //Function: fills the card variable with the filtered user info
     useEffect(() => {
 
+        //Fills the card variable with the filtered user info
         fetch(URL_PROVIDER + "?" + filterString + orderSelector + `&page=${pageState.page}`, setGetHeader)
             .then(response => {
                 if (response.ok) {
@@ -103,9 +98,8 @@ export default function ServicesSearcher() {
                 setTotalPages(totalPages)
                 results?.map(provider => setCardFiller(previousData => [...previousData, { ...initialCardState, ...provider }]))
             })
-            .catch((error) => {
-                console.log(error)
-
+            .catch(() => {
+                console.log("Ha habido un error")
             });
 
     }, [filterString, orderSelector, pageState?.page]);

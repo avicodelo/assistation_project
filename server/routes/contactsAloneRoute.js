@@ -1,4 +1,4 @@
-//Const declarations, collection "contactsAlone"
+//Const settings, collection "contactsAlone"
 const router = require("express").Router();
 
 //Schemas
@@ -7,15 +7,12 @@ const contactAloneSchema = require("../models/contactsAlone");
 //Middles
 const mailer = require("../middlewares/mailer");
 
-//ContactAlone creation "POST"
+//Saves the info of user that has contacted
 router.post("/", mailer, async (req, res, next) => {
     const body = req.body;
     const mailerInfo = req.mailerInfo;
     const mailerError = req.mailerError;
-
     const { name, surname, email } = body
-
-
 
     try {
         const emailExist = await contactAloneSchema.findOne({ email: email })

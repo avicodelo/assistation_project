@@ -1,3 +1,5 @@
+//MANAGES THE ROUTES
+
 //Pages imports
 import Contact from "../pages/Contact/Contact";
 import Home from "../pages/Home/Home";
@@ -13,12 +15,10 @@ import ChatManager from "../pages/ChatManager/ChatManager";
 //React imports
 import { Route, Routes } from "react-router-dom";
 
-
 export default function Router() {
 
   return (
     <div>
-
       <Routes>
         <Route index element={<Home />} />
         <Route path="/login" >
@@ -44,7 +44,6 @@ export default function Router() {
           <Route path="/chatManager" element={<ChatManager />} />
           <Route path="*" element={<h1>Error 404: La página no existe</h1>} />
       </Routes>
-
     </div >
   )
 }

@@ -24,7 +24,7 @@ export default function UserRemarks() {
 
     //Set pages to show remarks
     useEffect(() => {
-        fetch(`${URL_REMARKS}/getRemarks/${userData?._id}?page=${pageState.page}`)
+        fetch(`${URL_REMARKS}/${userData?._id}?page=${pageState.page}`)
             .then(res => res.json())
             .then(({ totalPages, results }) => {
                 setTotalPages(totalPages);

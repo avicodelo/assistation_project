@@ -1,4 +1,4 @@
-//GENERAL CONST SETS
+//GENERAL CONST SETTINGS
 
 //url
 export const URL_LOGIN = "http://localhost:3002/login";

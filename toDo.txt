@@ -14,20 +14,3 @@ Prioridad 2:
 
 
 Cumplido:
-    Encriptar contraseñas
-    Crear check de contraseñas en login
-    Crear cambio de contraseña en UserSecurity
-    Crear Eliminación de usuario con introducción de contraseña
-    Autoeliminar token y ID cuando caduque => manejar página para que indique que la sesión ha caducado
-    Validar campos en informacion de usuario (UserPersonalInfo, UserAddress) 
-    Gestionar filtros: filtrar por ciudad y luego por Localidad
-    Edición de precio de servicio (si no tiene precio que no salga en búsqueda)
-    En PROVIDER: establecer área de trabajo   
-    paginación providers y comentarios. Ajustar Rates de los providers
-    establecer en el buscador que busque en zona de responsabilidad
-    Introducir edición de foto de usuario (UserPersonalInfo) 
-    Check ChatApi y usarla en la web (servicio de chat)
-    Gestión de errores y páginas/componentes a mostrar en esos errores
-    Retocar CSS en general
-    Responsive
-    Establecer flujo de correos en "contraseña olvidada"

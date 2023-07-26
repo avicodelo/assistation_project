@@ -1,7 +1,7 @@
-
+//Modules imports
 const jwt = require("jsonwebtoken");
 
-
+//Authenticates the user
 const verifyToken = (req, res, next) => {
 
     !req.get("authorization") && res.status(401).json({ ok: false, error: "no estas autorizado" })

@@ -1,8 +1,9 @@
+//USER INFORMATION PAGE
+
 //CSS imports
 import style from "./Dashboard.module.css"
 
 //Component imports
-
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import UserPersonalInfo from "../../components/UserPersonalInfo/UserPersonalInfo";
@@ -23,13 +24,14 @@ import { useFetchUserData } from "../../Hooks/useFetchUserData";
 export const dashboardContext = createContext({})
 
 export default function Dashboard() {
-  //Const declarations
+
+  //Const settings
   const { pageRequired } = useParams();
   const [userData, userID, tokenValid] = useFetchUserData(URL_DASHBOARD)
   const [menuActive, setMenuActive] = useState(false)
   const navigate = useNavigate()
 
-  //Function: manages data showed
+  //Manages data (components) showed
   const showComponent = (pageRequired) => {
     if (pageRequired === "address") {
       return <UserAddress />
@@ -51,10 +53,12 @@ export default function Dashboard() {
     }
   }
 
+  //Adds a listener on document to detect the Menu status (small screens)
   useEffect(() => {
     document.addEventListener("click", manageDashboard())
   }, [])
 
+  //Manages the Menu status (small screens)
   const manageDashboard = () => {
     return (e) => {
       e.stopPropagation()

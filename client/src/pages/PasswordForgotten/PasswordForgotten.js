@@ -1,4 +1,4 @@
-//PAGE TO SEND MSG TO RECOVER THE PASSWORD
+//PAGE THAT SENDS A MSG TO RECOVER THE PASSWORD
 
 //CSS imports
 import style from "./PasswordForgotten.module.css"
@@ -10,24 +10,22 @@ import { URL_PASSFORGOTTEN } from "../../settings/Settings"
 //React imports
 import { useState } from "react"
 
-
 export default function PasswordForgotten() {
 
-  //Const declarations
+  //Const settings
   const initialState = {
     email: "",
     role: ""
   }
-
   const [recoverPassData, setRecoverPassData] = useState(initialState);
   const [messageSended, setMessageSended] = useState(false);
 
-  //Function: Manages data introduced by user
+  //Manages data introduced by user
   const handleInput = (e) => {
     setRecoverPassData({ ...recoverPassData, ...{ [e.target.name]: e.target.value } });
   }
 
-  //Function: Searches the email with pass forgotten
+  //Searches the email with pass forgotten
   const searchEmail = () => {
     return (e) => {
       e.preventDefault();
@@ -39,7 +37,7 @@ export default function PasswordForgotten() {
         body: JSON.stringify(recoverPassData)
       }
 
-      //Recover Password
+      //Sends a message to recover password
       fetch(URL_PASSFORGOTTEN, dataToSearch)
         .then(response => response.json())
         .then(({ message }) => {
@@ -51,9 +49,6 @@ export default function PasswordForgotten() {
         })
     }
   }
-
-
-  /*configurar el envío de correos con NODEMAILER*/
 
   return (
 
@@ -89,7 +84,6 @@ export default function PasswordForgotten() {
                 </div>
 
                 <input className={style.submitLogin} type="submit" value="Enviar" />
-
 
               </form>
             </div> :

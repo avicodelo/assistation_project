@@ -13,13 +13,13 @@ import { useParams, useNavigate } from "react-router-dom"
 
 export default function SetPass() {
 
+  //Const settings
   const initialPassState = {
     email: "",
     code: "",
     password: "",
     checkNewPass: ""
   }
-
   const navigate = useNavigate();
   const { userRole } = useParams();
   const role = userRole === "ctm" ? "CUSTOMER" : userRole === "prd" ? "PROVIDER" : undefined;
@@ -27,10 +27,12 @@ export default function SetPass() {
   const [validator, setValidator] = useState(true);
   const [passError, setPassError] = useState(undefined)
 
+  //Manages user data
   const handleInput = (e) => {
     setPassData({ ...passData, ...{ [e.target.name]: e.target.value } })
   }
 
+  //Checks validators and changes de password
   const changePassword = () => {
     return (e) => {
       e.preventDefault()
@@ -39,6 +41,7 @@ export default function SetPass() {
       } else {
         setValidator(true)
 
+        //PUT data
         const createPass = {
           method: "PUT",
           headers: {
@@ -48,6 +51,7 @@ export default function SetPass() {
 
         };
 
+        //Updates de password
         fetch(URL_SETPASS, createPass)
           .then(response => response.json())
           .then(passChanged => {

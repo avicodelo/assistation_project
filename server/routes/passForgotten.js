@@ -1,4 +1,4 @@
-//Const declarations
+//Const settings
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 
@@ -9,7 +9,7 @@ const customerSchema = require("../models/customer");
 //Middles
 const passMailer = require("../middlewares/passMailer");
 
-//Alert if any user has forgotten his password
+//Alerts via email if any user has forgotten his password
 router.post("/", passMailer, async (req, res, next) => {
     const body = req.body;
     const randomCode = req.randomCode
@@ -36,9 +36,11 @@ router.post("/", passMailer, async (req, res, next) => {
     }
 })
 
+//Sets the new password when the user has forgotten it
 router.put("/setPass", async (req, res, next) => {
     const body = req.body;
     const schema = body.role && body.role === "PROVIDER" ? providerSchema : customerSchema;
+
     const userToChangePass = await schema.findOne({ active: true, email: body.email })
 
     if (!userToChangePass) {
@@ -57,7 +59,5 @@ router.put("/setPass", async (req, res, next) => {
         }
     }
 })
-
-
 
 module.exports = router;

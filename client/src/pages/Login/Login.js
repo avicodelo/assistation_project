@@ -13,23 +13,22 @@ import { useNavigate, NavLink } from "react-router-dom"
 
 export default function Login() {
 
-  //Const sets
+  //Const settings
   const navigate = useNavigate()
   const initialLogState = {
     email: "",
     password: "",
     role: ""
   }
-
-  const [loginData, setLoginData] = useState(initialLogState); //login data variable
+  const [loginData, setLoginData] = useState(initialLogState);
   const [allowAccess, setAllowAccess] = useState(true)
 
-  //Function: updates customer data
+  //Manages customer data
   const handleInput = (e) => {
     setLoginData({ ...loginData, ...{ [e.target.name]: e.target.value } });
   }
 
-  //Function: sends the info to server to do login
+  //Sends the info to server to do login
   const doLogin = () => {
     return (e) => {
       e.preventDefault()
@@ -46,7 +45,7 @@ export default function Login() {
         body: JSON.stringify(loginData)
       };
 
-      //Does login
+      //Does login and redirect depending on type of user
       fetch(URL_LOGIN, checkLoginInfo)
         .then(response => {
           if (response.status === "500") {
@@ -72,6 +71,7 @@ export default function Login() {
           }
         });
 
+      //Resets data
       e.target.role.forEach(element => {
         element.checked = false;
         setLoginData(initialLogState);

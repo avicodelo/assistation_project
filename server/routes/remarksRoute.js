@@ -1,4 +1,4 @@
-//Const declarations, collection "remarks"
+//Const settings, collection "remarks"
 const router = require("express").Router();
 
 //Schemas
@@ -9,8 +9,8 @@ const remarksSchema = require("../models/remarks")
 //Middles
 const verifyToken = require("../middlewares/auth")
 
-//Get user remarks
-router.get("/getRemarks/:userID", async (req, res) => {
+//Gets user remarks
+router.get("/:userID", async (req, res) => {
     const id = req.params.userID
     const { page } = req.query
 
@@ -38,8 +38,8 @@ router.get("/getRemarks/:userID", async (req, res) => {
 })
 
 
-//Post a remark 
-router.post("/postRemark/:userID", verifyToken, async (req, res) => {
+//Creates a remark 
+router.post("/:userID", verifyToken, async (req, res) => {
     const id = req.params.userID;
     const payload = req.payload["userDB"];
     let body = req.body;
@@ -72,12 +72,13 @@ router.post("/postRemark/:userID", verifyToken, async (req, res) => {
         })
 
     } 
+/*
     //It is needed use the service in order to set a remark
     else {
-        /*IMPLEMENTAR CHECK DE QUE EL SERVICIO HA SIDO CONTRATADO */
-        res.status(400).json({ ok: false, error: "Es necesario haber contratado el servicio para escribir un comentario" })
-    }
-
+        **IMPLEMENTAR CHECK DE QUE EL SERVICIO HA SIDO CONTRATADO 
+            res.status(400).json({ ok: false, error: "Es necesario haber contratado el servicio para escribir un comentario" })
+    } 
+*/
 })
 
 

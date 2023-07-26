@@ -1,4 +1,4 @@
-//Const declarations
+//Const settings
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 const customer = require("../models/customer");
 const provider = require("../models/provider");
 
-//Check if user and password are correct
+//Checks if user and password are correct
 router.post("/", (req, res) => {
     const body = req.body;
     const schema = body.role === "PROVIDER" ? provider : customer;

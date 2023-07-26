@@ -12,6 +12,7 @@ import Navbar from '../../components/Navbar/Navbar'
 import React from 'react'
 
 export default function Contacto() {
+    //Starting always at top
     window.scroll(0, 0);
 
     return (

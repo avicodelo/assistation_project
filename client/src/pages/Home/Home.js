@@ -1,4 +1,4 @@
-//MAIN PAGE
+//HOME PAGE
 
 //CSS and image imports
 import style from "./Home.module.css";
@@ -15,10 +15,10 @@ export default function Home() {
   //Starting always at top
   window.scroll(0,0);
 
-  //Const sets
+  //Const settings
   const navigate= useNavigate();
 
-  //Function: go to contact page
+  //Go to contact page
   const clickHandle = () =>{
     return () => {
       navigate(`/contacto`);

@@ -1,4 +1,4 @@
-//Const declarations, collection "providers"
+//Const settings, collection "providers"
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -10,7 +10,7 @@ const providerSchema = require("../models/provider");
 const handleDate = require("../middlewares/handleDate");
 const verifyToken = require("../middlewares/auth");
 
-//provider creation "POST"
+//Creates a new Provider user
 router.post("/", (req, res) => {
     const { name, surname, phone, dateOfBirth, nationality, email, password,
         street, number, flat, city, locality, postalCode, country, typeOfService } = req.body;
@@ -46,7 +46,7 @@ router.post("/", (req, res) => {
     })
 });
 
-//Search customer "GET" to Card
+//Gets customer info to show in a presentation Card
 router.get("/", async (req, res) => {
 
     let token = req.get("authorization");
@@ -72,6 +72,7 @@ router.get("/", async (req, res) => {
     const totalEntries = await providerSchema.countDocuments({ ...filters, active: true, price: { $exists: true } });
     const totalPages = Math.ceil(totalEntries / PAGE_SIZE);
 
+    //Conditions to sort
     let sortBy
     switch (order) {
         case "highPrice":

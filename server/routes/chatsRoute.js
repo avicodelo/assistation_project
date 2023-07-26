@@ -1,4 +1,4 @@
-//Const declarations, collection "chats"
+//Const settings, collection "chats"
 const router = require("express").Router()
 
 //Schemas
@@ -9,7 +9,7 @@ const customerSchema = require("../models/customer")
 //Middles
 const verifyToken = require("../middlewares/auth")
 
-//Get all chats where user is included
+//Gets all chats where user is included
 router.get("/", verifyToken, async (req, res, next) => {
     const payload = req.payload["userDB"];
     const { _id, role } = payload;
@@ -36,7 +36,7 @@ router.get("/", verifyToken, async (req, res, next) => {
 
 })
 
-//Get all messages inside a chat
+//Gets all messages inside a chat
 router.get("/chatroom", verifyToken, async (req, res, next) => {
 
     const chatID = req.query.chatroom
@@ -44,7 +44,7 @@ router.get("/chatroom", verifyToken, async (req, res, next) => {
 
     try {
         const chatroom = await chatSchema.findOne({ _id: chatID })
-        //Check if user is a chat's participant
+        //Checks if user is a chat's participant
         if (JSON.stringify(Object.values(chatroom.participants)).includes(payload._id)) {
             res.json({ ok: true, chekID: payload._id, chatroom })
         } else {
@@ -57,7 +57,7 @@ router.get("/chatroom", verifyToken, async (req, res, next) => {
 
 })
 
-//Post new messages 
+//Posts new messages 
 router.post("/", verifyToken, async (req, res, next) => {
     const payload = req.payload["userDB"];
     const receiverID = req.query.sendTo
@@ -81,7 +81,7 @@ router.post("/", verifyToken, async (req, res, next) => {
         [receiverRole]: receiverID
     }
 
-    //Verify if there is any chat active between customer and provider 
+    //Verifies if there is any chat active between customer and provider 
     const chatExist = provider.chats.find(chatProv => customer.chats.includes(chatProv))
 
     //If there is a chat with ID, it's possible add new messages
@@ -102,7 +102,7 @@ router.post("/", verifyToken, async (req, res, next) => {
             next(error)
         }
     }
-    //Give the chat ID
+    //Gives the chat ID
     else if (chatExist) {
         try {
             res.status(200).json({ ok: true, chatExist: chatExist })
@@ -111,7 +111,7 @@ router.post("/", verifyToken, async (req, res, next) => {
             next(error)
         }
     }
-    //If there isn´t any chat, create new one and give the ID
+    //If there isn´t any chat, create new one and gives the ID
     else {
         const newChat = new chatSchema({
             participants: { ...participants }

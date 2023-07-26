@@ -1,3 +1,5 @@
+//USER'S PUBLIC DATA PAGE
+
 //CSS imports
 import style from "./UserPublicPresentation.module.css"
 
@@ -16,9 +18,9 @@ import Footer from "../../components/Footer/Footer";
 import { useFetchUserData } from "../../Hooks/useFetchUserData"
 import { usePagination } from "../../Hooks/usePagination"
 
-
 export default function UserPublicPresentation() {
 
+    //Const settings
     const navigate = useNavigate()
     const [userData, userID, tokenValid] = useFetchUserData(`${URL_DASHBOARD}public/`)
     const [remarks, setRemarks] = useState([])
@@ -28,7 +30,8 @@ export default function UserPublicPresentation() {
     const accessToken = localStorage.getItem("accesstoken")
 
     useEffect(() => {
-        fetch(`${URL_REMARKS}/getRemarks/${userID}?page=${pageState.page}`)
+        //Gets the Provider remarks
+        fetch(`${URL_REMARKS}/${userID}?page=${pageState.page}`)
             .then(res => res.json())
             .then(({ totalPages, results }) => {
                 setTotalPages(totalPages);
@@ -38,8 +41,10 @@ export default function UserPublicPresentation() {
             })
     }, [pageState.page, activateArea])
 
+    //Creates-Opens a chat with user
     const openChat = () => {
         return () => {
+            //POST data
             const postInfo = {
                 method: "POST",
                 headers: {
@@ -49,10 +54,10 @@ export default function UserPublicPresentation() {
                 body: JSON.stringify()
             }
 
+            //Manages the chat
             fetch(`${URL_CHATS}?sendTo=${userID}`, postInfo)
                 .then(res => res.json())
                 .then(({ chatExist, newChatID }) => {
-                    console.log(chatExist, newChatID)
                     navigate(`/chatManager?chat=${chatExist || newChatID}`)
                 }
                 )

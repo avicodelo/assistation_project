@@ -1,4 +1,4 @@
-//Const declarations
+//Const settings
 const router = require("express").Router();
 const bcrypt = require("bcrypt")
 
@@ -10,7 +10,7 @@ const customerSchema = require("../models/customer");
 const verifyToken = require("../middlewares/auth");
 const sharpUserAvatar = require("../middlewares/sharpUserAvatar.js")
 
-//Get user Data using ID
+//Gets user Data using ID
 router.get("/:userID", verifyToken, (req, res) => {
     const id = req.params.userID;
     const payload = req.payload["userDB"]
@@ -27,52 +27,7 @@ router.get("/:userID", verifyToken, (req, res) => {
     })
 })
 
-//Get user Data that can be showed to public
-router.get("/public/:userID", verifyToken, (req, res) => {
-    const id = req.params.userID;
-    const payload = req.payload["userDB"]
-
-    if (payload.role === "CUSTOMER") {
-        providerSchema.findOne({ active: true, _id: id }).populate("remarks").exec((error, showProvider) => {
-            if (error) {
-                res.status(400).json({ ok: false, error });
-            } else {
-                res.status(200).json({ ok: true, result: showProvider });
-            }
-        });
-    } else {
-        res.status(400).json({ ok: false, error: "No eres un cliente" })
-    }
-})
-
-//Upload a personal image
-router.post("/uploadImage/:userID", sharpUserAvatar, verifyToken, async (req, res) => {
-    const id = req.params.userID;
-    const payload = req.payload["userDB"];
-    const schema = payload.role === "PROVIDER" ? providerSchema : customerSchema
-    const imageName = req.imageName
-
-    schema.findByIdAndUpdate(
-        id,
-
-        { photo: imageName },
-
-        {
-            new: true,
-            runValidators: true,
-        },
-
-        (error, updatedUser) => {
-            if (error) {
-                res.status(400).json({ ok: false, error })
-            } else {
-                res.status(200).json({ ok: true, updatedUser })
-            }
-        });
-
-})
-
-//Modify information about user
+//Modifies information about user
 router.put("/:userID", verifyToken, (req, res) => {
     const id = req.params.userID;
     const payload = req.payload["userDB"];
@@ -98,7 +53,7 @@ router.put("/:userID", verifyToken, (req, res) => {
         });
 })
 
-//Deactivate a user
+//Deactivates a user
 router.delete("/:userID", verifyToken, (req, res) => {
     const id = req.params.userID;
     const payload = req.payload["userDB"];
@@ -127,6 +82,52 @@ router.delete("/:userID", verifyToken, (req, res) => {
             }
         }
     )
+
+})
+
+//Uploads a personal image
+router.post("/uploadImage/:userID", sharpUserAvatar, verifyToken, async (req, res) => {
+    const id = req.params.userID;
+    const payload = req.payload["userDB"];
+    const schema = payload.role === "PROVIDER" ? providerSchema : customerSchema
+    const imageName = req.imageName
+
+    schema.findByIdAndUpdate(
+        id,
+
+        { photo: imageName },
+
+        {
+            new: true,
+            runValidators: true,
+        },
+
+        (error, updatedUser) => {
+            if (error) {
+                res.status(400).json({ ok: false, error })
+            } else {
+                res.status(200).json({ ok: true, updatedUser })
+            }
+        });
+
+})
+
+//Gets user data that can be showed to public
+router.get("/public/:userID", verifyToken, (req, res) => {
+    const id = req.params.userID;
+    const payload = req.payload["userDB"]
+
+    if (payload.role === "CUSTOMER") {
+        providerSchema.findOne({ active: true, _id: id }).populate("remarks").exec((error, showProvider) => {
+            if (error) {
+                res.status(400).json({ ok: false, error });
+            } else {
+                res.status(200).json({ ok: true, result: showProvider });
+            }
+        });
+    } else {
+        res.status(400).json({ ok: false, error: "No eres un cliente" })
+    }
 })
 
 

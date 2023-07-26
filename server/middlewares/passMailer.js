@@ -1,4 +1,6 @@
-//Const declarations
+//CONFIGURES MAILER TO RECOVER PASSWORD
+
+//Modules imports
 const nodemailer = require("nodemailer");
 
 //Schemas
@@ -6,6 +8,8 @@ const customer = require("../models/customer");
 const provider = require("../models/provider");
 
 const mailer = (req, res, next) => {
+
+    //Const settings
     const randomCode = Math.floor(Math.random() * 1000000)
     const body = req.body;
     const URL_ROLE = body.role === "PROVIDER" ? "prd" : "ctm";
@@ -29,7 +33,7 @@ const mailer = (req, res, next) => {
                     pass: process.env.MAILPASS
                 }
             });
-            // Message object
+            //Message object
             const message = {
                 from: `Equipo de Assistation <${process.env.MAIL}>`,
                 to: body.email,
@@ -57,23 +61,5 @@ const mailer = (req, res, next) => {
         }
     })
 }
-
-//test account created to check the functionality. 
-//Only needed if you don't have a real mail account for testing
-//delete in production phase
-/*nodemailer.createTestAccount((err, account) => {
-    if (err) {
-        console.error('Failed to create a testing account. ' + err.message);
-        return process.exit(1);
-    }
- 
-    console.log('Credentials obtained, sending message...');
-*/
-
-
-
-
-
-
 
 module.exports = mailer;

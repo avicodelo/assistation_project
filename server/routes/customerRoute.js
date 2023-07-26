@@ -1,4 +1,4 @@
-//Const declarations, collection "customer"
+//Const settings, collection "customer"
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 
@@ -8,12 +8,12 @@ const customerSquema = require("../models/customer");
 //Middles
 const handleDate = require("../middlewares/handleDate");
 
-//customer creation "POST"
+//Creates a new Customer
 router.post("/", (req, res) => {
     const { name, surname, phone, dateOfBirth, nationality, email, password,
         street, number, flat, city, locality, postalCode, country } = req.body
 
-    //create new customer and save
+    //creates new customer and save
     const customer = new customerSquema({
         name,
         surname,
