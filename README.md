@@ -21,7 +21,7 @@ The project has been separated in to big branches:
  - ### Front-end
 
     |                    URL                        |                 DESCRIPTION                           |
-    |:-----------------------------------:          |:---------------------------------------:              | 
+    |:-----------------------------------          |:---------------------------------------             | 
     |  127.0.0.1:3000                               |   Home page                                           |
     |  127.0.0.1:3000/login                         |   Login page                                          |
     |  127.0.0.1:3000/login/passwordForgotten       |   Page to get instructions to recover password        |
@@ -35,39 +35,39 @@ The project has been separated in to big branches:
     
  - ### Back-end
 
-    1. **Anonymous user**
+    **1. Anonymous user**
 
     |                    URL          | TYPE    |                 DESCRIPTION             |
     |:--------------------------------|:--------|:---------------------------------------| 
     |  127.0.0.1:3002/contactAlone    |POST     | Sends a message to Assistation team     |
     
-    2. **Customer user**
+    **2. Customer user**
 
     |                    URL          | TYPE    |                 DESCRIPTION             |
     |:-------------------------------|:-------|:---------------------------------------| 
     |  127.0.0.1:3002/customers       |POST     | Saves a new user as a customer           |
 
-    3. **Provider user**
+    **3. Provider user**
 
     |                    URL                   | TYPE    |                 DESCRIPTION             |
     |:-------------------------------         |:-------|:---------------------------------------| 
     |  127.0.0.1:3002/providers                |POST     | Saves a new user as a provider          |
     |  127.0.0.1:3002/providers?filter=&order= |GET      | Gets all providers following conditions |
 
-    4. **Login**
+    **4. Login**
 
     |                    URL     | TYPE    |                 DESCRIPTION             |
     |:--------------------------|:-------|:---------------------------------------| 
     |  127.0.0.1:3002/login      |POST     | Allows user to login                    |
 
-    5. **Password forgotten**
+    **5. Password forgotten**
 
     |                    URL                 | TYPE    |                 DESCRIPTION             |
     |:-------------------------------      |:-------|:---------------------------------------| 
     |  127.0.0.1:3002/passForgotten          |POST     | Sends a message to recover the password |
     |  127.0.0.1:3002/passForgotten/setPass  |PUT      | Allows to chose a new password          |
 
-    6. **Dashboard**
+    **6. Dashboard**
 
     |                    URL                        | TYPE  |                 DESCRIPTION             |
     |:-------------------------------             |:-----|:---------------------------------------| 
@@ -77,14 +77,14 @@ The project has been separated in to big branches:
     |  127.0.0.1:3002/dashboard/uploadImage/:userID |POST   | Upload an avatar image                  |
     |  127.0.0.1:3002/dashboard/public/:userID      |GET    | Gets the user's public information      |
 
-    7. **Remarks**
+    **7. Remarks**
 
     |                    URL               | TYPE  |                 DESCRIPTION          |
     |:-------------------------------     |:-----|:------------------------------------| 
     |  127.0.0.1:3002/remarks/:userID      |GET    | Gets the user's remarks              |
     |  127.0.0.1:3002/remarks/:userID      |POST   | Adds a remark on user profile        |
 
-    8. **Chats**
+    **8. Chats**
 
     |                    URL                   | TYPE  |                 DESCRIPTION            |
     |:---------------------------             |:-----|:------------------------------------  | 
