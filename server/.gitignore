@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /config/.env
+/toDo.txt
 
 # testing
 /coverage
