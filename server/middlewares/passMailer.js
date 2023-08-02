@@ -1,5 +1,6 @@
 //CONFIGURES MAILER TO RECOVER PASSWORD
 
+const config = require("../config/config");
 //Modules imports
 const nodemailer = require("nodemailer");
 
@@ -29,20 +30,20 @@ const mailer = (req, res, next) => {
                 port: 465,
                 secure: true,
                 auth: {
-                    user: process.env.MAIL,
-                    pass: process.env.MAILPASS
+                    user: config.MAIL,
+                    pass: config.MAILPASS
                 }
             });
             //Message object
             const message = {
-                from: `Equipo de Assistation <${process.env.MAIL}>`,
+                from: `Equipo de Assistation <${config.MAIL}>`,
                 to: body.email,
                 subject: 'Recuperación de contraseña',
                 html: `<p>Hola de nuevo ${userDB.name},</p></br>
                 <p>Recientemente nos has indicado que olvidaste la contraseña para acceder al 
                 área personal de Assistation. El código de activación que se te ha asignado es ${randomCode}.</p>
                 <p>Puedes acceder al siguiente link para volver a establecer tu contraseña: 
-                <a href=${process.env.URL_SETPASS}/${URL_ROLE}>${process.env.URL_SETPASS}/${URL_ROLE}</a></p></br>
+                <a href=${config.URL_SETPASS}/${URL_ROLE}>${config.URL_SETPASS}/${URL_ROLE}</a></p></br>
                 <p>El equipo de Assistation te desea un buen día, estamos muy contentos de que siga utilizando 
                 nuestros servicios</p></br>`
 

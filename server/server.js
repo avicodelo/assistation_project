@@ -1,6 +1,5 @@
 //Initiators
-require("./config/config");
-
+const config = require("./config/config");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -10,7 +9,7 @@ const fileUpload = require("express-fileupload")
 
 //mongoose config
 mongoose.set("strictQuery", false);
-mongoose.connect(process.env.URL_DB);
+mongoose.connect(config.URL_DB);
 const db = mongoose.connection;
 
 //Status of conection
@@ -51,4 +50,4 @@ app.use("/chats", Chats)
 app.use(express.static(path.join(__dirname, "assets/images")))
 
 //Activamos la escucha
-app.listen(process.env.PORT, () => console.log("Listening port " + process.env.PORT)); 
+app.listen(config.PORT, () => console.log("Listening port " + config.PORT)); 

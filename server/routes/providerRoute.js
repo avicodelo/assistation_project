@@ -1,4 +1,5 @@
 //Const settings, collection "providers"
+const config = require("../config/config");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -53,7 +54,7 @@ router.get("/", async (req, res) => {
     token = token && token.split(" ")[1];
     const { page, order, ...filters } = req.query;
     if (token) {
-        jwt.verify(token, process.env.SEED, (error, payload) => {
+        jwt.verify(token, config.SEED, (error, payload) => {
             req.payload = payload;
         }
         )

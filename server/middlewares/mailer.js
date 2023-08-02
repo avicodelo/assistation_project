@@ -1,5 +1,6 @@
 //CONFIGURES MAILER TO CONTACT WITH AN USER
 
+const config = require("../config/config");
 //Modules imports
 const nodemailer = require("nodemailer");
 
@@ -11,14 +12,14 @@ const mailer = (req, _res, next) => {
         port: 465,
         secure: true,
         auth: {
-            user: process.env.MAIL,
-            pass: process.env.MAILPASS
+            user: config.MAIL,
+            pass: config.MAILPASS
         }
     });
     // Message object
     const message = {
         from: `${body.name} <${body.email}>`,
-        to: `Equipo de Assistation <${process.env.MAIL}>`,
+        to: `Equipo de Assistation <${config.MAIL}>`,
         subject: 'Message from Contact page',
         html: `<p>${body.helpText}</p>`
     };
