@@ -104,4 +104,5 @@ The project has been separated in to big branches:
 
 ### VERSION AND AUTHOR
    - Version: 1.0
+   - License: Apache License, Version 2.0
    - Author: https://github.com/avicodelo

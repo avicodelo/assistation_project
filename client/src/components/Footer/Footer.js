@@ -11,7 +11,7 @@ export default function Footer() {
     <div >
       <section className={style.mainFooter}>
         <div className={style.footerLinks}>
-          <NavLink className={style.navRouterFooter} to="/"><h5>BUSCA AYUDA</h5></NavLink>
+          <NavLink className={style.navRouterFooter} to="/"><h5>BUSCAR SERVICIO</h5></NavLink>
           <NavLink className={style.navRouterFooter} to="/contacto"><h5>CONTACTO</h5></NavLink>
         </div>
 
