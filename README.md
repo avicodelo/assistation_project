@@ -101,6 +101,10 @@ The project has been separated in to big branches:
    3. Inside server folder --> npm install
    4. Inside client folder --> npm start
    5. Inside server folder --> npm start
+   6. Mongo configuration --> mongorestore -h <host:port> <assistationDB directory route> -d assistationDB
+   7. Mailer configuration --> 
+      1. go to server/config/config.js 
+      2. set MAIL=<your gmail> MAILPASS=<your aplication password>  
 
 ### VERSION AND AUTHOR
    - Version: 1.0

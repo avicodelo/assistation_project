@@ -4,11 +4,12 @@ const config = require("../config/config");
 //Modules imports
 const nodemailer = require("nodemailer");
 
+
 const mailer = (req, _res, next) => {
     const body = req.body;
     // Create a SMTP transporter object
     const transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
+        host: "smtp.gmail.com",
         port: 465,
         secure: true,
         auth: {
@@ -16,11 +17,11 @@ const mailer = (req, _res, next) => {
             pass: config.MAILPASS
         }
     });
+
     // Message object
     const message = {
-        from: `${body.name} <${body.email}>`,
-        to: `Equipo de Assistation <${config.MAIL}>`,
-        subject: 'Message from Contact page',
+        to: `Equipo de Assistation`,
+        subject: `Contacto desde Assistation <${body.email}>`,
         html: `<p>${body.helpText}</p>`
     };
 

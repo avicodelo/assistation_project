@@ -16,7 +16,7 @@ router.post("/", mailer, async (req, res, next) => {
 
     try {
         const emailExist = await contactAloneSchema.findOne({ email: email })
-
+console.log(mailerInfo, mailerError);
         if (!emailExist) {
             const contactAlone = new contactAloneSchema({
                 name,
