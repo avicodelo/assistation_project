@@ -99,13 +99,14 @@ The project has been separated in to big branches:
    1. Git pull
    2. Inside client folder --> npm install 
    3. Inside server folder --> npm install
-   4. Inside client folder --> npm start
-   5. Inside server folder --> npm start
-   6. Mongo configuration --> mongorestore -h 127.0.0.1:27017 ./project/assistationDB -d assistationDB
-   7. Mailer configuration (configured to gmail) --> 
+   4. Mongo configuration --> mongorestore -h 127.0.0.1:27017 ./project/assistationDB -d assistationDB
+   5. Mailer configuration (configured to gmail) --> 
       1. Create a gmail app password (https://support.google.com/mail/answer/185833?hl=es-419)
-      2. go to server/config/config.js 
-      3. set MAIL= "your_gmail" MAILPASS= "your_app_password" 
+      2. Go to server/config/config.js 
+      3. Set MAIL= "your_gmail" MAILPASS= "your_app_password" 
+   6. Inside client folder --> npm start
+   7. Inside server folder --> npm start
+   
 
 ### VERSION AND AUTHOR
    - Version: 1.0
