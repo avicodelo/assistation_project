@@ -4,7 +4,6 @@ const config = require("../config/config");
 //Modules imports
 const nodemailer = require("nodemailer");
 
-
 const mailer = (req, _res, next) => {
     const body = req.body;
     // Create a SMTP transporter object
@@ -20,9 +19,11 @@ const mailer = (req, _res, next) => {
 
     // Message object
     const message = {
-        to: `Equipo de Assistation`,
+        from: `<${body.email}>`,
+        to: `Equipo de Assistation <${config.MAIL}>`,
         subject: `Contacto desde Assistation <${body.email}>`,
-        html: `<p>${body.helpText}</p>`
+        html: `<p>Mi nombre es ${body.name} ${body.surname}</p>
+            <p>${body.helpText}</p>`
     };
 
     transporter.sendMail(message, (err, info) => {
