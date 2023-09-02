@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
             res.status(400).json({ ok: false, error: "Wrong password" });
 
         } else {
-            const token = jwt.sign({ userDB: userDB }, config.SEED, { expiresIn: 60 * 10 /* 60 * 60 * 24 */ });
+            const token = jwt.sign({ userDB: userDB }, config.SEED, { expiresIn: /* 60 * 10 */ 60 * 60 * 24 });
             res.status(200).json({ ok: true, token, userDB: { _id: userDB._id, role: userDB.role } });
         }
     })

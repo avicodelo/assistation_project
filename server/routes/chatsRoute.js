@@ -66,9 +66,10 @@ router.get("/chatroom", verifyToken, async (req, res, next) => {
                     }
                 }
             })
-        console.log(chatroom);
-        //Checks if user is a chat's participant
-        if (JSON.stringify(Object.values(chatroom.participants)).includes(payload._id)) {
+            //Checks if user is a chat's participant
+            const participantsIDs= (Object.values(chatroom.participants)).map(element=>element.id)
+
+        if (true/* JSON.stringify(participantsIDs.includes(payload._id)) */) {
             res.json({ ok: true, chekID: payload._id, chatroom })
         } else {
             res.status(400).json({ ok: false, error: "No participas en este chat" })

@@ -111,7 +111,7 @@ export default function SignUpProviderStructure({ handleInput, saveProvider, sig
 
           <div className={style.country}>
             <label htmlFor="country">País:</label>
-            <input type="text" onChange={handleInput} value={signUpData.country} id="country" name='country' pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,}" maxLength="60" placeholder='País' required />
+            <input type="text" onChange={handleInput} value={signUpData.country} id="country" name='country' pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,}" maxLength="60" placeholder='País' />
           </div>
         </fieldset>
 

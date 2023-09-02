@@ -1,7 +1,7 @@
 .cardBody {
     width: 30%;
     min-width: 250px;
-    margin: 1.5rem auto;
+    margin: 1.5rem ;
     padding: 1.5rem;
     background-color: rgba(195, 222, 229, 0.5);
     border: 1px solid lightgray;

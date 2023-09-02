@@ -53,7 +53,7 @@ export default function UserPublicPresentation() {
                 },
                 body: JSON.stringify()
             }
-
+console.log(userID);
             //Manages the chat
             fetch(`${URL_CHATS}?sendTo=${userID}`, postInfo)
                 .then(res => res.json())
