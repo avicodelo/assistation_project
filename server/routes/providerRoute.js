@@ -15,6 +15,7 @@ const verifyToken = require("../middlewares/auth");
 router.post("/", (req, res) => {
     const { name, surname, phone, dateOfBirth, nationality, email, password,
         street, number, flat, city, locality, postalCode, country, typeOfService } = req.body;
+ 
 
     const provider = new providerSchema({
         name,
@@ -33,7 +34,7 @@ router.post("/", (req, res) => {
             postalCode,
             country
         },
-        areaOfResponsibility: areaOfResponsibility.push(locality),
+        areaOfResponsibility: locality,
         typeOfService
     });
 

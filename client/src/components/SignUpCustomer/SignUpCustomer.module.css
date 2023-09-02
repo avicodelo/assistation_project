@@ -5,11 +5,9 @@
     backdrop-filter: blur(6px);
     display: grid;
     padding: 1.5rem;
-    grid-template-rows: 1fr, 2fr;
+    grid-template-rows: 1fr, 0.5fr, 2fr;
     border-radius: 0 10px 10px 10px;
 }
-
-
 
 .signUpTitle{
     grid-row: 1;
@@ -18,8 +16,15 @@
     text-decoration: underline;
 }
 
-.signUpForm{
+.gapsRequired{
     grid-row: 2;
+    font-size: 1.2rem;
+    justify-self: left;
+    padding: 0.5rem 5rem;
+}
+
+.signUpForm{
+    grid-row: 3;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -150,6 +155,11 @@
     padding: 1rem 2.5rem;
     background-color: khaki;
     border-radius: 5px;
+}
+
+.required {
+    font-size: 1.5rem;
+    color: red;
 }
 
 /*Media queries*/

@@ -12,7 +12,7 @@ router.post("/", mailer, async (req, res, next) => {
     const body = req.body;
     const mailerInfo = req.mailerInfo;
     const mailerError = req.mailerError;
-    const { name, surname, email } = body
+    const { name, surname, email, helpText } = body
 
     try {
         const emailExist = await contactAloneSchema.findOne({ email: email })
@@ -21,7 +21,8 @@ router.post("/", mailer, async (req, res, next) => {
             const contactAlone = new contactAloneSchema({
                 name,
                 surname,
-                email
+                email,
+                helpText
             })
             await contactAlone.save()
         }

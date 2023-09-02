@@ -83,7 +83,7 @@ export default function UserPersonalInfo() {
 
           <img src={SERVER_HOST + userData?.photo} alt="user" className={style.userDataPhoto} />
           <input id="changePhoto" onChange={fileHandler} type="file" accept="image/png, image/jpeg" />
-          <label htmlFor="changePhoto">
+          <label  htmlFor="changePhoto">
             <span className={style.uploadFile}>Examinar...</span>
             <span className={style.fileName} >{fileUploaded ? fileUploaded.name : "Archivo seleccionado"}</span>
           </label>

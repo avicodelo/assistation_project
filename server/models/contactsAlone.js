@@ -16,6 +16,11 @@ const contactAloneSchema = new Schema({
         type: String,
         unique: true,
         required: [true, "¿Cuál es tu email?"]
+    },
+
+    helpText: {
+        type: String,
+        required: [true, "¿Qué te gustaría decirnos?"]
     }
 
 })

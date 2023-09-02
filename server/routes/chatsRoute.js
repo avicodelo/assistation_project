@@ -41,9 +41,32 @@ router.get("/chatroom", verifyToken, async (req, res, next) => {
 
     const chatID = req.query.chatroom
     const payload = req.payload["userDB"]
+    const receiverRole = payload.role === "CUSTOMER" ? "provider" : "customer"
 
     try {
-        const chatroom = await chatSchema.findOne({ _id: chatID })
+        const chatroom = await chatSchema
+            .findOne({ _id: chatID })
+            .populate({
+                path: "participants",
+                populate: {
+                    path: "provider",
+                    select: {
+                        name: 1,
+                        surname: 1
+                    }
+                }
+            })
+            .populate({
+                path: "participants",
+                populate: {
+                    path: "customer",
+                    select: {
+                        name: 1,
+                        surname: 1
+                    }
+                }
+            })
+        console.log(chatroom);
         //Checks if user is a chat's participant
         if (JSON.stringify(Object.values(chatroom.participants)).includes(payload._id)) {
             res.json({ ok: true, chekID: payload._id, chatroom })
@@ -87,8 +110,8 @@ router.post("/", verifyToken, async (req, res, next) => {
     //If there is a chat with ID, it's possible add new messages
     if (chatID) {
 
-        if(!text){
-            res.status(400).json({ok:false, error:"Escribe un mensaje"})
+        if (!text) {
+            res.status(400).json({ ok: false, error: "Escribe un mensaje" })
         }
 
         const chatActivated = await chatSchema.findById(chatID)
@@ -96,7 +119,7 @@ router.post("/", verifyToken, async (req, res, next) => {
 
         try {
             await chatActivated.save()
-            res.status(200).json({ok: true, chatActivated: chatActivated })
+            res.status(200).json({ ok: true, chatActivated: chatActivated })
         }
         catch (error) {
             next(error)
@@ -124,7 +147,7 @@ router.post("/", verifyToken, async (req, res, next) => {
             provider.chats = provider.chats.concat(newChat._id)
             await customer.save(); await provider.save()
 
-            res.status(200).json({ok:true, newChatID: newChat._id })
+            res.status(200).json({ ok: true, newChatID: newChat._id })
         }
 
         catch (error) {

@@ -17,43 +17,45 @@ export default function SignUpProviderStructure({ handleInput, saveProvider, sig
   return (
     <div className={`${style.generalDiv}`}>
 
-      <h2 className={style.signUpTitle}>Registrarse como proveedor de servicios</h2>
+      <h3 className={style.signUpTitle}>Registrarse como profesional</h3>
+
+      <p className={style.gapsRequired}>Los campos marcados <span className={style.required}>*</span> son obligatorios</p>
 
       <form className={style.signUpForm} onSubmit={saveProvider()}>
         <div className={style.aloneInfo}>
-          <label htmlFor="name">Nombre:</label>
+          <label htmlFor="name">Nombre<span className={style.required}>*</span>:</label>
           <input type="text" onChange={handleInput} value={signUpData.name} id="name" name="name" pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" placeholder='Nombre' required />
         </div>
 
         <div className={style.aloneInfo}>
-          <label htmlFor="surname">Apellidos:</label>
+          <label htmlFor="surname">Apellidos<span className={style.required}>*</span>:</label>
           <input type="text" onChange={handleInput} value={signUpData.surname} id="surname" name="surname" pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,3}" maxLength="50" placeholder='Apellidos' />
         </div>
 
         <div className={style.aloneInfo}>
-          <label htmlFor="dateOfBirth">Fecha de nacimiento:</label>
+          <label htmlFor="dateOfBirth">Fecha de nacimiento<span className={style.required}>*</span>:</label>
           <input type="date" onChange={handleInput} value={signUpData.dateOfBirth} id="dateOfBirth" name="dateOfBirth" max={minAge} required />
         </div>
 
         <div className={style.aloneInfo}>
-          <label htmlFor="nationality">Nacionalidad:</label>
+          <label htmlFor="nationality">Nacionalidad<span className={style.required}>*</span>:</label>
           <input type="text" onChange={handleInput} value={signUpData.nationality} id="nationality" name="nationality" placeholder="¿En qué país naciste?" required />
         </div>
 
         <div className={style.aloneInfo}>
-          <label htmlFor="phone">Teléfono:</label>
+          <label htmlFor="phone">Teléfono<span className={style.required}>*</span>:</label>
           <input type="text" onChange={handleInput} value={signUpData.phone} id="phone" name="phone" pattern="^\+34[0-9]{9}" placeholder='Teléfono (+34)' title="Es necesario añadir +34" required />
         </div>
 
         <div className={style.aloneInfo}>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email<span className={style.required}>*</span>:</label>
           <input type="email" onChange={handleInput} value={signUpData.email} id="email" name="email" maxLength="100" placeholder="Indica tu mejor email" required />
         </div>
 
         <p className={validator ? style.hideInfo : style.showInfo}>Las contraseñas no coinciden</p>
 
         <div className={style.aloneInfo}>
-          <label htmlFor="password">Contraseña:</label>
+          <label htmlFor="password">Contraseña<span className={style.required}>*</span>:</label>
           <input type="password" onChange={handleInput} value={signUpData.password} id="password" name="password" pattern=".{6,16}" placeholder='Contraseña (de 6 a 16 caracteres)' title="Entre 6 y 16 caracteres" required />
         </div>
 
@@ -63,7 +65,7 @@ export default function SignUpProviderStructure({ handleInput, saveProvider, sig
         </div>
 
         <div className={style.aloneInfo}>
-          <label htmlFor="typeOfService">Tipo de servicio:</label>
+          <label htmlFor="typeOfService">Tipo de servicio<span className={style.required}>*</span>:</label>
           <select onChange={handleInput} value={signUpData.typeOfService} id="typeOfService" name="typeOfService"  >
             <option value="" hidden></option>
             <option value="Limpieza">Limpieza</option>
@@ -76,12 +78,12 @@ export default function SignUpProviderStructure({ handleInput, saveProvider, sig
           <legend className={style.addressLegend}>Dirección</legend>
 
           <div className={style.street}>
-            <label htmlFor="street">Calle:</label>
+            <label htmlFor="street">Calle<span className={style.required}>*</span>:</label>
             <input type="text" onChange={handleInput} value={signUpData.street} id="street" name='street' pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,}" maxLength="60" placeholder='Calle' />
           </div>
 
           <div className={style.number}>
-            <label htmlFor="number">Número:</label>
+            <label htmlFor="number">Número<span className={style.required}>*</span>:</label>
             <input type="number" onChange={handleInput} value={signUpData.number} id="number" name='number' pattern="[0-9]*{1,4}" placeholder='Número' />
           </div>
 
@@ -91,12 +93,12 @@ export default function SignUpProviderStructure({ handleInput, saveProvider, sig
           </div>
 
           <div className={style.postalCode}>
-            <label htmlFor="postalCode">Código Postal:</label>
+            <label htmlFor="postalCode">Código Postal<span className={style.required}>*</span>:</label>
             <input type="text" onChange={handleInput} value={signUpData.postalCode} id="postalCode" name="postalCode" pattern="[0-5][0-9]{4}" maxLength="5"  placeholder='C.P.' required />
           </div>
 
           <div className={style.locality}>
-            <label htmlFor="locality">Localidad:</label>
+            <label htmlFor="locality">Localidad<span className={style.required}>*</span>:</label>
             <input type="text" onChange={handleInput} value={signUpData.postalCode ? signUpData.locality : ""} id="locality" name="locality" pattern="([a-zA-ZÀ-ÿ\u00E0-\u00FC\u00f1\u00d1]*\s?){1,}" maxLength="60" placeholder='Localidad' list="municipalities" required />
             <Municipalities cp={signUpData.postalCode.substring(0, 2)} />
           </div>

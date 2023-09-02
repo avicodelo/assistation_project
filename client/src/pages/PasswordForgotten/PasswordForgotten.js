@@ -9,6 +9,7 @@ import { URL_PASSFORGOTTEN } from "../../settings/Settings"
 
 //React imports
 import { useState } from "react"
+import { NavLink } from "react-router-dom"
 
 export default function PasswordForgotten() {
 
@@ -57,9 +58,15 @@ export default function PasswordForgotten() {
       <div className={style["generalDiv-blur"]}>
 
         <div className={style.passForgottenMain}>
+          <div>
+          <NavLink to="/login"><i className={`fa-solid fa-circle-arrow-left ${style.prevArrow}`}></i></NavLink>
+          </div>
+
           {!messageSended ?
 
             <div className={style.divEmailData}> {/* Div with form to login */}
+
+
 
               <h3>Indicanos tu email y te enviaremos un mensaje con las instrucciones</h3>
 
@@ -88,7 +95,7 @@ export default function PasswordForgotten() {
               </form>
             </div> :
             <div className={style.msgSended}>
-              <h3>Se ha enviado un mensaje a "{messageSended}" con las instrucciones para recuperar 
+              <h3>Se ha enviado un mensaje a "{messageSended}" con las instrucciones para recuperar
                 la contraseña. Por favor, revise su bandeja de entrada. En caso de no haberlo recibido, revise
                 la carpeta de SPAM.</h3>
             </div>

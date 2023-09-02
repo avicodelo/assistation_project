@@ -67,7 +67,7 @@ export default function Navbar() {
                     <NavLink className={`${style.navRouterLeft} ${style.quitDecoration}`} to="/">
                         <div className={style.homeDiv}>
                             <img src={image} className={style.logo} width="150px" alt="assistation" />
-                            
+
                         </div>
                     </NavLink>
                 </div>
@@ -102,14 +102,18 @@ export default function Navbar() {
             {/* Small screens */}
             {reducedMenuActive &&
                 <div className={style.reducedLinks}>
-                    <NavLink className={loged ? style.hideItem : style.navRouter} to="/login/">
-                        <button className={style.navButton}><h4>Iniciar Sesión</h4></button>
-                    </NavLink>
-                    <NavLink className={loged ? style.hideItem : style.navRouter} to="/registro/">
-                        <button className={style.invertedNavButton}><h4>Registrarse</h4></button>
-                    </NavLink>
-                    <NavLink className={(navData) => navData.isActive ? style.isActive : style.navRouter} to="/servicesSearcher"><h4>Buscar Servicio</h4></NavLink>
-                    <NavLink className={(navData) => navData.isActive ? style.isActive : style.navRouter} to="/contacto"><h4>Contacto</h4></NavLink>
+                    <div className={style.generalLinks}>
+                        <NavLink className={(navData) => navData.isActive ? style.isActive : style.navRouter} to="/servicesSearcher"><h4>Buscar Servicio</h4></NavLink>
+                        <NavLink className={(navData) => navData.isActive ? style.isActive : style.navRouter} to="/contacto"><h4>Contacto</h4></NavLink>
+                    </div>
+                    <div className={style.buttonLinks}>
+                        <NavLink className={loged ? style.hideItem : style.navRouter} to="/login/">
+                            <button className={style.reducedButton}><h4>Iniciar Sesión</h4></button>
+                        </NavLink>
+                        <NavLink className={loged ? style.hideItem : style.navRouter} to="/registro/">
+                            <button className={style.invertedReducedButton}><h4>Registrarse</h4></button>
+                        </NavLink>
+                    </div>
                 </div>}
         </div>
     )

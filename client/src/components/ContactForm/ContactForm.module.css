@@ -1,6 +1,7 @@
 .contactForm {
+    margin: auto;
     padding: 3rem;
-    width: 35%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,6 +11,10 @@
     padding: 1.5rem 0;
     font-weight: bold;
     text-align: center;
+}
+
+.contactFormTable{
+    width: 100%;
 }
 
 .contactFormTable td {

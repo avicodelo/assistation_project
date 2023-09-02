@@ -5,6 +5,10 @@
     justify-content: space-between;
 }
 
+.explanationTxt{
+    width: fit-content;
+    margin: 1rem auto;
+}
 
 .mainSection {
     width: 50%;

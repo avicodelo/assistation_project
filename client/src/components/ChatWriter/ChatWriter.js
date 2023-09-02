@@ -17,7 +17,7 @@ export default function ChatWriter({ chatID }) {
   const initialState = {
     text: ""
   }
-  const [textToSend, setTextToSend] = useState(initialState) 
+  const [textToSend, setTextToSend] = useState(initialState)
   const [participants, setParticipants] = useState({})
   const [allowedToWrite, setAllowedToWrite] = useState(true)
   const [messages, setMessages] = useState([])
@@ -89,8 +89,16 @@ export default function ChatWriter({ chatID }) {
 
   //Chat page format that detects if there is any problem with authorization
   if (chatID && allowedToWrite) {
+    //Const set
+    const provider = participants.provider
+    const customer = participants.customer
+    const receiver = provider._id !== userID ?
+      `${provider.name} ${provider.surname}` :
+      `${customer.name} ${customer.surname}`;
+
     return (
       <div className={style.mainWrapper}>
+        <h4>{receiver}</h4>
         <div className={style.messagesContainer}>
           {
             messages.map(({ createdAt, text, sender, _id }) => {

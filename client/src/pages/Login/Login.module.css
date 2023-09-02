@@ -1,4 +1,5 @@
 .LoginPageBody {
+    width: 100vw;
     height: 100%;
     background-image: url(../../images/vu-anh-TiVPTYCG_3E-unsplash.jpg);
     display: flex;
@@ -17,8 +18,7 @@
 }
 
 .loginMain {
-    width: 60vw;
-    
+    width: 60vw;  
     min-height: 350px;
     display: flex;
     background-color: rgba(250, 250, 250, 0.6);
