@@ -32,7 +32,7 @@ export default function UserService() {
           <h4>{userData.typeOfService}</h4>
         </div>
 
-        {userData.price ?
+        {userData.price || userDataUpdated.price ?
           <div className={style.infoContainer}>
             <h4>Precio: </h4>
             {!activateArea ?

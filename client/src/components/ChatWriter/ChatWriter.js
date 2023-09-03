@@ -22,7 +22,6 @@ export default function ChatWriter({ chatID }) {
   const [allowedToWrite, setAllowedToWrite] = useState(true)
   const [messages, setMessages] = useState([])
 
-
   //Contact with API REST to get info about user chats
   useEffect(() => {
     if (chatID) {
@@ -61,13 +60,12 @@ export default function ChatWriter({ chatID }) {
   //Saves inputs in an object variable
   const handleInput = (e) => {
     setTextToSend({ ...textToSend, ...{ [e.target.name]: e.target.value } })
-  }
+  } 
 
-  //Sends message to chat stablished
-  const sendMessage = () => {
+//Sends message to chat stablished
+const sendMessage = () => {
+    const IdToSend = (Object.values(participants).find(users => Object.values(users?._id) !== userID))?._id 
     return () => {
-      const IdToSend = Object.values(participants).find(users => users !== userID)
-
       //POST data
       const postInfo = {
         method: "POST",
@@ -87,14 +85,15 @@ export default function ChatWriter({ chatID }) {
     }
   }
 
+
   //Chat page format that detects if there is any problem with authorization
   if (chatID && allowedToWrite) {
     //Const set
-    const provider = participants.provider
-    const customer = participants.customer
-    const receiver = provider._id !== userID ?
-      `${provider.name} ${provider.surname}` :
-      `${customer.name} ${customer.surname}`;
+    const provider = participants?.provider
+    const customer = participants?.customer
+    const receiver = provider?._id !== userID ?
+      `${provider?.name} ${provider?.surname}` :
+      `${customer?.name} ${customer?.surname}`;
 
     return (
       <div className={style.mainWrapper}>
