@@ -66,10 +66,10 @@ router.get("/chatroom", verifyToken, async (req, res, next) => {
                     }
                 }
             })
-            //Checks if user is a chat's participant
-            const participantsIDs= (Object.values(chatroom.participants)).map(element=>element.id)
+        //Checks if user is a chat's participant
+        const participantsIDs = (Object.values(chatroom.participants)).map(element => element.id)
 
-        if (true/* JSON.stringify(participantsIDs.includes(payload._id)) */) {
+        if (JSON.stringify(participantsIDs.includes(payload._id))) {
             res.json({ ok: true, chekID: payload._id, chatroom })
         } else {
             res.status(400).json({ ok: false, error: "No participas en este chat" })
@@ -106,7 +106,7 @@ router.post("/", verifyToken, async (req, res, next) => {
     }
 
     //Verifies if there is any chat active between customer and provider 
-    const chatExist = provider.chats.find(chatProv => customer.chats.includes(chatProv))
+    const chatExist = provider.chats.find(chatProv => customer?.chats.includes(chatProv))
 
     //If there is a chat with ID, it's possible add new messages
     if (chatID) {
