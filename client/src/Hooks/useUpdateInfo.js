@@ -82,6 +82,7 @@ function useUpdateInfo(initialState, userData) {
                 .then(({ updatedUser }) => {
                     setUserDataUpdated(updatedUser)
                     setDataUpdated(initialState)
+                    window.location.reload()
                     setActivateArea(false)
                 })
         }
