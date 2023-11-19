@@ -2,7 +2,7 @@
 
 //CSS and images imports
 import style from "./Navbar.module.css";
-import image from "../../images/logo-assistation.png"
+import image from "../../assets/images/logo-assistation.png"
 
 //React imports
 import { useState, useEffect } from "react";
