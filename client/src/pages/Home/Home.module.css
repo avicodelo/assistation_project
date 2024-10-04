@@ -1,7 +1,11 @@
 .mainSection {
-    background: linear-gradient(to bottom, rgba(250, 250, 250, 0.5), rgba(250, 250, 250, 0.5)), url("../../images/vu-anh-TiVPTYCG_3E-unsplash.jpg");
+    background: linear-gradient(to bottom, rgba(250, 250, 250, 0.6),
+     rgba(250, 250, 250, 0.6)), 
+     url("../../assets/images/homePage.jpg");
+     /*Foto de <a href="https://unsplash.com/es/@spacejoy?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Spacejoy</a> en <a href="https://unsplash.com/es/fotos/juego-de-sala-blanco-y-marron-9M66C_w_ToM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>*/
+  
     background-size: cover;
-    background-position: center center;
+    background-position: center 90%;
     width: 100%;
     height: fit-content;
     display: flex;
@@ -21,6 +25,14 @@
     gap: 2rem;
 }
 
+.separator{
+    height: 0.3rem;
+    width: 30%;
+    margin: auto;
+    background-color: var(--primary);
+    border-radius: 5px;
+}
+
 .section {
     margin: 3rem auto;
     width: 80%;
@@ -32,21 +44,19 @@
 }
 
 .clasification {
-    margin-top: 1.5rem;
+    margin-top: 3rem;
     text-decoration: underline;
 
 }
 
 .infoP {
     color: var(--paragraph);
-    margin-bottom: 2rem;
     margin-top: 1.5rem;
 }
 
 .questions {
     padding: 2rem 0;
-    background: linear-gradient(to bottom, rgba(17, 60, 252, 0.5), rgba(21, 151, 229, 0.3), rgba(21, 151, 229, 0));
-    ;
+    background: linear-gradient(to bottom, rgb(8, 133, 201, 0.5), rgba(21, 151, 229, 0));
 }
 
 .divInsideQuest {
@@ -56,11 +66,12 @@
 .btnHome {
     font-size: 1.5rem;
     font-weight: bold;
+    margin: 2rem 0;
     padding: 1rem;
     border-radius: 5px;
     border: none;
     color: white;
-    background: linear-gradient(to right, var(--secondary), var(--primary));
+    background: var(--primary);
     cursor: pointer;
     transition-duration: 200ms;
 }

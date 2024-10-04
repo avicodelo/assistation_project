@@ -26,6 +26,9 @@ app.use(fileUpload())
 const ContactAlone = require("./routes/contactsAloneRoute");
 app.use("/contactAlone", ContactAlone);
 
+const UserEmail = require("./routes/usersEmailRoute");
+app.use("/saveEmail", UserEmail);
+
 const Customer = require("./routes/customerRoute");
 app.use("/customers", Customer);
 

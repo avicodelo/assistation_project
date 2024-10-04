@@ -15,7 +15,7 @@ const verifyToken = require("../middlewares/auth");
 router.post("/", (req, res) => {
     const { name, surname, phone, dateOfBirth, nationality, email, password,
         street, number, flat, city, locality, postalCode, country, typeOfService } = req.body;
- 
+
 
     const provider = new providerSchema({
         name,
@@ -34,7 +34,7 @@ router.post("/", (req, res) => {
             postalCode,
             country
         },
-        areaOfResponsibility: locality,
+        areaOfResponsibility: city,
         typeOfService
     });
 
@@ -51,9 +51,9 @@ router.post("/", (req, res) => {
 //Gets customer info to show in a presentation Card
 router.get("/", async (req, res) => {
 
+    const { page, order, ...filters } = req.query;
     let token = req.get("authorization");
     token = token && token.split(" ")[1];
-    const { page, order, ...filters } = req.query;
     if (token) {
         jwt.verify(token, config.SEED, (error, payload) => {
             req.payload = payload;
@@ -69,11 +69,12 @@ router.get("/", async (req, res) => {
     filters["address.locality"] && (filters["address.locality"] = { $regex: filters["address.locality"], $options: 'i' })
 
     //Pagination data
-    const PAGE_SIZE = payload?.role === "CUSTOMER" ? 12 : 3;
+    const PAGE_SIZE = 12;
     const pageSelected = page || 1;
     const totalEntries = await providerSchema.countDocuments({ ...filters, active: true, price: { $exists: true } });
     const totalPages = Math.ceil(totalEntries / PAGE_SIZE);
 
+    console.log(filters);
     //Conditions to sort
     let sortBy
     switch (order) {
@@ -117,7 +118,7 @@ router.get("/", async (req, res) => {
             res.status(400).json({ ok: false, error });
 
         } else {
-            res.status(200).json({ ok: true, totalPages, results: showProviders, payload });
+            res.status(200).json({ ok: true, totalPages, totalEntries, results: showProviders, payload:payload });
         }
     })
 })

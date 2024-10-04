@@ -94,7 +94,7 @@
     width: 50%;
     border: none;
     color: white;
-    background: linear-gradient(to right, var(--secondary), var(--primary));
+    background: var(--primary);
     cursor: pointer;
     transition-duration: 200ms;
 }

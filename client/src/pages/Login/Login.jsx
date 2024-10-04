@@ -90,8 +90,6 @@ export default function Login() {
 
         <div className={style.loginMain}>
 
-          <div className={style["login-image"]}> {/* Div with image left */}</div>
-
           <div className={style.divLoginData}> {/* Div with form to login */}
 
             <h2>ÁREA PERSONAL</h2>
@@ -126,7 +124,7 @@ export default function Login() {
                   </div>
                   <div>
                     <input type="radio" id="provider" name="role" onChange={handleInput} value="PROVIDER" />
-                    <label htmlFor="provider"><p>Entrar como Proveedor</p></label>
+                    <label htmlFor="provider"><p>Entrar como Profesional</p></label>
                   </div>
 
                 </div>

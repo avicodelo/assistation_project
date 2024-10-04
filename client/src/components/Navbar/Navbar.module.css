@@ -9,7 +9,7 @@
     padding: 3rem 5vw;
     align-items: center;
     width: 100%;
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(3px);
     background-color: rgba(250, 250, 250, 0.5);
 
 }
@@ -79,7 +79,7 @@
 .navButton {
     padding: 1rem;
     border-radius: 5px;
-    background: linear-gradient(to right, var(--secondary), var(--primary));
+    background: var(--primary);
     border: none;
     cursor: pointer;
 }
@@ -87,8 +87,8 @@
 .invertedNavButton {
     padding: 1rem;
     border-radius: 5px;
-    border: 2px solid var(--secondary);
-    color: var(--secondary);
+    border: 2px solid var(--primary);
+    color: var(--primary);
     cursor: pointer;
     background-color: transparent;
 }
@@ -162,7 +162,7 @@
         padding: 0.5rem;
         font-size: 1.2rem;
         border-radius: 5px;
-        background: linear-gradient(to right, var(--secondary), var(--primary));
+        background: var(--primary);
         border: none;
         cursor: pointer;
         color: white;

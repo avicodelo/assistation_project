@@ -15,10 +15,10 @@ code {
 
 :root {
   
-  --primary: #193498; /*rgb(25, 52, 152)*/
-  --secondary: #113CFC; /*rgb(17, 60, 252)*/
-  --terciary: #1597E5; /*rgb(21, 151, 229)*/
-  --details: #69DADB; /*rgb(105, 218, 219)*/
+  --primary: #0d4574;
+  --secondary:  #11182f;
+  --terciary: #0885c9;
+  --details: #08d0ff;
   --paragraph: rgb(78, 78, 78);
   
 }
@@ -26,4 +26,8 @@ code {
 @font-face{
 	font-family:"CustomedFont";
 	src: url("./settings/Urbanist-Italic-VariableFont_wght.ttf");
+}
+
+[type=password]{
+  font-family: Arial, Helvetica, sans-serif;
 }

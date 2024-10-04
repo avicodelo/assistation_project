@@ -13,7 +13,7 @@ function useCities(cp) {
 
   //Request to external API to get cities
   useEffect(() => {
-    if (postalCode.length === 2 && postalCode !== "54") {
+    if (postalCode.length === 2 && postalCode < "54") {
       fetch(URL_PROVINCIAS(postalCode))
         .then(res => res.json())
         .then(results => {

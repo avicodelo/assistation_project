@@ -5,7 +5,6 @@ import style from "./Home.module.css";
 
 //Component imports
 import Navbar from "../../components/Navbar/Navbar";
-import Separator from "../../components/Separator/Separator";
 import Footer from "../../components/Footer/Footer";
 
 //React imports
@@ -13,13 +12,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Home() {
   //Starting always at top
-  window.scroll(0,0);
+  window.scroll(0, 0);
 
   //Const settings
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   //Go to contact page
-  const clickHandle = () =>{
+  const clickHandle = () => {
     return () => {
       navigate(`/contacto`);
     }
@@ -27,7 +26,7 @@ export default function Home() {
 
   return (
     <div>
-      
+
       <Navbar />
 
       <section className={style.mainSection}>
@@ -45,7 +44,7 @@ export default function Home() {
       <section className={style.section}>
 
         <h1>¿QUÉ OFRECEMOS?</h1>
-        <Separator />
+
         <h2 className={style.infoP}>
           ASSISTATION es una plataforma polivalente, creada tanto para profesionales y particulares que quieran ofrecer sus servicios
           de ayuda a domicilio, como para aquellas personas que se quieran dedicar más tiempo a sí mismas.
@@ -53,15 +52,19 @@ export default function Home() {
 
       </section>
 
+      <div className={style.separator}></div>
+
       <section className={style.section}>
 
         <h1>APTO PARA TODOS LOS PÚBLICOS</h1>
-        <Separator />
+        
         <h2 className={style.clasification}>PARTICULARES</h2>
+
         <h2 className={style.infoP}>
           Busca el servicio que necesites y ponte en contacto con los profesionales de tu zona para que te echen una mano
         </h2>
         <h2 className={style.clasification}>PROFESIONALES</h2>
+
         <h2 className={style.infoP}>
           Ofrece tus servicios con nosotros, ¡es muy sencillo!
         </h2>
@@ -71,20 +74,15 @@ export default function Home() {
       <div className={style.questions}>
 
         <section className={style.section}>
-
           <h1>PREGUNTAS</h1>
-          <Separator />
           <div className={style.divInsideQuest}>
-
             <h2 className={style.infoP}>
               Si aún sigues teniendo preguntas o hay algo que no te encaja, no te quedes
               con la duda, ponte en contacto con nosotros y te responderemos
               en menos de 24h
             </h2>
             <button className={style.btnHome} onClick={clickHandle()} >CONTACTO</button>
-
           </div>
-
         </section>
 
       </div>

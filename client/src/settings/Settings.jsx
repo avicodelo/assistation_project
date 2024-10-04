@@ -6,6 +6,7 @@ export const URL_PASSFORGOTTEN = "http://localhost:3002/passForgotten";
 export const URL_SETPASS = "http://localhost:3002/passForgotten/setPass";
 export const URL_CUSTOMER = "http://localhost:3002/customers";
 export const URL_PROVIDER = "http://localhost:3002/providers";
+export const URL_SAVEEMAIL = "http://localhost:3002/saveEmail";
 export const URL_DASHBOARD = "http://localhost:3002/dashboard/";
 export const URL_REMARKS = "http://localhost:3002/remarks"
 export const URL_CHECKLOGED = "http://localhost:3002/checkLoged";

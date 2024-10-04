@@ -51,7 +51,7 @@
     font-weight: bold;
     color: white;
     border-radius: 5px;
-    background: linear-gradient(to right, var(--secondary), var(--primary));
+    background: var(--primary);
     border: none;
     cursor: pointer;
 }

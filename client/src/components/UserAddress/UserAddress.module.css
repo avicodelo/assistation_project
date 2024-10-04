@@ -46,7 +46,7 @@
     padding: 0.5rem;
     margin-left: 1.5rem;
     border-radius: 5px;
-    background: linear-gradient(to right, var(--secondary), var(--primary));
+    background: var(--primary);
     font-size: 1.2rem;
     font-weight: bold;
     color: white;

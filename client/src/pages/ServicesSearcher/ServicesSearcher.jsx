@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 //Hook imports
 import { usePagination } from "../../Hooks/usePagination"
+import CheckProviders from "../../components/CheckProviders/CheckProviders";
 
 export default function ServicesSearcher() {
 
@@ -108,53 +109,42 @@ export default function ServicesSearcher() {
     return (
         <div className={style.pageBody}>
             <Navbar />
-
             <div className={style.mainPageWrapper}>
-
-                <div className={checkCustomer ? style.hide : style.noLoginWrapper}>
-                    <div className={style.actionWrapper}>
-                        <h1 className={style.noLoginTitle}>
-                            Es necesario Iniciar Sesión como cliente
-                        </h1>
-                        <button onClick={() => { navigate("/login") }} className={style.goToLogin}>
-                            Iniciar sesión
-                        </button>
-                    </div>
-                </div>
-
-                <div className={style.usersWrapper}>
-                    <Filter modifyFilter={modifyFilter} filterData={filterData} setFilterData={setFilterData} />
-                    <div className={style.mainContainer}>
-                        <div className={style.cardsContainer}>
-                            {
-                                cardFiller.map((providerData) => {
-                                    return (
-                                        <ProviderCard key={providerData._id} providerData={providerData} />
-                                    )
-                                })
-                            }
-                        </div>
-                        <div >
-                            {totalPages !== 0 ?
-                                <div className={style.pagination}>
-                                    <button className={style.pageBut} onClick={() => { handlePage("DECREASE") }}>&larr;</button>
-                                    <p className={style.pageNumber}>{pageState.page + " / " + totalPages}</p>
-                                    <button className={style.pageBut} onClick={() => { handlePage("INCREASE") }}>&rarr;</button>
-                                </div> :
-                                <div className={style.noResults}>
-                                    <h3>No se encontraron resultados</h3>
-                                </div>
-                            }
+                {checkCustomer ?
+                    <div className={style.usersWrapper}>
+                        <Filter modifyFilter={modifyFilter} filterData={filterData} setFilterData={setFilterData} />
+                        <div className={style.mainContainer}>
+                            <div className={style.cardsContainer}>
+                                {
+                                    cardFiller.map((providerData) => {
+                                        return (
+                                            <ProviderCard key={providerData._id} providerData={providerData} />
+                                        )
+                                    })
+                                }
+                            </div>
+                            <div >
+                                {totalPages !== 0 ?
+                                    <div className={style.pagination}>
+                                        <button className={style.pageBut} onClick={() => { handlePage("DECREASE") }}>&larr;</button>
+                                        <p className={style.pageNumber}>{pageState.page + " / " + totalPages}</p>
+                                        <button className={style.pageBut} onClick={() => { handlePage("INCREASE") }}>&rarr;</button>
+                                    </div> :
+                                    <div className={style.noResults}>
+                                        <h3>No se encontraron resultados</h3>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
+                    :
+
+                    <div className={checkCustomer ? style.hide : style.noLoginWrapper}>
+                        < CheckProviders />
+                    </div>
+                }
             </div>
-
             <Footer />
-
-
-
         </div>
-
     )
 }

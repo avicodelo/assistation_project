@@ -21,7 +21,6 @@ const customerSchema = new Schema({
 
     surname: {
         type: String,
-        required: [true, "¿Cómo es tu apellido?"]
     },
 
     phone: {
@@ -36,7 +35,6 @@ const customerSchema = new Schema({
 
     nationality:{
         type: String,
-        required: [true, "¿Dónde naciste?"]
     },
 
     address: {

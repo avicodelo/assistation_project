@@ -127,7 +127,7 @@
     width: fit-content;
     padding: 0.5rem 1rem;
     border-radius: 5px;
-    background: linear-gradient(to right, var(--secondary), var(--primary));
+    background: var(--primary);
     font-size: 1.5rem;
     font-weight: bold;
     color: white;
@@ -172,7 +172,7 @@
     font-weight: bold;
     color: white;
     border-radius: 5px;
-    background: linear-gradient(to right, var(--secondary), var(--primary));
+    background: var(--primary);
     border: none;
     cursor: pointer;
 }
@@ -192,7 +192,7 @@
 .goToLogin {
     padding: 1rem;
     border-radius: 5px;
-    background: linear-gradient(to right, var(--secondary), var(--primary));
+    background: var(--primary);
     font-size: 1.5rem;
     font-weight: bold;
     color: white;
